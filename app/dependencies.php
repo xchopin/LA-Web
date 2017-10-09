@@ -18,20 +18,16 @@ $container = $app->getContainer();
 
 $parameters = Yaml::parse(file_get_contents(__DIR__ . '/parameters.yml'))['parameters'];
 
-$capsule = new Manager();
-$capsule->addConnection($parameters);
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
+//$capsule = new Manager();
+//$capsule->addConnection($parameters);
+//$capsule->setAsGlobal();
+//$capsule->bootEloquent();
+//
+//$container['db'] = function () use ($capsule) {
+//    return $capsule;
+//};
 
-$container['db'] = function () use ($capsule) {
-    return $capsule;
-};
 
-$container['auth'] = function () {
-    $sentinel = new Sentinel(new SentinelBootstrapper(__DIR__ . '/sentinel.php'));
-
-    return $sentinel->getSentinel();
-};
 
 $container['flash'] = function () {
     return new Messages();
@@ -61,7 +57,7 @@ $container['view'] = function ($container) {
     $view->addExtension(new ValidatorExtension($container['validator']));
 
     $view->getEnvironment()->addGlobal('flash', $container['flash']);
-    $view->getEnvironment()->addGlobal('auth', $container['auth']);
+  //  $view->getEnvironment()->addGlobal('auth', $container['auth']);
 
     return $view;
 };

@@ -17,8 +17,6 @@
     },
     "require": {
         "awurth/slim-validation": "^3.0",
-        "cartalyst/sentinel": "^2.0",
-        "illuminate/database": "^5.4",
         "illuminate/events": "^5.4",
         "incenteev/composer-parameter-handler": "^2.1",
         "monolog/monolog": "^1.23",
