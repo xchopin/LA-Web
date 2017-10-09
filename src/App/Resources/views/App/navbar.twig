@@ -1,0 +1,28 @@
+
+<nav class="ui borderless top inverted fixed menu">
+    <a href="{{ path_for('home') }}" class="header item">
+        <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp; | &nbsp; ANALYTICS
+    </a>
+    <a class="item">
+        <i class="leaf icon"></i> Onglet 1
+    </a>
+    <a class="item">
+        <i class="leaf icon"></i> Onglet 2
+    </a>
+    <div class="right menu">
+        {% if auth.check() %}
+            <div class="header item">{{ auth.user.username }}</div>
+            <div class="item">
+                <a href="{{ path_for('logout') }}" class="ui teal circular button">Logout</a>
+            </div>
+        {% else %}
+
+
+        <a href="{{ path_for('login') }}" class="item">
+            <i class="sign in icon"></i> Connexion
+        </a>
+
+        {% endif %}
+    </div>
+
+</nav>
