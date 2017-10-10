@@ -3,8 +3,6 @@
 use App\TwigExtension\AssetExtension;
 use Awurth\SlimValidation\Validator;
 use Awurth\SlimValidation\ValidatorExtension;
-use Cartalyst\Sentinel\Native\Facades\Sentinel;
-use Cartalyst\Sentinel\Native\SentinelBootstrapper;
 use Illuminate\Database\Capsule\Manager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -12,11 +10,9 @@ use Monolog\Processor\UidProcessor;
 use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
-use Symfony\Component\Yaml\Yaml;
 
 $container = $app->getContainer();
 
-$parameters = Yaml::parse(file_get_contents(__DIR__ . '/parameters.yml'))['parameters'];
 
 //$capsule = new Manager();
 //$capsule->addConnection($parameters);

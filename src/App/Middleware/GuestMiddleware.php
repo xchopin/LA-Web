@@ -12,9 +12,9 @@ class GuestMiddleware extends Middleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        if ($this->auth->check()) {
-            return $response->withRedirect($this->router->pathFor('home'));
-        }
+        //if ($this->auth->check()) {
+        //    return $response->withRedirect($this->router->pathFor('home'));
+        //}
 
         return $next($request, $response);
     }
