@@ -10,20 +10,36 @@ use Monolog\Processor\UidProcessor;
 use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
-
 $container = $app->getContainer();
 
+$capsule = new Manager();
+$capsule->getDatabaseManager()->extend('mongodb', function($config)
+{
+    return new Jenssegers\Mongodb\Connection($config);
+});
 
-//$capsule = new Manager();
-//$capsule->addConnection($parameters);
-//$capsule->setAsGlobal();
-//$capsule->bootEloquent();
-//
-//$container['db'] = function () use ($capsule) {
-//    return $capsule;
-//};
+$capsule->addConnection([
+    'driver' => 'mongodb',
+    'host' => 'jay.dc.univ-lorraine.fr',
+    'port' => '27017',
+    'database' => 'test-matthews',
+    'username' => 'test-matthews',
+    'password' => 'm2pTM4tth3ws',
+    'options'  => [
+        'database' => 'test-matthews' // sets the authentication database required by mongo 3
+    ]
+],
+    'default'
+);
 
+// Fix Jenssegers/MongoDB issues with Query Builders when not using Lumen or Laravel framework
+function app(){return new class{public function version(){return '5.4';}};}
 
+$capsule->bootEloquent();
+$capsule->setAsGlobal();
+$container['db'] = function () use ($capsule) {
+   return $capsule;
+};
 
 $container['flash'] = function () {
     return new Messages();

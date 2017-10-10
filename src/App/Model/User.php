@@ -2,22 +2,24 @@
 
 namespace App\Model;
 
-use Cartalyst\Sentinel\Users\EloquentUser;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class User extends EloquentUser
-{
-    protected $table = 'user';
+class User extends Eloquent {
+
+    protected $collection = 'mongoUser';
 
     protected $primaryKey = 'id';
 
-    protected $fillable = [
+   /** protected $fillable = [
         'username',
         'email',
         'password',
         'last_name',
         'first_name',
         'permissions',
-    ];
+    ];*/
 
-    protected $loginNames = ['username', 'email'];
+    //protected $loginNames = ['username', 'email'];
 }
+
+
