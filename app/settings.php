@@ -7,7 +7,7 @@ return [
         'displayErrorDetails' => true,
 
         'view' => [
-            'templates_path' => dirname(__DIR__) . '/src/App/Resources/views',
+            'templates_path' => dirname(__DIR__) . '/src/App/View',
             'twig' => [
                 //'cache' => dirname(__DIR__) . '/var/cache/twig',
             ]

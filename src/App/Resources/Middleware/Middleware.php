@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Middleware;
+namespace App\Resources\Middleware;
+
 
 use Cartalyst\Sentinel\Sentinel;
 use Psr\Container\ContainerInterface;

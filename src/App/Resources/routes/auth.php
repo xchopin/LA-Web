@@ -1,7 +1,7 @@
 <?php
 
-use App\Middleware\GuestMiddleware;
-use App\Middleware\AuthMiddleware;
+use App\Resources\Middleware\GuestMiddleware;
+use App\Resources\Middleware\AuthMiddleware;
 
 $app->group('', function () {
     $this->map(['GET', 'POST'], '/login', 'auth.controller:login')->setName('login');
