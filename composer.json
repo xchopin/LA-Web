@@ -17,11 +17,11 @@
     },
     "require": {
         "awurth/slim-validation": "^3.0",
-        "illuminate/events": "^5.5.2",
+        "illuminate/events": "^5.1",
         "illuminate/database": "^5.5.2",
         "illuminate/support": "^5.5.2",
         "mongodb/mongodb": "^1.0.0",
-        "jenssegers/mongodb": "^3.2.3",
+        "jenssegers/mongodb": "^3.3.0-alpha",
         "jasig/phpcas": "^1.3.5",
         "monolog/monolog": "^1.23",
         "respect/validation": "^1.1",
