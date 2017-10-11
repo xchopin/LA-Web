@@ -2,96 +2,29 @@
 
 namespace App\Controller;
 
-use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Respect\Validation\Validator as V;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use phpCAS;
 
 class AuthController extends Controller
 {
+
     public function login(Request $request, Response $response)
     {
-        if ($request->isPost()) {
-            $credentials = [
-                'username' => $request->getParam('username'),
-                'password' => $request->getParam('password')
-            ];
-            $remember = $request->getParam('remember', false);
+        phpCAS::client(CAS_VERSION_2_0,'auth.univ-lorraine.fr',443,'');
+        phpCAS::setNoCasServerValidation();
+        phpCAS::forceAuthentication();
 
-            try {
-                if ($this->auth->authenticate($credentials, $remember)) {
-                    $this->flash('success', 'You are now logged in.');
-                    return $this->redirect($response, 'home');
-                } else {
-                    $this->validator->addError('auth', 'Bad username or password');
-                }
-            } catch (ThrottlingException $e) {
-                $this->validator->addError('auth', 'Too many attempts!');
-            }
-        }
+        phpCAS::getUser();
 
-        return $this->view->render($response, 'Auth/login.twig');
+        return $this->redirect($response, 'home');
     }
 
-    public function register(Request $request, Response $response)
-    {
-        if ($request->isPost()) {
-            $username = $request->getParam('username');
-            $email = $request->getParam('email');
-            $password = $request->getParam('password');
-
-            $this->validator->request($request, [
-                'username' => V::length(3, 25)->alnum('_')->noWhitespace(),
-                'email' => V::noWhitespace()->email(),
-                'password' => [
-                    'rules' => V::noWhitespace()->length(6, 25),
-                    'messages' => [
-                        'length' => 'The password length must be between {{minValue}} and {{maxValue}} characters'
-                    ]
-                ],
-                'password_confirm' => [
-                    'rules' => V::equals($password),
-                    'messages' => [
-                        'equals' => 'Passwords don\'t match'
-                    ]
-                ]
-            ]);
-
-            if ($this->auth->findByCredentials(['login' => $username])) {
-                $this->validator->addError('username', 'This username is already used.');
-            }
-
-            if ($this->auth->findByCredentials(['login' => $email])) {
-                $this->validator->addError('email', 'This email is already used.');
-            }
-
-            if ($this->validator->isValid()) {
-                $role = $this->auth->findRoleByName('User');
-
-                $user = $this->auth->registerAndActivate([
-                    'username' => $username,
-                    'email' => $email,
-                    'password' => $password,
-                    'permissions' => [
-                        'user.delete' => 0
-                    ]
-                ]);
-
-                $role->users()->attach($user);
-
-                $this->flash('success', 'Your account has been created.');
-
-                return $this->redirect($response, 'login');
-            }
-        }
-
-        return $this->view->render($response, 'Auth/register.twig');
-    }
 
     public function logout(Request $request, Response $response)
     {
-        $this->auth->logout();
-
-        return $this->redirect($response, 'home');
+        phpCAS::client(CAS_VERSION_2_0,'auth.univ-lorraine.fr',443,'');
+        phpCAS::logout();
     }
 }

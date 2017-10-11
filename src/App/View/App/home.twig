@@ -5,8 +5,8 @@
 <div class="ui container">
     <h1 class="ui center aligned header">Hello World!</h1>
     <hr>
-    {% for user in users %}
-        - {{ user.user.userId }} <br>
+    {% for u in usersList %}
+        - {{ u.user.userId }} <br>
     {% endfor %}
 </div>
 

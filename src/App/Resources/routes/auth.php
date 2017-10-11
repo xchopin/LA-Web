@@ -4,8 +4,7 @@ use App\Resources\Middleware\GuestMiddleware;
 use App\Resources\Middleware\AuthMiddleware;
 
 $app->group('', function () {
-    $this->map(['GET', 'POST'], '/login', 'auth.controller:login')->setName('login');
-    $this->map(['GET', 'POST'], '/register', 'auth.controller:register')->setName('register');
+    $this->get('/login', 'auth.controller:login')->setName('login');
 })->add(new GuestMiddleware($container));
 
 $app->group('', function () {
