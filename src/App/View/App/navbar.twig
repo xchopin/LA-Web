@@ -1,27 +1,27 @@
 
-<nav class="ui borderless top inverted fixed menu">
+<nav class="ui black borderless top inverted fixed menu">
     <a href="{{ path_for('home') }}" class="header item">
-        <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp; | &nbsp; ANALYTICS
+        <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp; <span id="logo">| &nbsp; ANALYTICS</span>
     </a>
     <a class="item">
-        <i class="leaf icon"></i> Onglet 1
+        <i class="globe icon"></i> Français
     </a>
-    <a class="item">
-        <i class="leaf icon"></i> Onglet 2
-    </a>
+
     <div class="right menu">
-        {% if user is null %}
+        {% if not auth().isLogged %}
             <a href="{{ path_for('login') }}" class="item">
                 <i class="sign in icon"></i> Connexion
             </a>
         {% else %}
                 <div class="ui pointing dropdown link item">
-                    <span class="text"> {{ user }}</span>
+                    <span id="user" class="text"> {{ auth().username }}</span>
                     <i class="dropdown icon"></i>
                     <div id='menu' class="menu">
                             <div class="ui red header">ACTIONS ADMINISTRATEUR</div>
                             <div class="item">
-                                <span class="ui red-text text"><i class="cogs icon"></i> Action 1</span>
+                                <a href="{{ path_for('users') }}">
+                                    <span class="ui text"><i class="users icon"></i> Afficher les utilisateurs</span>
+                                </a>
                             </div>
                             <div class="item">
                                 <span class="text"><i class="cogs icon"></i> Action 2</span>
@@ -31,6 +31,7 @@
                         <div class="item">
                             <span class="text"><i class="user icon"></i> Mon profil</span>
                         </div>
+
                         <div class="item">
                             <a href="{{ path_for('logout') }}">
                                 <span class="inverted text"><i class="sign out icon"></i> Déconnexion</span>
