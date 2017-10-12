@@ -8,6 +8,7 @@ use Slim\Http\Response;
 
 class CsrfMiddleware extends Middleware
 {
+
     /**
      * {@inheritdoc}
      */

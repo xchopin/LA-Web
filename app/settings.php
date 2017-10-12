@@ -2,9 +2,12 @@
 
 return [
     'env' => 'dev',
+
     'settings' => [
 
         'displayErrorDetails' => true,
+
+        'determineRouteBeforeAppMiddleware' => true,
 
         'view' => [
             'templates_path' => dirname(__DIR__) . '/src/App/View',

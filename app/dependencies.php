@@ -9,6 +9,7 @@ use Monolog\Processor\UidProcessor;
 use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
+use App\Resources\TwigExtension\AuthExtension;
 
 $container = $app->getContainer();
 
@@ -32,15 +33,18 @@ $container['view'] = function ($container) {
         $container['router'],
         $container['request']->getUri()
     ));
-    $view->addExtension(new Twig_Extension_Debug());
+
     $view->addExtension(new AssetExtension(
         $container['request'],
         isset($settings['assets']['base_path']) ? $settings['assets']['base_path'] : ''
     ));
+
+    $view->addExtension(new Twig_Extension_Debug());
+    $view->addExtension(new AuthExtension());
     $view->addExtension(new ValidatorExtension($container['validator']));
 
     $view->getEnvironment()->addGlobal('flash', $container['flash']);
-  //  $view->getEnvironment()->addGlobal('auth', $container['auth']);
+
 
     return $view;
 };

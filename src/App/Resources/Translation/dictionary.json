@@ -1,0 +1,10 @@
+{
+  "home": [ {
+    "fr": "Accueil",
+    "en": "Home"
+  } ],
+  "sign-in": [ {
+    "fr": "Connexion",
+    "en": "Sign in"
+  } ]
+}

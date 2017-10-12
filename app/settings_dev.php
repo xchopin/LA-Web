@@ -6,6 +6,9 @@ return [
 
         'displayErrorDetails' => true,
 
+        'determineRouteBeforeAppMiddleware' => true,
+
+
         'assets' => [
             'base_path' => '../'
         ],

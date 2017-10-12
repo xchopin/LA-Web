@@ -1,10 +1,11 @@
 
-<nav class="ui black borderless top inverted fixed menu">
-    <a href="{{ path_for('home') }}" class="header item">
+<nav class="ui blue borderless top inverted fixed menu">
+    <a href="{{ path('home')}}" class="header item">
         <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp; <span id="logo">| &nbsp; ANALYTICS</span>
     </a>
     <a class="item">
-        <i class="globe icon"></i> Français
+        <i class="globe icon"></i> {{ "Français" | upper }}
+
     </a>
 
     <div class="right menu">
@@ -19,7 +20,7 @@
                     <div id='menu' class="menu">
                             <div class="ui red header">ACTIONS ADMINISTRATEUR</div>
                             <div class="item">
-                                <a href="{{ path_for('users') }}">
+                                <a href="{{ path('users') }}">
                                     <span class="ui text"><i class="users icon"></i> Afficher les utilisateurs</span>
                                 </a>
                             </div>
@@ -41,6 +42,6 @@
             </div>
         {% endif %}
     </div>
-
 </nav>
+<BR><BR><BR><BR><BR><BR><BR><BR><BR>
 

@@ -1,13 +1,12 @@
 <?php
-use App\Resources\Middleware\AuthMiddleware;
+use App\Resources\Middleware\CountryMiddleware;
 
 
-$app->get('/', 'app.controller:home')->setName('home');
+$app->group('/{country:[a-z]{2}}', function () {
+    $this->get('', 'app.controller:home')->setName('home');
+    $this->get('/users', 'app.controller:getUsers')->setName('users');
+})->add(new CountryMiddleware($container));
 
-
-$app->group('users', function () {
-    $this->get('/', 'app.controller:users')->setName('users');
-})->add(new AuthMiddleware($container));
 
 
 

@@ -1,9 +1,14 @@
 <?php
 
+/*
+ * @author  Xavier Chopin <xavier.chopin@univ-lorraine.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
-use Awurth\SlimValidation\Validator;
-use Cartalyst\Sentinel\Sentinel;
 use Psr\Container\ContainerInterface;
 use Slim\Exception\NotFoundException;
 use Slim\Flash\Messages;
@@ -11,13 +16,13 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Router;
 use Slim\Views\Twig;
+use Awurth\SlimValidation\Validator;
 
 /**
  * @property Twig view
  * @property Router router
  * @property Messages flash
  * @property Validator validator
- * @property Sentinel auth
  */
 abstract class Controller
 {
@@ -60,15 +65,19 @@ abstract class Controller
     /**
      * Redirects to a route.
      *
+     * @param Request $request
      * @param Response $response
      * @param string   $route
      * @param array    $params
      *
      * @return Response
      */
-    public function redirect(Response $response, $route, array $params = [])
+    public function redirect(Request $request, Response $response, $route, array $params = [])
     {
-        return $response->withRedirect($this->router->pathFor($route, $params));
+        return $response->withRedirect($this->router->pathFor(
+            $route,
+            ['country' => $this->getCountry($request)] + $params
+        ));
     }
 
     /**
@@ -121,6 +130,26 @@ abstract class Controller
     public function flash($name, $message)
     {
         $this->flash->addMessage($name, $message);
+    }
+
+    /**
+     * Gives the country id used by the client.
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function getCountry(Request $request)
+    {
+        if (isset($request->getAttribute('routeInfo')[2]['country'])) {
+            $country = $request->getAttribute('routeInfo')[2]['country'];
+        }elseif (isset($_COOKIE['country'])){
+            $country =  $_COOKIE['country'];
+        }else{
+            $country = 'fr';
+        }
+
+        return $country;
     }
 
     /**
