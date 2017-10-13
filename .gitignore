@@ -1,7 +1,7 @@
 vendor/
 node_modules/
 public/lib/
-app/parameters.yml
+
 var/cache/*
 !var/cache/.gitkeep
 var/logs/*
@@ -10,3 +10,4 @@ public/css/*
 !public/css/.gitkeep
 public/js/*
 !public/js/.gitkeep
+app/config/parameters.yml

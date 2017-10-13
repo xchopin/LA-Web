@@ -38,19 +38,19 @@ $ chmod 777 var/cache var/logs
 - `app/`: Configuration files
     - `controllers.php`: Registers every controller in the app container
     - `database.php`: Script for creating database tables
-    - `parameters.yml.dist`: Database configuration file model (do not put your database configuration here)
-    - `dependencies.php`: Services for Pimple
+    - `utilities.php`: Services for Pimple
     - `handlers.php`: Slim error handlers
     - `middleware.php`: Application middleware
-    - `settings.php`: Application configuration
+    - `config/.php`: Application middleware
+        - `settings.php`: 
+        - `settings_dev.php`: 
+        - `parameters.yml.dist`: MongoDB configuration file model (do not put your database configuration here)
+           
 - `src/`
     - `App/`
         - `Controller/`: Application controllers
             - `Controller.php`: Base controller. All controllers should extend this class
         - `Middleware/`: Application middleware
-        - `Model/`: Eloquent model classes
+        - `Model/`: Eloquent ORM model classes
         - `Resources/`
-            - `routes/`: Application routes
-                - `app.php`: Main routing file
-                - `auth.php`: Routing file for authentication
-            - `views/`: Twig templates
+

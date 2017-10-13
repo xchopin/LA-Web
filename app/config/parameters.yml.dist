@@ -1,10 +1,10 @@
 parameters:
     driver: mongodb
-    host: jay.dc.univ-lorraine.fr
+    host:
     port: 27017
-    database: test-matthews
-    username: test-matthews
-    password: m2pTM4tth3ws
+    database:
+    username:
+    password:
     'options':
-        database: test-matthews #MongoDB 3 Required
+        database: #MongoDB 3 Required
 

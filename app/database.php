@@ -4,30 +4,23 @@ require __DIR__ . '/../vendor/autoload.php';
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Database\Capsule\Manager;
 
-$container = $app->getContainer();
+$parameters = Yaml::parse(file_get_contents(__DIR__ . '/config/parameters.yml'))['parameters'];
+
 $capsule = new Manager();
+
 $capsule->getDatabaseManager()->extend('mongodb', function($config)
 {
     return new Jenssegers\Mongodb\Connection($config);
 });
 
-$parameters = Yaml::parse(file_get_contents(__DIR__ . '/config/parameters.yml'))['parameters'];
-$capsule->addConnection([
-    'driver' => 'mongodb',
-    'host' => 'jay.dc.univ-lorraine.fr',
-    'port' => '27017',
-    'database' => 'test-matthews',
-    'username' => 'test-matthews',
-    'password' => 'm2pTM4tth3ws',
-    'options'  => [
-        'database' => 'test-matthews' // sets the authentication database required by mongo 3
-    ]
-],
-    'default'
-);
+$capsule->addConnection($parameters);
 
 $capsule->bootEloquent();
+
 $capsule->setAsGlobal();
+
+$container = $app->getContainer();
+
 $container['db'] = function () use ($capsule) {
     return $capsule;
 };
