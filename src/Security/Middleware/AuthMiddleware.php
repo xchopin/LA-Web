@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Resources\Middleware;
+namespace Security\Middleware;
 
 use Slim\Http\Request;
 use Slim\Http\Response;

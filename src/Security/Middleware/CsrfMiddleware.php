@@ -8,11 +8,12 @@
  */
 
 
-namespace App\Resources\Middleware;
+namespace Security\Middleware;
 
-use App\Resources\TwigExtension\CsrfExtension;
+use Security\TwigExtension\CsrfExtension;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Resources\Middleware\Middleware;
 
 class CsrfMiddleware extends Middleware
 {

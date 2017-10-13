@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resources\TwigExtension;
+namespace Security\TwigExtension;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Twig_Extension;

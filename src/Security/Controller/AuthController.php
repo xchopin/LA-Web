@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controller;
+namespace Security\Controller;
 
 use Respect\Validation\Validator as V;
 use Slim\Http\Request;
