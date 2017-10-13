@@ -11,6 +11,8 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use App\Resources\TwigExtension\AuthExtension;
 
+define('DICTIONARY_PATH', 'Resources/Translation/');
+
 $container = $app->getContainer();
 
 $container['flash'] = function () {

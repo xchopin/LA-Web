@@ -13,8 +13,12 @@ class CountryMiddleware extends Middleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        // First visit we try to set the language from the browser settings
-        $country_id = isset($_COOKIE['country']) ? $request->getAttribute('routeInfo')[2]['country']: substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $country_id = $request->getAttribute('routeInfo')[2]['country'];
+
+        // Useful when a client edits the URL and types a language that does not exist.
+        if (!$this->checkCountry($country_id)) {
+            return $response->withRedirect($this->router->pathFor('wrong-entry'));
+        }
 
         setcookie(
             'country',
@@ -25,5 +29,16 @@ class CountryMiddleware extends Middleware
         $this->view->addExtension(new PathTranslationExtension($response, $request, $this->container['router']));
 
         return $next($request, $response);
+    }
+
+    /**
+     * Checks for a country id given if a dictionary is associated.
+     *
+     * @param string $country_id
+     * @return bool
+     */
+    private function checkCountry($country_id)
+    {
+        return file_exists(dirname(__FILE__) . '/../../' . DICTIONARY_PATH . ''. $country_id . '.json');
     }
 }

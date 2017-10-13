@@ -141,15 +141,7 @@ abstract class Controller
      */
     public function getCountry(Request $request)
     {
-        if (isset($request->getAttribute('routeInfo')[2]['country'])) {
-            $country = $request->getAttribute('routeInfo')[2]['country'];
-        }elseif (isset($_COOKIE['country'])){
-            $country =  $_COOKIE['country'];
-        }else{
-            $country = 'fr';
-        }
-
-        return $country;
+        return $request->getAttribute('routeInfo')[2]['country'];
     }
 
     /**
