@@ -1,18 +1,18 @@
 <?php
 
 return [
-    'env' => 'dev',
+    'env' => 'prod',
 
     'settings' => [
 
-        'displayErrorDetails' => true,
+        'displayErrorDetails' => false,
 
         'determineRouteBeforeAppMiddleware' => true,
 
         'view' => [
             'templates_path' => dirname(__DIR__) . '/src/App/View',
             'twig' => [
-                //'cache' => dirname(__DIR__) . '/var/cache/twig',
+                'cache' => dirname(__DIR__) . '/var/cache/twig',
             ]
         ],
 

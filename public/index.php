@@ -1,11 +1,14 @@
 <?php
 
+CONST DEBUG_MODE = TRUE;
+CONST SETTINGS_PROD = __DIR__ . '/../app/settings.php';
+CONST SETTINGS_DEV = __DIR__ . '/../app/settings_dev.php';
+
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$settings = require __DIR__ . '/../app/settings.php';
-$app = new Slim\App($settings);
+$app = new Slim\App(DEBUG_MODE ? require SETTINGS_DEV : require SETTINGS_PROD);
 
 require __DIR__ . '/../app/database.php';
 

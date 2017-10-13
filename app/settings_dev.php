@@ -14,6 +14,7 @@ return [
         ],
 
         'view' => [
+            'templates_path' => dirname(__DIR__) . '/src/App/View',
             'twig' => [
                 'debug' => true,
                 'auto_reload' => true
