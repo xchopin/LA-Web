@@ -12,6 +12,7 @@ namespace Security\Controller;
 use Respect\Validation\Validator as V;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Controller\Controller;
 use phpCAS;
 
 class AuthController extends Controller

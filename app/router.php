@@ -1,5 +1,9 @@
 <?php
 
-const ROUTES_DIR = __DIR__ . '/../src/App/Resources/';
+const BUNDLE_DIR = __DIR__ . '/../src/';
+const ROUTE_PATH = '/Resources/routes.php';
 
-require ROUTES_DIR . 'routes.php';
+require_once(BUNDLE_DIR . 'App' . ROUTE_PATH);
+require_once(BUNDLE_DIR . 'Security' . ROUTE_PATH);
+
+

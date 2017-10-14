@@ -19,15 +19,18 @@ class AppController extends Controller
     public function redirectHome(Request $request, Response $response)
     {
         $exists = false;
+
         $clientLanguage = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
         // First if the client has a preference
         if (isset($_COOKIE['country'])) {
             $country_id= $_COOKIE['country'];
             $exists = $this->checkCountry($country_id);
-        } else if ($this->checkCountry($clientLanguage)) { // Not a preference? Let's check its browser!
+        }
+
+        if (!$exists && $this->checkCountry($clientLanguage)) { // Not a preference? Let's check its browser!
             $country_id = $clientLanguage;
-        } else {  // Nevermind let's move to the french language
+        } else if (!$exists) {  // Nevermind let's move to the french language
             $country_id = 'fr';
         }
 

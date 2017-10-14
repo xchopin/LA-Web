@@ -1,10 +1,13 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Database\Capsule\Manager;
+use Slim\Flash\Messages;
 
 $parameters = Yaml::parse(file_get_contents(__DIR__ . '/config/parameters.yml'))['parameters'];
+$container = $app->getContainer();
+
+
 
 $capsule = new Manager();
 
@@ -13,13 +16,13 @@ $capsule->getDatabaseManager()->extend('mongodb', function($config)
     return new Jenssegers\Mongodb\Connection($config);
 });
 
-$capsule->addConnection($parameters);
+//$capsule->addConnection($parameters);
 
 $capsule->bootEloquent();
 
 $capsule->setAsGlobal();
 
-$container = $app->getContainer();
+
 
 $container['db'] = function () use ($capsule) {
     return $capsule;

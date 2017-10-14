@@ -18,8 +18,6 @@ require __DIR__ . '/../app/utilities.php';
 
 require __DIR__ . '/../app/handlers.php';
 
-require __DIR__ . '/../app/middleware.php';
-
 require __DIR__ . '/../app/controllers.php';
 
 require __DIR__ . '/../app/router.php';

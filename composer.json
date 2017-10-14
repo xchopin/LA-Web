@@ -12,6 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
+            "Project\\": "src",
             "App\\": "src/App",
             "Security\\": "src/Security"
         }

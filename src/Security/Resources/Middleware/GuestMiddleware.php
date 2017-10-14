@@ -8,10 +8,11 @@
  */
 
 
-namespace App\Resources\Middleware;
+namespace Security\Resources\Middleware;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Resources\Middleware\Middleware;
 
 class GuestMiddleware extends Middleware
 {

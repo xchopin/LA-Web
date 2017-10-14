@@ -1,6 +1,6 @@
 <?php
 
-use App\TwigExtension\AssetExtension;
+use App\Resources\TwigExtension\AssetExtension;
 use Awurth\SlimValidation\Validator;
 use Awurth\SlimValidation\ValidatorExtension;
 use Monolog\Handler\StreamHandler;
@@ -9,12 +9,17 @@ use Monolog\Processor\UidProcessor;
 use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
-use Security\TwigExtension\AuthExtension;
-use Security\TwigExtension\CsrfExtension;
+use Security\Resources\TwigExtension\AuthExtension;
+use Security\Resources\TwigExtension\CsrfExtension;
+use Security\Resources\Middleware\CsrfMiddleware;
 
 define('DICTIONARY_PATH', 'Resources/Translation/');
 
 $container = $app->getContainer();
+
+$app->add(new CsrfMiddleware($container));
+
+$app->add(new Slim\Csrf\Guard());
 
 $container['flash'] = function () {
     return new Messages();
@@ -43,7 +48,7 @@ $container['view'] = function ($container) {
     ));
 
     $view->addExtension(new Twig_Extension_Debug());
-    //$view->addExtension(new Security\TwigExtension\AuthExtension());
+    $view->addExtension(new Security\Resources\TwigExtension\AuthExtension());
     $view->addExtension(new ValidatorExtension($container['validator']));
 
     $view->getEnvironment()->addGlobal('flash', $container['flash']);

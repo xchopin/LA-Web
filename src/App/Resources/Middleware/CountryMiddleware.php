@@ -16,15 +16,10 @@ class CountryMiddleware extends Middleware
         $country_id = $request->getAttribute('routeInfo')[2]['country'];
 
         // Useful when a client edits the URL and types a language that does not exist.
-        if (!$this->checkCountry($country_id)) {
+        if (!$this->checkCountry($country_id))
             return $response->withRedirect($this->router->pathFor('wrong-entry'));
-        }
 
-        setcookie(
-            'country',
-            $country_id,
-            time() + (30 * 24 * 60 * 60) // 30 days
-        );
+        setcookie('country', $country_id, time() + (30 * 24 * 60 * 60)); // 30 days
 
         $this->view->addExtension(new PathTranslationExtension($response, $request, $this->container['router']));
 

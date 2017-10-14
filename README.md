@@ -33,24 +33,4 @@ $ chmod 777 var/cache var/logs
 
 
 ## Key files
-- `public/index.php`: Application entry point
-- `var/cache/twig/`: Twig cache
-- `app/`: Configuration files
-    - `controllers.php`: Registers every controller in the app container
-    - `database.php`: Script for creating database tables
-    - `utilities.php`: Services for Pimple
-    - `handlers.php`: Slim error handlers
-    - `middleware.php`: Application middleware
-    - `config/.php`: Application middleware
-        - `settings.php`: 
-        - `settings_dev.php`: 
-        - `parameters.yml.dist`: MongoDB configuration file model (do not put your database configuration here)
-           
-- `src/`
-    - `App/`
-        - `Controller/`: Application controllers
-            - `Controller.php`: Base controller. All controllers should extend this class
-        - `Middleware/`: Application middleware
-        - `Model/`: Eloquent ORM model classes
-        - `Resources/`
-
+// ToDo

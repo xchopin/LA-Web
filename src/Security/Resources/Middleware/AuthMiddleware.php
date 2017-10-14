@@ -7,24 +7,20 @@
  * file that was distributed with this source code.
  */
 
+namespace Security\Resources\Middleware;
 
-namespace Security\Middleware;
-
-use Security\TwigExtension\CsrfExtension;
+use App\Resources\Middleware\Middleware;
+use Psr\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use App\Resources\Middleware\Middleware;
 
-class CsrfMiddleware extends Middleware
+class AuthMiddleware extends Middleware
 {
-
     /**
      * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $this->view->addExtension(new CsrfExtension($request));
-
-        return $next($request, $response);
+        return isset($_SESSION['phpCAS']['user']) ? $next($request, $response) : $response->withRedirect($this->router->pathFor('wrong-entry'));
     }
 }
