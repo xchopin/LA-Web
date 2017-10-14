@@ -1,12 +1,29 @@
 
-<nav class="ui blue borderless top inverted fixed menu">
+<nav id='navbar' class="ui borderless top inverted fixed menu">
     <a href="{{ path('home')}}" class="header item">
-        <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp; <span id="logo">| &nbsp; ANALYTICS</span>
+        <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp;&nbsp; | <span id="logo"> Analytics</span>
     </a>
-    <a class="item">
-        <i class="globe icon"></i> {{ "Français" | upper }}
-
-    </a>
+    <div class="ui pointing dropdown link item">
+        <span id="current-language" class="text"><i class="globe icon"></i>Français</span>
+        <i class="dropdown icon"></i>
+        <div id='language-list' class="menu">
+            <div class="item">
+                <a href="{{ path_for('home', {'country' : 'fr'})}}">
+                    <span class="ui text">Français</span>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ path_for('home', {'country' : 'en'})}}">
+                    <span class="ui text">English</span>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ path_for('home', {'country' : 'de'})}}">
+                    <span class="ui text">German</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="right menu">
         {% if not auth().isLogged %}
@@ -43,5 +60,4 @@
         {% endif %}
     </div>
 </nav>
-<BR><BR><BR><BR><BR><BR><BR><BR><BR>
 
