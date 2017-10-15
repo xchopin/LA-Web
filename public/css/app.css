@@ -1,0 +1,23 @@
+body {
+    padding-top: 70px;
+}
+
+div.item a span {
+    color: black;
+}
+
+#navbar {
+    background-color: #2574A9;
+}
+
+#logo {
+    font-family: 'Sofia', cursive;
+    margin-left: 0.5em;
+    font-size: 1.3em;
+    font-style:italic;
+}
+
+#user {
+    min-width: 150px;
+    text-align: center;
+}
