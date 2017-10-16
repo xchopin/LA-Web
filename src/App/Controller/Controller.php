@@ -17,6 +17,7 @@ use Slim\Http\Response;
 use Slim\Router;
 use Slim\Views\Twig;
 use Awurth\SlimValidation\Validator;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @property Twig view
@@ -34,6 +35,13 @@ abstract class Controller
     protected $container;
 
     /**
+     * Data about the API (URL, username, password)
+     *
+     * @var array
+     */
+    protected $api;
+
+    /**
      * Constructor.
      *
      * @param ContainerInterface $container
@@ -41,6 +49,7 @@ abstract class Controller
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->api = Yaml::parse(file_get_contents(__DIR__ . '../../../../app/config/parameters.yml'))['api'];
     }
 
     /**
@@ -168,4 +177,5 @@ abstract class Controller
     {
         return $this->container->get($property);
     }
+
 }
