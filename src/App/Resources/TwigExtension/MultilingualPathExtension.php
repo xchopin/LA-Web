@@ -20,7 +20,7 @@ use Twig_SimpleFunction;
  * It aims to give the URL path for a route name given without adding the country id (which is bothering)
  * @package App\Resources\TwigExtension
  */
-class PathTranslationExtension extends Twig_Extension
+class MultilingualPathExtension extends Twig_Extension
 {
 
     /**
