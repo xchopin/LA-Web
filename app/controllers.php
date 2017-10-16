@@ -2,6 +2,7 @@
 
 $controllers = [
     'AppController' => 'App\Controller\AppController',
+    'UserController' => 'App\Controller\UserController',
     'AuthController' => 'Security\Controller\AuthController'
 ];
 

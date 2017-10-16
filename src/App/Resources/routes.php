@@ -6,7 +6,7 @@ $app->get('/', 'AppController:redirectHome')->setName('wrong-entry');
 
 $app->group('/{country:[a-z]{2}}', function () {
     $this->get('', 'AppController:home')->setName('home');
-    $this->get('/users', 'AppController:getUsers')->setName('users');
+    $this->get('/users/{id}', 'UserController:user')->setName('user-profile');
 })->add(new CountryMiddleware($container));
 
 
