@@ -28,6 +28,8 @@ class CountryMiddleware extends Middleware
         return $next($request, $response);
     }
 
+
+
     /**
      * Checks for a country id given if a dictionary is associated.
      *

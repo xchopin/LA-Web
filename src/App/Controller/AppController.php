@@ -16,6 +16,13 @@ Use App\Model\User;
 class AppController extends Controller
 {
 
+    /**
+     * Redirects the user to the home page with the appropriated language following the parameters given
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function redirectHome(Request $request, Response $response)
     {
         $exists = false;
@@ -37,11 +44,26 @@ class AppController extends Controller
         return $response->withRedirect($this->router->pathFor('home', ['country' => $country_id]));
     }
 
+    /**
+     * Renders the home page
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function home(Request $request, Response $response)
     {
         return $this->view->render($response, 'App/home.twig');
     }
 
+
+    /**
+     * (Temporary) Gives the first fifty users
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function getUsers(Request $request, Response $response)
     {
         return $this->view->render($response, 'App/users.twig', ['users' => User::limit(50)->get()]);

@@ -37,7 +37,7 @@
                     <div id='menu' class="menu">
                             <div class="ui red header">ACTIONS ADMINISTRATEUR</div>
                             <div class="item">
-                                <a href="{{ path('users') }}">
+                                <a href="">
                                     <span class="ui text"><i class="users icon"></i> Afficher les utilisateurs</span>
                                 </a>
                             </div>
@@ -47,7 +47,11 @@
                         <div class="ui red header">ACTIONS UTILISATEUR</div>
 
                         <div class="item">
-                            <span class="text"><i class="user icon"></i>{{ translate('profile') }}</span>
+                            <span class="text">
+                                <a href="{{ path('user-profile', {'id': auth().username} ) }}">
+                                    <i class="user icon"></i>{{ translate('profile') }}
+                                </a>
+                            </span>
                         </div>
 
                         <div class="item">
