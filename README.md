@@ -1,7 +1,7 @@
 # Université de Lorraine - Learning Analytics Application
 
 ## Installation
-### 1. Create project using Composer
+### 1. Clone git repository
 ``` bash
 $ git clone https://gitlab.univ-lorraine.fr/chopin1/LA-Webapp
 ```
