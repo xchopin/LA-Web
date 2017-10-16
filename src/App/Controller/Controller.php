@@ -69,13 +69,15 @@ abstract class Controller
      */
     public function createJWT()
     {
-        return $this->http->request('POST', '/auth/login', [
+        return $this->http->request('POST', 'auth/login', [
             'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
             'json' => [
                 'username' => $this->api['username'],
                 'password' => $this->api['password']
             ]
-        ]);
+        ])
+            ->getBody()
+            ->getContents();
     }
 
 
