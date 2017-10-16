@@ -1,4 +1,7 @@
-# Université de Lorraine - Learning Analytics Application
+# L.A.W.A. - Learning Analytics Web Application (Work in progress)
+
+> Solution for universities using the Moodle LMS and OpenLRW <br>
+An idea of the University of Lorraine, France
 
 ## Installation
 ### 1. Clone git repository
