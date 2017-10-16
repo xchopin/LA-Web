@@ -18,6 +18,7 @@ use Slim\Router;
 use Slim\Views\Twig;
 use Awurth\SlimValidation\Validator;
 use Symfony\Component\Yaml\Yaml;
+use GuzzleHttp\Client;
 
 /**
  * @property Twig view
@@ -42,6 +43,14 @@ abstract class Controller
     protected $api;
 
     /**
+     * Guzzle HTTP client instance
+     *
+     * @var Client
+     */
+
+    protected $http;
+
+    /**
      * Constructor.
      *
      * @param ContainerInterface $container
@@ -50,7 +59,25 @@ abstract class Controller
     {
         $this->container = $container;
         $this->api = Yaml::parse(file_get_contents(__DIR__ . '../../../../app/config/parameters.yml'))['api'];
+        $this->http = new Client(['base_uri' => $this->api['url']]);
     }
+
+    /**
+     * Creates and return a JSON Web Token to the API by using credentials filled in parameters.yml
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function createJWT()
+    {
+        return $this->http->request('POST', '/auth/login', [
+            'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
+            'json' => [
+                'username' => $this->api['username'],
+                'password' => $this->api['password']
+            ]
+        ]);
+    }
+
 
     /**
      * Gets request parameters.
