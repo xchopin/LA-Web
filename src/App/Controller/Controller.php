@@ -69,7 +69,7 @@ abstract class Controller
      */
     public function createJWT()
     {
-        return $this->http->request('POST', 'auth/login', [
+        return json_decode( $this->http->request('POST', 'auth/login', [
             'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
             'json' => [
                 'username' => $this->api['username'],
@@ -77,7 +77,7 @@ abstract class Controller
             ]
         ])
             ->getBody()
-            ->getContents();
+            ->getContents() );
     }
 
 
@@ -207,4 +207,13 @@ abstract class Controller
         return $this->container->get($property);
     }
 
+    /**
+     * Stops the script and prints info about a variable
+     *
+     * @param mixed $variable
+     */
+    public function debug($variable)
+    {
+        die('<pre>' . print_r($variable, true) . '</pre>');
+    }
 }
