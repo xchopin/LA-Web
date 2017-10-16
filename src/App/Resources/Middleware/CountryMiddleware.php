@@ -3,6 +3,7 @@
 namespace App\Resources\Middleware;
 
 use App\Resources\TwigExtension\MultilingualPathExtension;
+use App\Resources\TwigExtension\TranslatorExtension;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -22,6 +23,7 @@ class CountryMiddleware extends Middleware
         setcookie('country', $country_id, time() + (30 * 24 * 60 * 60)); // 30 days
 
         $this->view->addExtension(new MultilingualPathExtension($response, $request, $this->container['router']));
+        $this->view->addExtension(new TranslatorExtension($request, $country_id));
 
         return $next($request, $response);
     }

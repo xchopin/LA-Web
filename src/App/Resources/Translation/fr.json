@@ -1,5 +1,8 @@
 {
   "LANGUAGE": "Français",
 
-  "home": "Accueil"
+  "home": "Accueil",
+  "login": "Connexion",
+  "logout": "Déconnexion",
+  "profile": "Mon profil"
 }

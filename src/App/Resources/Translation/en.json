@@ -1,5 +1,8 @@
 {
   "LANGUAGE": "English",
 
-  "home": "Home"
+  "home": "Home",
+  "login": "Log in",
+  "logout": "Log out",
+  "profile": "Profile"
 }

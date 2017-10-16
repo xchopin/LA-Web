@@ -28,7 +28,7 @@
     <div class="right menu">
         {% if not auth().isLogged %}
             <a href="{{ path_for('login') }}" class="item">
-                <i class="sign in icon"></i> Connexion
+                <i class="sign in icon"></i> {{ translate('login') }}
             </a>
         {% else %}
                 <div class="ui pointing dropdown link item">
@@ -47,12 +47,12 @@
                         <div class="ui red header">ACTIONS UTILISATEUR</div>
 
                         <div class="item">
-                            <span class="text"><i class="user icon"></i> Mon profil</span>
+                            <span class="text"><i class="user icon"></i>{{ translate('profile') }}</span>
                         </div>
 
                         <div class="item">
                             <a href="{{ path_for('logout') }}">
-                                <span class="inverted text"><i class="sign out icon"></i> Déconnexion</span>
+                                <span class="inverted text"><i class="sign out icon"></i> {{ translate('logout') }}</span>
                             </a>
                         </div>
                     </div>
