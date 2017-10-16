@@ -9,17 +9,10 @@ use Monolog\Processor\UidProcessor;
 use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
-use Security\Resources\TwigExtension\AuthExtension;
-use Security\Resources\TwigExtension\CsrfExtension;
-use Security\Resources\Middleware\CsrfMiddleware;
 
 define('DICTIONARY_PATH', 'Resources/Translation/');
 
 $container = $app->getContainer();
-
-$app->add(new CsrfMiddleware($container));
-
-$app->add(new Slim\Csrf\Guard());
 
 $container['flash'] = function () {
     return new Messages();
