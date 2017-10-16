@@ -8,3 +8,7 @@ parameters:
     'options':
         database: #MongoDB 3 Required
 
+api:
+    url:
+    username:
+    password:
