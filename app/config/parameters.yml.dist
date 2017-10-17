@@ -1,4 +1,4 @@
-parameters:
+nosql:
     driver: mongodb
     host:
     port: 27017
@@ -7,6 +7,14 @@ parameters:
     password:
     'options':
         database: #MongoDB 3 Required
+
+ldap:
+    host:
+    port:
+    filter:
+    base_dn:
+    username:
+    password:
 
 api:
     url:
