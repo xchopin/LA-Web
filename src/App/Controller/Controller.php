@@ -36,11 +36,11 @@ abstract class Controller
     protected $container;
 
     /**
-     * Data about the API (URL, username, password)
+     * Parameters of the application
      *
      * @var array
      */
-    protected $api;
+    private $parameters;
 
     /**
      * Guzzle HTTP client instance
@@ -58,8 +58,8 @@ abstract class Controller
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->api = Yaml::parse(file_get_contents(__DIR__ . '../../../../app/config/parameters.yml'))['api'];
-        $this->http = new Client(['base_uri' => $this->api['url']]);
+        $this->parameters = Yaml::parse(file_get_contents(__DIR__ . '../../../../app/config/parameters.yml'));
+        $this->http = new Client(['base_uri' => $this->parameters['api']['url']]);
     }
 
     /**
@@ -72,8 +72,8 @@ abstract class Controller
         return json_decode( $this->http->request('POST', 'auth/login', [
             'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
             'json' => [
-                'username' => $this->api['username'],
-                'password' => $this->api['password']
+                'username' => $this->parameters['api']['username'],
+                'password' => $this->parameters['api']['password']
             ]
         ])
             ->getBody()
@@ -215,5 +215,15 @@ abstract class Controller
     public function debug($variable)
     {
         die('<pre>' . print_r($variable, true) . '</pre>');
+    }
+
+    /**
+     * Getter function
+     *
+     * @return array|mixed
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
     }
 }
