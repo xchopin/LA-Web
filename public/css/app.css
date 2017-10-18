@@ -2,10 +2,6 @@ body {
     padding-top: 70px;
 }
 
-div.item a span {
-    color: black;
-}
-
 #navbar {
     background-color: #2574A9;
 }
