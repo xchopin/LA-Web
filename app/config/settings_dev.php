@@ -16,6 +16,7 @@ return [
             ]
         ],
         'monolog' => [
+            'name' => 'app',
             'path' => dirname(__DIR__) . '/../var/logs/dev.log'
         ]
     ]

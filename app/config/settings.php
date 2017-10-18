@@ -5,6 +5,9 @@ return [
     'settings' => [
         'displayErrorDetails' => false,
         'determineRouteBeforeAppMiddleware' => true,
+        'assets' => [
+            'base_path' => '../../'
+        ],
         'view' => [
             'templates_path' => dirname(__DIR__) . '/../src/App/View',
             'twig' => [
