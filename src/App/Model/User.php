@@ -8,7 +8,9 @@ class User extends Eloquent {
 
     protected $collection = 'mongoUser';
 
-    protected $primaryKey = 'id';
+
+
+    protected $primaryKey = 'user.userId';
 
    /** protected $fillable = [
         'username',

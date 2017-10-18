@@ -59,3 +59,4 @@ class TranslatorExtension extends Twig_Extension
         return "Error: Undefined '" . $keyword . "' variable in '". $this->country_id ."' dictionary.";
     }
 }
+
