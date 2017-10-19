@@ -51,7 +51,7 @@ class TranslatorExtension extends Twig_Extension
 
     public function translate($keyword)
     {
-        $file = __DIR__ . DICTIONARY_PATH . $this->country_id . '.json';
+        $file = __DIR__ . '/../' . DICTIONARY_PATH . $this->country_id . '.json';
         $dictionary = json_decode(file_get_contents($file), true);
         $this->languagesAvailable();
 
@@ -62,11 +62,10 @@ class TranslatorExtension extends Twig_Extension
     {
         $languages = [];
 
-        foreach (glob(__DIR__ . DICTIONARY_PATH . '*.json') as $file) {
+        foreach (glob(__DIR__ . '/../' . DICTIONARY_PATH . '*.json') as $file) {
             $language = json_decode(file_get_contents($file), GLOB_BRACE);
-            array_push($languages,  [$language['LANGUAGE'] => substr(basename($file), 0, 2)]);
+            $languages += [ $language['LANGUAGE'] => substr(basename($file), 0, 2) ];
         }
-
 
         return $languages;
     }

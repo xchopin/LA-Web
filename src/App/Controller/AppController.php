@@ -77,6 +77,6 @@ class AppController extends Controller
      */
     private function checkCountry($country_id)
     {
-        return file_exists(dirname(__FILE__) . '/../' . DICTIONARY_PATH . ''. $country_id . '.json');
+        return file_exists(dirname(__FILE__) . '/../Resources/' . DICTIONARY_PATH . $country_id . '.json');
     }
 }

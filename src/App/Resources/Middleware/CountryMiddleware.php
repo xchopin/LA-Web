@@ -37,6 +37,6 @@ class CountryMiddleware extends Middleware
      */
     private function checkCountry($country_id)
     {
-        return file_exists(__DIR__ . DICTIONARY_PATH . $country_id . '.json');
+        return file_exists(__DIR__ . '/../' . DICTIONARY_PATH . $country_id . '.json');
     }
 }

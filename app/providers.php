@@ -10,7 +10,7 @@ use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 
-define('DICTIONARY_PATH', '/../Translation/'); // From App/Resources/*/
+define('DICTIONARY_PATH', 'Translation/');
 
 $container = $app->getContainer();
 
