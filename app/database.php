@@ -2,7 +2,6 @@
 
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Database\Capsule\Manager;
-use Slim\Flash\Messages;
 
 $parameters = Yaml::parse(file_get_contents(__DIR__ . '/config/parameters.yml'))['nosql'];
 
