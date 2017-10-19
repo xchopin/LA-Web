@@ -10,7 +10,7 @@ use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 
-define('DICTIONARY_PATH', 'Resources/Translation/');
+define('DICTIONARY_PATH', '/../Translation/'); // From App/Resources/*/
 
 $container = $app->getContainer();
 
@@ -21,6 +21,7 @@ $container['flash'] = function () {
 $container['validator'] = function () {
     return new Validator();
 };
+
 
 $container['view'] = function ($container) {
     $settings = $container['settings'];
@@ -41,7 +42,11 @@ $container['view'] = function ($container) {
     ));
 
     $view->addExtension(new Twig_Extension_Debug());
-    $view->addExtension(new Security\Resources\TwigExtension\AuthExtension());
+    $view->addExtension(new Security\Resources\TwigExtension\AuthExtension(
+        $container['ldap'],
+        $container['parameters']['ldap']['base_dn']
+    ));
+
     $view->addExtension(new ValidatorExtension($container['validator']));
 
     $view->getEnvironment()->addGlobal('flash', $container['flash']);

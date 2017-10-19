@@ -11,7 +11,6 @@ nosql:
 ldap:
     host:
     port:
-    filter:
     base_dn:
     username:
     password:

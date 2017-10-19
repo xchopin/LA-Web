@@ -15,7 +15,7 @@ use Twig_SimpleFunction;
 
 /**
  * Class TranslatorExtension
- * Translates words into a language given.
+ * Useful Twig function for translating words or getting the languages available
  * @package App\Resources\TwigExtension
  */
 class TranslatorExtension extends Twig_Extension
@@ -44,19 +44,31 @@ class TranslatorExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('translate', [$this, 'translate'])
+            new Twig_SimpleFunction('translate', [$this, 'translate']),
+            new Twig_SimpleFunction('languages', [$this, 'languagesAvailable']),
         ];
     }
 
     public function translate($keyword)
     {
-        $file = dirname(__FILE__) . '/../../' . DICTIONARY_PATH . ''. $this->country_id . '.json';
+        $file = __DIR__ . DICTIONARY_PATH . $this->country_id . '.json';
         $dictionary = json_decode(file_get_contents($file), true);
+        $this->languagesAvailable();
 
-        if (isset($dictionary[$keyword]))
-            return $dictionary[$keyword];
+        return isset($dictionary[$keyword]) ? $dictionary[$keyword] : 'Error: Undefined `' . $keyword . '` variable in `' . $this->country_id . '` dictionary.';
+    }
 
-        return "Error: Undefined '" . $keyword . "' variable in '". $this->country_id ."' dictionary.";
+    public function languagesAvailable()
+    {
+        $languages = [];
+
+        foreach (glob(__DIR__ . DICTIONARY_PATH . '*.json') as $file) {
+            $language = json_decode(file_get_contents($file), GLOB_BRACE);
+            array_push($languages,  [$language['LANGUAGE'] => substr(basename($file), 0, 2)]);
+        }
+
+
+        return $languages;
     }
 }
 

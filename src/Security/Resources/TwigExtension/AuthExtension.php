@@ -2,13 +2,27 @@
 
 namespace Security\Resources\TwigExtension;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use Symfony\Component\Yaml\Yaml;
+use Slim\Container;
 class AuthExtension extends Twig_Extension
 {
+    /**
+     * @var LDAP Instance
+     */
+    protected $ldap;
 
+    /**
+     * @var string Base Distinguished Name
+     */
+    protected $baseDN;
+
+
+    public function __construct($ldap, $baseDN)
+    {
+        $this->ldap = $ldap;
+        $this->baseDN = $baseDN;
+    }
 
     public function getName()
     {
@@ -24,13 +38,11 @@ class AuthExtension extends Twig_Extension
 
     public function auth()
     {
-        $parameters = Yaml::parse(file_get_contents(__DIR__ . '../../../../../app/config/parameters.yml'))['ldap'];
-        $ldapInstance = ldap_connect($parameters['host'], $parameters['port']);
         $name = null;
 
         if (isset($_SESSION['phpCAS']['user'])) {
-            $query = ldap_search ($ldapInstance, $parameters['base_dn'], $parameters['filter'] . $_SESSION['phpCAS']['user']);
-            $name = ldap_get_entries ($ldapInstance, $query)[0]['displayname'][0];
+            $query = ldap_search($this->ldap, $this->baseDN, 'uid=' . $_SESSION['phpCAS']['user']);
+            $name = ldap_get_entries ($this->ldap, $query)[0]['displayname'][0];
         }
 
         return (object)

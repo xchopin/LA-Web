@@ -16,3 +16,8 @@ function rechercheUserLDAP($ldapconn,$dn,$nom,$prenom){
     return ldap_get_entries($ldapconn,$sr);
 }
 */
+
+
+
+
+

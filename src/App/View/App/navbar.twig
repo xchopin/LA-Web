@@ -6,15 +6,16 @@
     <div class="ui pointing dropdown link item">
         <span id="current-language" class="text"><i class="globe icon"></i>Français</span>
         <i class="dropdown icon"></i>
-        <div id='language-list' class="menu">
-            <div class="item">
-                <a href="{{ path_for('home', {'country' : 'fr'})}}">
-                    <span class="ui text">Français</span>
-                </a>
-            </div>
+        <div id='language-list' class="ui inverted menu">
+            {% for language in languages()[1] %}
+            <a class="item" href="{{ path_for('home', {'country' : 'fr'})}}">
+                    <span class="text">{{ language }}</span>
+
+
+            </a>
+            {% endfor %}
         </div>
     </div>
-
     <div class="right menu">
         {% if not auth().isLogged %}
             <a href="{{ path_for('login') }}" class="item">
