@@ -29,7 +29,6 @@ class CountryMiddleware extends Middleware
     }
 
 
-
     /**
      * Checks for a country id given if a dictionary is associated.
      *
@@ -38,6 +37,6 @@ class CountryMiddleware extends Middleware
      */
     private function checkCountry($country_id)
     {
-        return file_exists(dirname(__FILE__) . '/../../' . DICTIONARY_PATH . ''. $country_id . '.json');
+        return file_exists(__DIR__ . '/../Translation/'. $country_id . '.json');
     }
 }
