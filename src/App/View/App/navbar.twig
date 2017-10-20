@@ -4,14 +4,12 @@
         <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp;&nbsp; | <span id="logo"> Analytics</span>
     </a>
     <div class="ui pointing dropdown link item">
-        <span id="current-language" class="text"><i class="globe icon"></i>Français</span>
+        <span id="current-language" class="text"><i class="globe icon"></i>{{ translate('LANGUAGE') }}</span>
         <i class="dropdown icon"></i>
         <div id='language-list' class="ui inverted menu">
             {% for language, id in languages() %}
             <a class="item" href="{{ path_for('home', {'country' : id })}}">
-                    <span class="text">{{ language }}</span>
-
-
+                <span class="text">{{ language }}</span>
             </a>
             {% endfor %}
         </div>
@@ -22,10 +20,10 @@
                 <i class="sign in icon"></i> {{ translate('login') }}
             </a>
         {% else %}
-                <div class="ui pointing dropdown item">
+                <div class="ui pointing dropdown link item">
                     <span id="user" class="text"> {{ auth().name }}</span>
                     <i class="dropdown icon"></i>
-                    <div id='menu' class="ui menu">
+                    <div id='menu' class="ui inverted menu">
                             <div class="ui red header">ACTIONS ADMINISTRATEUR</div>
                             <a class="item" href="">
                                 <i class="users icon"></i> Afficher les utilisateurs
@@ -34,9 +32,8 @@
                             <a class="item" href="{{ path_for('logout') }}">
                                 <span class="inverted text"><i class="sign out icon"></i> {{ translate('logout') }}</span>
                             </a>
-                        </div>
                     </div>
-            </div>
+                </div>
         {% endif %}
     </div>
 </nav>
