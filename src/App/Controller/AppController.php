@@ -58,18 +58,6 @@ class AppController extends Controller
 
 
     /**
-     * (Temporary) Gives the first fifty users
-     *
-     * @param Request $request
-     * @param Response $response
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getUsers(Request $request, Response $response)
-    {
-        return $this->view->render($response, 'App/users.twig', ['users' => User::limit(50)->get()]);
-    }
-
-    /**
      * Checks for a country id given if a dictionary is associated.
      *
      * @param string $country_id
