@@ -12,14 +12,14 @@
     ],
     "autoload": {
         "psr-4": {
-            "Project\\": "src",
             "App\\": "src/App",
-            "Security\\": "src/Security"
+            "Security\\": "src/Security",
+            "Admin\\": "src/Admin"
         }
     },
     "require": {
         "awurth/slim-validation": "^3.0",
-        "illuminate/events": "^5.1",
+        "illuminate/events": "^5.5.2",
         "illuminate/database": "^5.5.2",
         "illuminate/support": "^5.5.2",
         "mongodb/mongodb": "^1.0.0",

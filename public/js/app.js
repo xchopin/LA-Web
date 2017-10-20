@@ -5,4 +5,5 @@ $(function () {
     });
 
     $('.ui.dropdown').dropdown()
+
 });

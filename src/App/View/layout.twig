@@ -1,4 +1,5 @@
 {% import 'Macro/form.twig' as form %}
+{% set dictionary = dictionary() %}
 
 <!DOCTYPE html>
 <html lang="fr-FR">
@@ -13,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('lib/semantic-ui/dist/semantic.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
     {% endblock %}
 </head>
 <body>
@@ -27,7 +29,6 @@
     {% block body %}{% endblock %}
 
     {% block javascript %}
-        <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('lib/semantic-ui/dist/semantic.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
     {% endblock %}

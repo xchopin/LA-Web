@@ -9,7 +9,10 @@ return [
             'base_path' => '../../'
         ],
         'view' => [
-            'templates_path' => dirname(__DIR__) . '/../src/App/View',
+            'templates_path' => [
+                dirname(__DIR__) . '/../src/App/View',
+                dirname(__DIR__) . '/../src/Admin/View',
+            ],
             'twig' => [
                 'cache' => dirname(__DIR__) . '/../var/cache/twig',
             ]

@@ -4,5 +4,8 @@
   "home": "Accueil",
   "login": "Connexion",
   "logout": "Déconnexion",
-  "profile": "Mon profil"
+  "profile": "Mon profil",
+  "education_tools": "Outils enseignant",
+  "find_student": "Trouver un étudiant",
+  "search": "Rechercher"
 }

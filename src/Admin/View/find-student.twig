@@ -1,0 +1,47 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+
+        <div class="ui one column stackable center aligned page grid">
+            <div class="ui container">
+                <div class="column twelve wide">
+                     <h1 class="ui center aligned header">{{ dictionary.find_student }}</h1> <br>
+                </div>
+
+                <div class="column twelve wide">
+                        <div class="ui left icon big fluid action input">
+                            <input name='name' type="text" placeholder="{{ dictionary.search }}...">
+                            <i class="address book icon"></i>
+                            <button id='search' class="ui button">{{ dictionary.search }}</button>
+                            {{ csrf() }}
+                        </div>
+                </div>
+            </div>
+        </div>
+
+<script>
+    $(function () {
+        $('.message .close').on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
+
+        $('.ui.dropdown').dropdown()
+
+        $('#search').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ path('find-student') }}",
+                type: 'POST',
+                data: 'name=', // to do
+                success: function (response) {
+                    $.each(response, function (k, v) {
+                        console.log("Nom " + v)
+                        console.log("Nom " + v)
+                    })
+                }
+            })
+        })
+    });
+</script>
+{% endblock %}

@@ -4,5 +4,8 @@
   "home": "Home",
   "login": "Log in",
   "logout": "Log out",
-  "profile": "Profile"
+  "profile": "Profile",
+  "education_tools": "Education tools",
+  "find_student": "Find a student",
+  "search": "Search"
 }

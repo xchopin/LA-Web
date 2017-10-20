@@ -31,6 +31,8 @@ $container['parameters'] = function () use ($parameters) {
 $ldapInstance = ldap_connect($parameters['ldap']['host'], $parameters['ldap']['port']);
 
 ldap_set_option($ldapInstance, LDAP_OPT_PROTOCOL_VERSION, 3);
+ldap_set_option($ldapInstance, LDAP_OPT_REFERRALS, 0);
+ldap_set_option($ldapInstance, LDAP_OPT_SIZELIMIT, 5000);
 
 $container['ldap'] = function () use ($ldapInstance) {
     return $ldapInstance;
