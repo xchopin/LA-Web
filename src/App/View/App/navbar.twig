@@ -1,10 +1,11 @@
+{% set dictionary = dictionary() %}
 
 <nav id='navbar' class="ui borderless top inverted fixed menu">
     <a href="{{ path('home')}}" class="header item">
         <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp;&nbsp; | <span id="logo"> Analytics</span>
     </a>
     <div class="ui pointing dropdown link item">
-        <span id="current-language" class="text"><i class="globe icon"></i>{{ translate('LANGUAGE') }}</span>
+        <span id="current-language" class="text"><i class="globe icon"></i>{{ dictionary.LANGUAGE }}</span>
         <i class="dropdown icon"></i>
         <div id='language-list' class="ui inverted menu">
             {% for language, id in languages() %}
@@ -17,23 +18,23 @@
     <div class="right menu">
         {% if not auth().isLogged %}
             <a href="{{ path_for('login') }}" class="item">
-                <i class="sign in icon"></i> {{ translate('login') }}
+                <i class="sign in icon"></i> {{ dictionary.login }}
             </a>
         {% else %}
-                <div class="ui pointing dropdown link item">
-                    <span id="user" class="text"> {{ auth().name }}</span>
-                    <i class="dropdown icon"></i>
-                    <div id='menu' class="ui inverted menu">
-                            <div class="ui red header">ACTIONS ADMINISTRATEUR</div>
-                            <a class="item" href="">
-                                <i class="users icon"></i> Afficher les utilisateurs
-                            </a>
-                            <div class="ui red header">ACTIONS UTILISATEUR</div>
-                            <a class="item" href="{{ path_for('logout') }}">
-                                <span class="inverted text"><i class="sign out icon"></i> {{ translate('logout') }}</span>
-                            </a>
-                    </div>
+            <div class="ui pointing dropdown link item">
+                <span id="user" class="text"> {{ auth().name }}</span>
+                <i class="dropdown icon"></i>
+                <div id='menu' class="ui inverted menu">
+                    <div class="ui red header">ACTIONS ADMINISTRATEUR</div>
+                    <a class="item" href="">
+                        <i class="users icon"></i> Afficher les utilisateurs
+                    </a>
+                    <div class="ui red header">ACTIONS UTILISATEUR</div>
+                    <a class="item" href="{{ path_for('logout') }}">
+                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.logout}}</span>
+                    </a>
                 </div>
+            </div>
         {% endif %}
     </div>
 </nav>

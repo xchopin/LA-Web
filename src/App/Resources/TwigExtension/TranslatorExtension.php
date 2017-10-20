@@ -44,18 +44,17 @@ class TranslatorExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('translate', [$this, 'translate']),
+            new Twig_SimpleFunction('dictionary', [$this, 'dictionary']),
             new Twig_SimpleFunction('languages', [$this, 'languagesAvailable']),
         ];
     }
 
-    public function translate($keyword)
+    public function dictionary()
     {
         $file = __DIR__ . '/../' . DICTIONARY_PATH . $this->country_id . '.json';
         $dictionary = json_decode(file_get_contents($file), true);
-        $this->languagesAvailable();
 
-        return isset($dictionary[$keyword]) ? $dictionary[$keyword] : 'Error: Undefined `' . $keyword . '` variable in `' . $this->country_id . '` dictionary.';
+        return $dictionary;
     }
 
     public function languagesAvailable()
