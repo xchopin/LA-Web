@@ -20,7 +20,7 @@ $ git clone https://gitlab.univ-lorraine.fr/chopin1/LA-Webapp
 ``` bash
 $ bower install
 ```
-It will create the `lib/` and `public/` directories for jQuery and Semantic UI dependencies.
+It will create `lib/` in the `public/` directory for jQuery and Semantic UI dependencies.
 
 ### 3. Install PHP dependencies
 ``` bash
