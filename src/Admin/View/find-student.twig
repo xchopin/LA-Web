@@ -10,38 +10,71 @@
                 </div>
 
                 <div class="column twelve wide">
-                        <div class="ui left icon big fluid action input">
-                            <input name='name' type="text" placeholder="{{ dictionary.search }}...">
+                    <form id="form-student">
+                        <div id='search-bar' class="ui left icon big fluid action input">
+                            <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.search }}...">
                             <i class="address book icon"></i>
-                            <button id='search' class="ui button">{{ dictionary.search }}</button>
+                            <button id='search' class="ui submit button">{{ dictionary.search }}</button>
                             {{ csrf() }}
                         </div>
+                    </form>
                 </div>
+                <br><br>
+                <div class="ui cards" id="results"></div>
             </div>
         </div>
 
 <script>
     $(function () {
-        $('.message .close').on('click', function () {
-            $(this).closest('.message').transition('fade');
-        });
+        $('#search').on('click', function(e){
+            if ( $('#student_name').val().length > 2) {
+                e.preventDefault();
+                $('#search-bar').addClass('loading')
+                $('#results').empty()
+                $.ajax({
+                    url: "{{ path('find-student') }}",
+                    type: 'POST',
+                    data: {
+                        "csrf_name": $('[name="csrf_name"]').val(),
+                        "csrf_value": $('[name="csrf_value"]').val(),
+                        'name': $('#student_name').val()
+                    },
+                    success: function (response) {
+                        setTimeout(function () {
+                            $('#search-bar').removeClass('loading')
+                            if (Object.keys(response).length < 1) {
+                                $('#results').append(
+                                    $('<h1>').addClass('ui center aligned header').text('{{ dictionary.no_results }}')
+                                )
+                            } else {
+                                $.each(response, function (k, v) {
+                                    $('#results').append(
+                                        $('<div>').addClass('card').append(
+                                            $('<div>').addClass('content').append(
+                                                $('<div>').addClass('center aligned header').text(v),
+                                                $('<div>').addClass('description').text('')
+                                            ),
+                                            $('<a>').prop('href', "{{ path('home') }}").append(
+                                                $('<div>').addClass('ui bottom attached button').append(
+                                                    $('<i>').addClass('user icon'), '{{ dictionary.visit_profile }}'
+                                                )
+                                            )
+                                        )
+                                    )
+                                })
+                            }
 
-        $('.ui.dropdown').dropdown()
-
-        $('#search').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "{{ path('find-student') }}",
-                type: 'POST',
-                data: 'name=', // to do
-                success: function (response) {
-                    $.each(response, function (k, v) {
-                        console.log("Nom " + v)
-                        console.log("Nom " + v)
-                    })
-                }
-            })
+                        }, 400)
+                    },
+                    fail: function (response) {
+                        console.log('AJAX Call error')
+                    }
+                })
+            }
         })
-    });
+
+    })
+
+
 </script>
 {% endblock %}

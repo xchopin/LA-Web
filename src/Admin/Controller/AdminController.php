@@ -9,6 +9,7 @@
 
 namespace Admin\Controller;
 
+use App\Model\User;
 use Respect\Validation\Validator as V;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -24,6 +25,7 @@ class AdminController extends Controller
 
             $baseDN = $this->container['parameters']['ldap']['base_dn'];
             $keyword = $request->getParam('name');
+
             $filter = '(&(businesscategory=E*)(displayname=*' . $keyword . '*))';
 
             $query = ldap_search ($ldapInstance, $baseDN, $filter, ['displayname', 'uid']);
@@ -35,9 +37,11 @@ class AdminController extends Controller
                     $res += [$student['uid'][0] => $student['displayname'][0]];
             }
 
+
             return $this->json($response, $res);
         }
 
+      //  $this->debug(User::find('chopin4u')); // 103208
         return $this->view->render($response, 'find-student.twig');
     }
 }
