@@ -4,7 +4,7 @@ return [
     'env' => 'prod',
     'settings' => [
         'displayErrorDetails' => false,
-        'determineRouteBeforeAppMiddleware' => true,
+        'determineRouteBeforeAppMiddleware' => false,
         'assets' => [
             'base_path' => '../../'
         ],

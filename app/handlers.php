@@ -15,6 +15,18 @@ $container['foundHandler'] = function () {
     return new RequestResponseArgs();
 };
 
+$container['csrfFailureHandler'] = function ($container) {
+    return function (Request $request, Response $response) use ($container) {
+        $container['monolog']->error(sprintf('Failed CSRF check on "%s /%s"', $request->getMethod(), ltrim($request->getUri()->getPath(), '/')));
+        $container['flash']->addMessage('error', 'Failed CSRF check');
+        if ('prod' === $container['env']) {
+            return $response->withRedirect($request->getUri()->getPath());
+        } else {
+            return $response->write('Failed CSRF check!');
+        }
+    };
+};
+
 if ($container['env'] === 'prod') {
     $container['notFoundHandler'] = function ($container) {
         return function (Request $request, Response $response) use ($container) {

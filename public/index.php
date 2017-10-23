@@ -14,14 +14,13 @@ $app = new Slim\App(DEBUG_MODE ? require SETTINGS_DEV : require SETTINGS_PROD);
 
 require __DIR__ . '/../app/database.php';
 
-require __DIR__ . '/../app/middlewares.php';
+require __DIR__ . '/../app/handlers.php';
 
 require __DIR__ . '/../app/providers.php';
-
-require __DIR__ . '/../app/handlers.php';
 
 require __DIR__ . '/../app/controllers.php';
 
 require __DIR__ . '/../app/router.php';
+
 
 $app->run();
