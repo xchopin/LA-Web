@@ -8,9 +8,12 @@ class User extends Eloquent {
 
     protected $collection = 'mongoUser';
 
-
-
     protected $primaryKey = 'user.userId';
+
+    public static function moodleId($uid)
+    {
+        return User::find($uid)->user['sourcedId'];
+    }
 
    /** protected $fillable = [
         'username',
