@@ -24,12 +24,7 @@ class UserController extends Controller
             'headers' => ['Authorization' => 'Bearer ' . $this->createJWT()->token]
         ]);
 
-      //  echo('Test : <br>' . $user->getBody()->getContents());
-
         $this->debug($user->getBody()->getContents());
-
-
-
 
     }
 
