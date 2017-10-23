@@ -48,19 +48,22 @@
                                 )
                             } else {
                                 $.each(response, function (k, v) {
+                                    var url = '{{ path('user-profile', {'id': 'user_id'}) }}';
+                                    url = url.replace("user_id", k);
                                     $('#results').append(
                                         $('<div>').addClass('card').append(
                                             $('<div>').addClass('content').append(
                                                 $('<div>').addClass('center aligned header').text(v),
                                                 $('<div>').addClass('description').text('')
                                             ),
-                                            $('<a>').prop('href', "{{ path('home') }}").append(
+                                            $('<a>').prop('href', url).append(
                                                 $('<div>').addClass('ui bottom attached button').append(
                                                     $('<i>').addClass('user icon'), '{{ dictionary.visit_profile }}'
                                                 )
                                             )
                                         )
                                     )
+
                                 })
                             }
 

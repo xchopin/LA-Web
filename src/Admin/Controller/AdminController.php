@@ -34,14 +34,12 @@ class AdminController extends Controller
             $res = [];
             foreach($students as $student) {
                 if ($student['uid'][0] != null)
-                    $res += [$student['uid'][0] => $student['displayname'][0]];
+                    $res += [ User::moodleId($student['uid'][0]) => $student['displayname'][0] ];
             }
-
 
             return $this->json($response, $res);
         }
 
-      //  $this->debug(User::find('chopin4u')); // 103208
         return $this->view->render($response, 'find-student.twig');
     }
 }
