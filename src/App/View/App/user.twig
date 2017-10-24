@@ -1,0 +1,30 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+
+<div class="ui one column stackable center aligned page grid">
+    <div class="ui container">
+        <div class="column twelve wide">
+            <h1 class="ui center aligned header">{{ student_name }}</h1>
+            <hr>
+        </div>
+
+        <div class="column twelve wide">
+
+
+            <h3> Classes {{ dictionary.enrollment }}</h3>
+            <div class="ui cards">
+            {% for class in classes %}
+                <div class="card">
+                    <div class="content">
+                        <div class="header">{{ class.title }}</div>
+                        <div class="description">Id: {{ class.sourcedId }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
