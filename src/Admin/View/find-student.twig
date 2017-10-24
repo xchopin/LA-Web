@@ -40,7 +40,6 @@
                         'name': $('#student_name').val()
                     },
                     success: function (response) {
-                        setTimeout(function () {
                             $('#search-bar').removeClass('loading')
                             if (Object.keys(response).length < 1) {
                                 $('#results').append(
@@ -67,7 +66,7 @@
                                 })
                             }
 
-                        }, 400)
+                        }, 1)
                     },
                     fail: function (response) {
                         console.log('AJAX Call error')
