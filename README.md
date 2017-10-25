@@ -2,6 +2,8 @@
 
 > Work in Progress | An idea of University of Lorraine, France. <br>
 
+[![Build Status](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/build.png?b=master)](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/?branch=master)
+
 ##### Web application for universities using the Moodle LMS and OpenLRW.
 
 ## Requirements
