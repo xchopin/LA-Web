@@ -4,7 +4,7 @@
             <i class="close icon"></i>
             <div class="header">
                 {% for message in messages %}
-                    {{ message }}
+                    {{ message|raw }}
                 {% endfor %}
             </div>
         </div>
