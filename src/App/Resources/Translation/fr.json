@@ -1,15 +1,21 @@
 {
   "LANGUAGE": "Français",
 
-  "home": "Accueil",
   "loading": "Chargement",
-  "login": "Connexion",
-  "logout": "Déconnexion",
-  "profile": "Mon profil",
-  "admin_tools": "Outils administrateur",
-  "find_student": "Trouver un étudiant",
-  "search": "Rechercher",
-  "visit_profile": "Visiter le profil",
-  "no_results": "Désolé, aucun résultat"
+  "tabs": {
+    "home": "Accueil",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "profile": "Mon profil"
+  },
+  "admin_tools": {
+    "self_name": "Outils administrateur",
+    "find_student": {
+      "self_name": "Trouver un étudiant",
+      "search": "Rechercher",
+      "visit_profile": "Visiter le profil",
+      "no_results": "Désolé, aucun résultat"
+    }
+  }
 
 }
