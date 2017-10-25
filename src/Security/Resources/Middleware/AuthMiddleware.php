@@ -10,7 +10,6 @@
 namespace Security\Resources\Middleware;
 
 use App\Resources\Middleware\Middleware;
-use Psr\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
