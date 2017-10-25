@@ -10,7 +10,7 @@ body {
     font-family: 'Sofia', cursive;
     margin-left: 0.5em;
     font-size: 1.3em;
-    font-style:italic;
+    font-style: italic;
 }
 
 #user {
@@ -20,4 +20,8 @@ body {
 
 .sofia {
     font-family: 'Sofia', cursive;
+}
+
+.ui.cards > .card {
+    width: 31.95%; /** To fit 3 cards in the container */
 }
