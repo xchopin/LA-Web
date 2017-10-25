@@ -6,18 +6,17 @@
         <div class="ui twelve column stackable center aligned page grid">
             <div class="ui container">
 
-                     <h1 class="ui center aligned header">{{ dictionary.find_student }}</h1> <br>
+                     <h1 class="ui center aligned header">{{ dictionary.admin_tools.find_student.self_name }}</h1> <br>
 
 
                     <form method='post' id="form-student">
                         <div id='search-bar' class="ui left icon big fluid action input">
-                            <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.search }}...">
+                            <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.find_student.search }}...">
                             <i class="address book icon"></i>
-                            <button id='search' class="ui submit button">{{ dictionary.search }}</button>
+                            <button id='search' class="ui submit button">{{ dictionary.admin_tools.find_student.search }}</button>
                             {{ csrf() }}
                         </div>
                     </form>
-
                     <br><br>
                     <div class="ui cards fluid" id="results"></div>
             </div>
@@ -43,7 +42,7 @@
                         $('#search-bar').removeClass('loading')
                         if (Object.keys(response).length < 1) {
                             $('#results').append(
-                                $('<h1>').addClass('ui center aligned header').text('{{ dictionary.no_results }}')
+                                $('<h1>').addClass('ui center aligned header').text('{{ dictionary.admin_tools.find_student.no_results }}')
                             )
                         } else {
                             $.each(response, function (k, v) {
@@ -57,7 +56,7 @@
                                         ),
                                         $('<a>').prop('href', url).addClass('visit_profile').append(
                                             $('<div>').addClass('ui bottom attached button').append(
-                                                $('<i>').addClass('user icon'), '{{ dictionary.visit_profile }}'
+                                                $('<i>').addClass('user icon'), '{{ dictionary.admin_tools.find_student.visit_profile }}'
                                             )
                                         ).click(function() {
                                             $('#loader').addClass('active').transition('fade in')
