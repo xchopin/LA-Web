@@ -19,7 +19,7 @@ ldap:
 
 # OpenLRW API Settings
 api:
-    url:  # Must starts with 'http://' or 'https://' and finishes with a '/'
+    url:  # Must starts with 'http://' or 'https://' and finishes with '/'
     username:
     password:
 
