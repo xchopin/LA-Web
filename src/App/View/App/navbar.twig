@@ -15,7 +15,7 @@
     </div>
     {% if auth().isAdmin %}
         <div class="ui pointing dropdown link item">
-            <span class="text"> <i class="large archive icon"></i>{{ dictionary.education_tools }}</span>
+            <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools }}</span>
             <i class="dropdown icon"></i>
             <div class="ui inverted menu">
                 <a class="item" href="{{ path('find-student') }}">
@@ -35,7 +35,7 @@
                 <i class="dropdown icon"></i>
                 <div id='menu' class="ui inverted menu">
                     <a class="item" href="{{ path_for('logout') }}">
-                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.logout}}</span>
+                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.logout }}</span>
                     </a>
                 </div>
             </div>
@@ -43,3 +43,6 @@
     </div>
 </nav>
 
+<div id='loader' class="ui dimmer">
+    <div class="ui text loader">{{ dictionary.loading }}</div>
+</div>
