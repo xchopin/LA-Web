@@ -3,14 +3,13 @@
 {% block body %}
 
 
-        <div class="ui one column stackable center aligned page grid">
+        <div class="ui twelve column stackable center aligned page grid">
             <div class="ui container">
-                <div class="column twelve wide">
-                     <h1 class="ui center aligned header">{{ dictionary.find_student }}</h1> <br>
-                </div>
 
-                <div class="column twelve wide">
-                    <form id="form-student">
+                     <h1 class="ui center aligned header">{{ dictionary.find_student }}</h1> <br>
+
+
+                    <form method='post' id="form-student">
                         <div id='search-bar' class="ui left icon big fluid action input">
                             <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.search }}...">
                             <i class="address book icon"></i>
@@ -18,10 +17,12 @@
                             {{ csrf() }}
                         </div>
                     </form>
-                </div>
-                <br><br>
-                <div class="ui cards" id="results"></div>
+
+                    <br><br>
+                    <div class="ui cards fluid" id="results"></div>
+
             </div>
+
         </div>
 
 <script>
@@ -66,7 +67,6 @@
                                 })
                             }
 
-                        }, 1)
                     },
                     fail: function (response) {
                         console.log('AJAX Call error')
