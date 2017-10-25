@@ -15,11 +15,11 @@
     </div>
     {% if auth().isAdmin %}
         <div class="ui pointing dropdown link item">
-            <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools }}</span>
+            <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
             <i class="dropdown icon"></i>
             <div class="ui inverted menu">
                 <a class="item" href="{{ path('find-student') }}">
-                    <span class="text"> <i class="search icon"></i> {{ dictionary.find_student }}</span>
+                    <span class="text"> <i class="search icon"></i> {{ dictionary.admin_tools.find_student.self_name }}</span>
                 </a>
             </div>
         </div>
@@ -27,7 +27,7 @@
     <div class="right menu">
         {% if not auth().isLogged %}
             <a href="{{ path_for('login') }}" class="item">
-                <i class="sign in icon"></i> {{ dictionary.login }}
+                <i class="sign in icon"></i> {{ dictionary.tabs.login }}
             </a>
         {% else %}
             <div class="ui pointing dropdown link item">
@@ -35,7 +35,7 @@
                 <i class="dropdown icon"></i>
                 <div id='menu' class="ui inverted menu">
                     <a class="item" href="{{ path_for('logout') }}">
-                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.logout }}</span>
+                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.tabs.logout }}</span>
                     </a>
                 </div>
             </div>
