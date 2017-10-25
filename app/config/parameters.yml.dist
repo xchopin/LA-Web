@@ -1,3 +1,4 @@
+# MongoDB Settings
 nosql:
     driver: mongodb
     host:
@@ -6,16 +7,21 @@ nosql:
     username:
     password:
     'options':
-        database: #MongoDB 3 Required
+        database: matthews # MongoDB 3 Required
 
+# LDAP Settings
 ldap:
-    host:
-    port:
-    base_dn:
+  host:
+  port:
+  base_dn:
+  username:
+  password:
+
+# OpenLRW API Settings
+api:
+    url:  # Must starts with 'http://' or 'https://' and finishes with a '/'
     username:
     password:
 
-api:
-    url:
-    username:
-    password:
+# List of super administrators (LDAP uid)
+administrators:
