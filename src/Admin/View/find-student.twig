@@ -20,14 +20,13 @@
 
                     <br><br>
                     <div class="ui cards fluid" id="results"></div>
-
             </div>
-
         </div>
 
 <script>
     $(function () {
-        $('#search').on('click', function(e){
+
+        $('#search').on('click', function(e) {
             if ( $('#student_name').val().length > 2) {
                 e.preventDefault();
                 $('#search-bar').addClass('loading')
@@ -41,32 +40,32 @@
                         'name': $('#student_name').val()
                     },
                     success: function (response) {
-                            $('#search-bar').removeClass('loading')
-                            if (Object.keys(response).length < 1) {
+                        $('#search-bar').removeClass('loading')
+                        if (Object.keys(response).length < 1) {
+                            $('#results').append(
+                                $('<h1>').addClass('ui center aligned header').text('{{ dictionary.no_results }}')
+                            )
+                        } else {
+                            $.each(response, function (k, v) {
+                                var url = '{{ path('user-profile', {'id': 'user_id'}) }}';
+                                url = url.replace("user_id", k);
                                 $('#results').append(
-                                    $('<h1>').addClass('ui center aligned header').text('{{ dictionary.no_results }}')
-                                )
-                            } else {
-                                $.each(response, function (k, v) {
-                                    var url = '{{ path('user-profile', {'id': 'user_id'}) }}';
-                                    url = url.replace("user_id", k);
-                                    $('#results').append(
-                                        $('<div>').addClass('card').append(
-                                            $('<div>').addClass('content').append(
-                                                $('<div>').addClass('center aligned header').text(v),
-                                                $('<div>').addClass('description').text('')
-                                            ),
-                                            $('<a>').prop('href', url).append(
-                                                $('<div>').addClass('ui bottom attached button').append(
-                                                    $('<i>').addClass('user icon'), '{{ dictionary.visit_profile }}'
-                                                )
+                                    $('<div>').addClass('card').append(
+                                        $('<div>').addClass('content').append(
+                                            $('<div>').addClass('center aligned header').text(v),
+                                            $('<div>').addClass('description').text('')
+                                        ),
+                                        $('<a>').prop('href', url).addClass('visit_profile').append(
+                                            $('<div>').addClass('ui bottom attached button').append(
+                                                $('<i>').addClass('user icon'), '{{ dictionary.visit_profile }}'
                                             )
-                                        )
+                                        ).click(function() {
+                                            $('#loader').addClass('active').transition('fade in')
+                                        })
                                     )
-
-                                })
-                            }
-
+                                ).transition('fade in')
+                            })
+                        }
                     },
                     fail: function (response) {
                         console.log('AJAX Call error')
