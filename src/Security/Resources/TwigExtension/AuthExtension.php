@@ -8,7 +8,7 @@ use Slim\Container;
 class AuthExtension extends Twig_Extension
 {
     /**
-     * @var LDAP Instance
+     * @var resource LDAP Instance
      */
     protected $ldap;
 
@@ -17,11 +17,22 @@ class AuthExtension extends Twig_Extension
      */
     protected $baseDN;
 
+    /**
+     * @var array List of the super admin written in app/config/parameters.yml
+     */
+    protected $administrators;
 
-    public function __construct($ldap, $baseDN)
+    /**
+     * AuthExtension constructor.
+     * @param resource $ldap
+     * @param string $baseDN
+     * @param array $administrators
+     */
+    public function __construct($ldap, $baseDN, $administrators)
     {
         $this->ldap = $ldap;
         $this->baseDN = $baseDN;
+        $this->administrators = $administrators;
     }
 
     public function getName()
@@ -40,17 +51,22 @@ class AuthExtension extends Twig_Extension
     {
         $name = null;
         $logged = false;
+        $isAdmin = false;
+        $username = null;
 
         if (isset($_SESSION['phpCAS']['user'])) {
-            $query = ldap_search($this->ldap, $this->baseDN, 'uid=' . $_SESSION['phpCAS']['user']);
-            $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
             $logged = true;
+            $username = $_SESSION['phpCAS']['user'];
+            $query = ldap_search($this->ldap, $this->baseDN, "uid=$username");
+            $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
+            $isAdmin = (in_array($username, $this->administrators));
         }
 
         return (object)
         [
             'isLogged' => $logged,
-            'username' => isset($_SESSION['phpCAS']['user']) ? $_SESSION['phpCAS']['user'] : null,
+            'isAdmin' =>  $isAdmin,
+            'username' => $username,
             'name' => $name
         ];
     }

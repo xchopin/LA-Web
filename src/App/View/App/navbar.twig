@@ -13,16 +13,16 @@
             {% endfor %}
         </div>
     </div>
-    {% if auth().isLogged %}
-    <div class="ui pointing dropdown link item">
-        <span class="text"> <i class="large archive icon"></i>{{ dictionary.education_tools }}</span>
-        <i class="dropdown icon"></i>
-        <div class="ui inverted menu">
-            <a class="item" href="{{ path('find-student') }}">
-                <span class="text"> <i class="search icon"></i> {{ dictionary.find_student }}</span>
-            </a>
+    {% if auth().isAdmin %}
+        <div class="ui pointing dropdown link item">
+            <span class="text"> <i class="large archive icon"></i>{{ dictionary.education_tools }}</span>
+            <i class="dropdown icon"></i>
+            <div class="ui inverted menu">
+                <a class="item" href="{{ path('find-student') }}">
+                    <span class="text"> <i class="search icon"></i> {{ dictionary.find_student }}</span>
+                </a>
+            </div>
         </div>
-    </div>
     {% endif %}
     <div class="right menu">
         {% if not auth().isLogged %}

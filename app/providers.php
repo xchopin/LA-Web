@@ -55,13 +55,12 @@ $container['view'] = function ($container) {
     $view->addExtension(new CsrfExtension($container['csrf']));
     $view->addExtension(new Security\Resources\TwigExtension\AuthExtension(
         $container['ldap'],
-        $container['parameters']['ldap']['base_dn']
+        $container['parameters']['ldap']['base_dn'],
+        $container['parameters']['administrators']
     ));
 
     $view->addExtension(new ValidatorExtension($container['validator']));
-
     $view->getEnvironment()->addGlobal('flash', $container['flash']);
-
 
     return $view;
 };
