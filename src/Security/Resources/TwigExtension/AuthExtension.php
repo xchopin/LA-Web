@@ -39,15 +39,17 @@ class AuthExtension extends Twig_Extension
     public function auth()
     {
         $name = null;
+        $logged = false;
 
         if (isset($_SESSION['phpCAS']['user'])) {
             $query = ldap_search($this->ldap, $this->baseDN, 'uid=' . $_SESSION['phpCAS']['user']);
-            $name = ldap_get_entries ($this->ldap, $query)[0]['displayname'][0];
+            $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
+            $logged = true;
         }
 
         return (object)
         [
-            'isLogged' => isset($_SESSION['phpCAS']['user']) ? true : false,
+            'isLogged' => $logged,
             'username' => isset($_SESSION['phpCAS']['user']) ? $_SESSION['phpCAS']['user'] : null,
             'name' => $name
         ];

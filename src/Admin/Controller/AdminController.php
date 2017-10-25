@@ -34,7 +34,7 @@ class AdminController extends Controller
             $res = [];
             foreach($students as $student) {
                 if ($student['uid'][0] != null)
-                    $res += [ User::moodleId($student['uid'][0]) => $student['displayname'][0] ];
+                    $res += [ $student['uid'][0] => $student['displayname'][0] ];
             }
 
             return $this->json($response, $res);

@@ -22,19 +22,12 @@ class UserController extends Controller
 
         $classes = [];
         $token = $this->createJWT()->token;
+        $id = User::moodleId($id);
 
-        $enrollments = $this->http->get('users/' . $id . '/enrollments',  [
-            'headers' => ['Authorization' => 'Bearer ' . $token]
-        ]);
-
-        $user = $this->http->get('users/' . $id ,  [
-            'headers' => ['Authorization' => 'Bearer ' . $token]
-        ]);
+        $enrollments = $this->http->get("users/$id/enrollments",  ['headers' => ['Authorization' => "Bearer $token"]]);
+        $user = $this->http->get("users/$id",  ['headers' => ['Authorization' => "Bearer $token"]]);
 
         $userId = json_decode($user->getBody()->getContents())->userId;
-
-        $query = ldap_search($this->container['ldap'], $this->container['parameters']['ldap']['base_dn'], 'uid=' . $userId);
-        $name = ldap_get_entries ($this->container['ldap'], $query)[0]['displayname'][0];
 
         foreach (json_decode($enrollments->getBody()->getContents()) as $enrollment) {
             if ($enrollment->class->title != null)
@@ -43,7 +36,7 @@ class UserController extends Controller
 
         return $this->view->render($response, 'App/user.twig',[
             'classes' => $classes,
-            'student_name' => $name
+            'student_name' => $this->ldap("uid=$userId")['displayname'][0]
         ] );
 
     }
