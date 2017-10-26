@@ -248,6 +248,18 @@ abstract class Controller
      */
     public function ldap($filter, $arg = [])
     {
-        return ldap_get_entries($this->container['ldap'], $this->searchLDAP($filter))[0];
+        return ldap_get_entries($this->container['ldap'], $this->searchLDAP($filter, $arg));
+    }
+
+    /**
+     * Returns the first tuple from a LDAP query
+     *
+     * @param $filter
+     * @param array $arg
+     * @return mixed
+     */
+    public function ldapFirst($filter, $arg = [])
+    {
+        return ldap_get_entries($this->container['ldap'], $this->searchLDAP($filter, $arg))[0];
     }
 }
