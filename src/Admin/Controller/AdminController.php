@@ -24,9 +24,10 @@ class AdminController extends Controller
 
             $keyword = $request->getParam('name');
             $filter = '(&(businesscategory=E*)(displayname=*' . $keyword . '*))';
+            $students = $this->ldap($filter, ['displayname', 'uid']);
             $res = [];
 
-            foreach($this->ldap($filter, ['displayname', 'uid']) as $student) {
+            foreach($students as $student) {
                 if ($student['uid'][0] != null)
                     $res += [ $student['uid'][0] => $student['displayname'][0] ];
             }
