@@ -23,7 +23,6 @@ class AuthController extends Controller
         phpCAS::client(CAS_VERSION_2_0,'auth.univ-lorraine.fr',443,'');
         phpCAS::setNoCasServerValidation();
         phpCAS::forceAuthentication();
-
         phpCAS::getUser();
 
         return $this->redirect($request, $response, 'home');
