@@ -33,7 +33,7 @@ class UserController extends Controller
 
         return $this->view->render($response, 'App/user.twig',[
             'classes' => $classes,
-            'student_name' => $this->ldap("uid=$id")['displayname'][0]
+            'student_name' => $this->ldapFirst("uid=$id")['displayname'][0]
         ] );
 
     }
