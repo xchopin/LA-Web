@@ -21,18 +21,12 @@ class AdminController extends Controller
     public function findStudent(Request $request, Response $response)
     {
         if ($request->isPost()) {
-            $ldapInstance = $this->container['ldap'];
 
-            $baseDN = $this->container['parameters']['ldap']['base_dn'];
             $keyword = $request->getParam('name');
-
             $filter = '(&(businesscategory=E*)(displayname=*' . $keyword . '*))';
-
-            $query = ldap_search ($ldapInstance, $baseDN, $filter, ['displayname', 'uid']);
-            $students = ldap_get_entries($ldapInstance, $query);
-
             $res = [];
-            foreach($students as $student) {
+
+            foreach($this->ldap($filter, ['displayname', 'uid']) as $student) {
                 if ($student['uid'][0] != null)
                     $res += [ $student['uid'][0] => $student['displayname'][0] ];
             }
