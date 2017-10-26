@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "jquery": "^3.2.1",
-    "semantic-ui": "^2.2.13"
+    "semantic-ui": "^2.2.13",
+    "chartjs": "^2.7.0"
   }
 }
