@@ -6,6 +6,5 @@ $(function () {
 
     $('.ui.dropdown').dropdown()
 
-    $('.menu .item').tab();
-
+    $('.menu .item').tab()
 });
