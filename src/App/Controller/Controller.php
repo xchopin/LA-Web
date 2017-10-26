@@ -231,20 +231,22 @@ abstract class Controller
      * Executes a LDAP query
      *
      * @param $filter
+     * @param array $arg
      * @return resource
      */
-    public function searchLDAP($filter)
+    public function searchLDAP($filter, $arg = [])
     {
-        return ldap_search($this->container['ldap'], $this->container['parameters']['ldap']['base_dn'], $filter);
+        return ldap_search($this->container['ldap'], $this->container['parameters']['ldap']['base_dn'], $filter, $arg);
     }
 
     /**
      * Returns data from a LDAP query
      *
      * @param $filter
+     * @param array $arg
      * @return mixed
      */
-    public function ldap($filter)
+    public function ldap($filter, $arg = [])
     {
         return ldap_get_entries($this->container['ldap'], $this->searchLDAP($filter))[0];
     }
