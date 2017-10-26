@@ -1,8 +1,13 @@
 # Learning Analytics Web Application (L.A.W.A.)
 
-> Work in Progress | An idea of University of Lorraine, France. <br>
+<p align="center">  
+  <img src='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/build.png?b=master'>
+  <a href='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/?branch=master'>
+     <img src='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/quality-score.png?b=master'>
+  </a>
+</p>
 
-[![Build Status](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/build.png?b=master)](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xchopin/LAWA-UL/?branch=master)
+> Work in Progress <br>
 
 ##### Web application for universities using the Moodle LMS and OpenLRW.
 
