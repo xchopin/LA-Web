@@ -1,16 +1,21 @@
-body {
-    padding-top: 100px;
+.pusher {
+    padding-top: 130px;
 }
 
 #navbar {
     background-color: #2574A9;
 }
 
-#logo {
+.logo {
+    width:100px !important;
+}
+
+.logo + span {
     font-family: 'Sofia', cursive;
     margin-left: 0.5em;
     font-size: 1.3em;
     font-style: italic;
+    font-weight: bold;
 }
 
 #user {
@@ -54,4 +59,146 @@ span.profile-city {
 
 .text-center {
     text-align: center;
+}
+
+#hamburger-menu{
+    width: 2em;
+    height: 20px;
+    position: relative;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+
+#hamburger-menu span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+}
+
+#hamburger-menu span:nth-child(1) {
+    top: 0;
+}
+
+#hamburger-menu span:nth-child(2),#hamburger-menu span:nth-child(3) {
+    top: 9px;
+}
+
+#hamburger-menu span:nth-child(4) {
+    top: 18px;
+}
+
+#hamburger-menu.open span:nth-child(1) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+}
+
+#hamburger-menu.open span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+#hamburger-menu.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+#hamburger-menu.open span:nth-child(4) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+}
+
+
+
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
+    [class*="mobile hidden"],
+    [class*="tablet only"]:not(.mobile),
+    [class*="computer only"]:not(.mobile),
+    [class*="large monitor only"]:not(.mobile),
+    [class*="widescreen monitor only"]:not(.mobile),
+    [class*="or lower hidden"] {
+        display: none !important;
+    }
+}
+
+
+/* Tablet / iPad Portrait */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    [class*="mobile only"]:not(.tablet),
+    [class*="tablet hidden"],
+    [class*="computer only"]:not(.tablet),
+    [class*="large monitor only"]:not(.tablet),
+    [class*="widescreen monitor only"]:not(.tablet),
+    [class*="or lower hidden"]:not(.mobile) {
+        display: none !important;
+    }
+}
+
+
+/* Computer / Desktop / iPad Landscape */
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    [class*="mobile only"]:not(.computer),
+    [class*="tablet only"]:not(.computer),
+    [class*="computer hidden"],
+    [class*="large monitor only"]:not(.computer),
+    [class*="widescreen monitor only"]:not(.computer),
+    [class*="or lower hidden"]:not(.tablet):not(.mobile) {
+        display: none !important;
+    }
+}
+
+
+/* Large Monitor */
+
+@media only screen and (min-width: 1200px) and (max-width: 1919px) {
+    [class*="mobile only"]:not([class*="large monitor"]),
+    [class*="tablet only"]:not([class*="large monitor"]),
+    [class*="computer only"]:not([class*="large monitor"]),
+    [class*="large monitor hidden"],
+    [class*="widescreen monitor only"]:not([class*="large monitor"]),
+    [class*="or lower hidden"]:not(.computer):not(.tablet):not(.mobile) {
+        display: none !important;
+    }
+}
+
+
+/* Widescreen Monitor */
+
+@media only screen and (min-width: 1920px) {
+    [class*="mobile only"]:not([class*="widescreen monitor"]),
+    [class*="tablet only"]:not([class*="widescreen monitor"]),
+    [class*="computer only"]:not([class*="widescreen monitor"]),
+    [class*="large monitor only"]:not([class*="widescreen monitor"]),
+    [class*="widescreen monitor hidden"],
+    [class*="widescreen monitor or lower hidden"] {
+        display: none !important;
+    }
 }

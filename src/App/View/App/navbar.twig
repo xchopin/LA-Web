@@ -1,20 +1,51 @@
-<nav id='navbar' class="ui borderless top inverted fixed menu">
-    <a href="{{ path('home')}}" class="header item">
-        <img src="{{ asset('img/ul_logo.png') }}" style="width:100px;"> &nbsp;&nbsp; | <span id="logo"> Analytics</span>
+<div class="ui vertical inverted sidebar menu left uncover">
+    <div class="item">
+        <a class="ui logo icon image" href="{{ path('home') }}">
+            <img src="{{ asset('img/ul_logo.png') }}">
+        </a>
+        &nbsp; | <span>Analytics</span>
+    </div>
+
+    <a class="item" href="{{ path('home') }}">
+        <b><i class="home icon"></i> {{ dictionary.tabs.home }}</b>
     </a>
-    <div class="ui pointing dropdown link item">
+    <div class="item">
+        <div class="header"><i class="world icon"></i>  Langues</div>
+        <div class="menu">
+            {% for language, id in languages() %}
+                <a class="item" href="{{ path_for('home', {'country' : id }) }}">
+                    <span class="text">{{ language }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<nav id='navbar' class="ui borderless top inverted fixed menu">
+    <a id='open-menu' class="toc item computer hidden widescreen monitor hidden">
+        <div id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </a>
+    <a href="{{ path('home') }}" class="header item mobile hidden">
+        <img src="{{ asset('img/ul_logo.png') }}" class="logo"> &nbsp;&nbsp; | <span> Analytics</span>
+    </a>
+    <div class="ui pointing dropdown link item mobile hidden tablet hidden">
         <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.LANGUAGE }}</span>
         <i class="dropdown icon"></i>
         <div id='language-list' class="ui inverted menu">
             {% for language, id in languages() %}
-            <a class="item" href="{{ path_for('home', {'country' : id })}}">
-                <span class="text">{{ language }}</span>
-            </a>
+                <a class="item" href="{{ path_for('home', {'country' : id }) }}">
+                    <span class="text">{{ language }}</span>
+                </a>
             {% endfor %}
         </div>
     </div>
     {% if auth().isAdmin %}
-        <div class="ui pointing dropdown link item">
+        <div class="ui pointing dropdown link item mobile hidden tablet hidden">
             <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
             <i class="dropdown icon"></i>
             <div class="ui inverted menu">
@@ -42,6 +73,7 @@
         {% endif %}
     </div>
 </nav>
+
 
 <div id='loader' class="ui dimmer">
     <div class="ui text loader">{{ dictionary.loading }}</div>

@@ -2,36 +2,41 @@
 {% set dictionary = dictionary() %}
 
 <!DOCTYPE html>
-<html lang="fr-FR">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <html lang="fr-FR">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Application Web de Learning Analytics{% endblock %}</title>
+        <title>{% block title %}Application Web de Learning Analytics{% endblock %}</title>
 
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('lib/semantic-ui/dist/semantic.css') }}">
-        <link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
-    {% endblock %}
-</head>
-<body>
-    {% block navbar %}
-        {% include 'App/navbar.twig' %}
-    {% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('lib/semantic-ui/dist/semantic.css') }}">
+            <link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
+        {% endblock %}
+    </head>
 
-    {% block flash %}
-        {% include 'App/flash.twig' %}
-    {% endblock %}
+     <body>
+        {% block navbar %}
+            {% include 'App/navbar.twig' %}
+        {% endblock %}
 
-    {% block body %}{% endblock %}
+        <div class="pusher">
+            {% block flash %}
+                {% include 'App/flash.twig' %}
+            {% endblock %}
 
-    {% block javascript %}
-        <script src="{{ asset('lib/semantic-ui/dist/semantic.js') }}"></script>
-        <script src="{{ asset('lib/chartjs/dist/Chart.js') }}"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
-    {% endblock %}
-</body>
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascript %}
+            <script src="{{ asset('lib/semantic-ui/dist/semantic.js') }}"></script>
+            <script src="{{ asset('lib/chartjs/dist/Chart.js') }}"></script>
+            <script src="{{ asset('lib/gauge.js/dist/gauge.min.js') }}"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
+        {% endblock %}
+    </body>
+
 </html>
