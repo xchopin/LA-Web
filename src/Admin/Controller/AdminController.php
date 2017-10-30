@@ -9,8 +9,6 @@
 
 namespace Admin\Controller;
 
-use App\Model\User;
-use Respect\Validation\Validator as V;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Controller\Controller;
@@ -20,8 +18,8 @@ class AdminController extends Controller
 
     public function findStudent(Request $request, Response $response)
     {
-        if ($request->isPost()) {
 
+        if ($request->isPost()) {
             $keyword = $request->getParam('name');
             $filter = '(&(businesscategory=E*)(displayname=*' . $keyword . '*))';
             $students = $this->ldap($filter, ['displayname', 'uid']);
