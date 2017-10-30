@@ -7,14 +7,14 @@
     </div>
 
     <a class="item" href="{{ path('home') }}">
-        <b><i class="home icon"></i> {{ dictionary.tabs.home }}</b>
+        <h3><i class="home icon"></i> {{ dictionary.tabs.home }}</h3>
     </a>
     <div class="item">
-        <div class="header"><i class="world icon"></i>  Langues</div>
+        <h3><i class="world icon"></i>  Langues</h3>
         <div class="menu">
             {% for language, id in languages() %}
                 <a class="item" href="{{ path_for('home', {'country' : id }) }}">
-                    <span class="text">{{ language }}</span>
+                    <span class="hamburger-item">{{ language }}</span>
                 </a>
             {% endfor %}
         </div>
