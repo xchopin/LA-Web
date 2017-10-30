@@ -9,7 +9,7 @@
     "profile": "Profile"
   },
   "admin_tools": {
-    "self_name": "Administrator tools",
+    "self_name": "Administrative tools",
     "find_student": {
       "self_name": "Find a student",
       "search": "Search",
