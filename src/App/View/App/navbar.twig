@@ -1,3 +1,9 @@
+{%
+set adminTools = [
+    {'route': 'find-student', 'icon': 'search', 'name': dictionary.admin_tools.find_student.self_name },
+]
+%}
+
 <div class="ui vertical inverted sidebar menu left uncover">
     <div class="item">
         <a class="ui logo icon image" href="{{ path('home') }}">
@@ -19,6 +25,18 @@
             {% endfor %}
         </div>
     </div>
+    {% if auth().isAdmin %}
+        <div class="item">
+            <h3> <i class="archive icon"></i> {{ dictionary.admin_tools.self_name }}</h3>
+            <div class="menu">
+                {% for tool in adminTools %}
+                    <a class="item" href={{ path(tool.route) }}>
+                        <span class="hamburger-item"> <i class="{{ tool.icon }} icon"></i> {{ tool.name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 </div>
 
 <nav id='navbar' class="ui borderless top inverted fixed menu">
@@ -48,11 +66,13 @@
         <div class="ui pointing dropdown link item mobile hidden tablet hidden">
             <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
             <i class="dropdown icon"></i>
-            <div class="ui inverted menu">
-                <a class="item" href="{{ path('find-student') }}">
-                    <span class="text"> <i class="search icon"></i> {{ dictionary.admin_tools.find_student.self_name }}</span>
-                </a>
-            </div>
+            {% for tool in adminTools %}
+                <div class="ui inverted menu">
+                    <a class="item" href="{{ path(tool.route) }}">
+                        <span class="text"> <i class="{{ tool.icon }} icon"></i> {{ tool.name }}</span>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
     {% endif %}
     <div class="right menu">
