@@ -24,11 +24,15 @@
         {% endblock %}
 
         <div class="pusher">
-            {% block flash %}
-                {% include 'App/flash.twig' %}
-            {% endblock %}
+                {% block flash %}
+                    {% include 'App/flash.twig' %}
+                {% endblock %}
 
-            {% block body %}{% endblock %}
+                {% block body %}{% endblock %}
+
+            {% block footer %}
+                {% include 'App/footer.twig' %}
+            {% endblock %}
         </div>
 
         {% block javascript %}
@@ -38,5 +42,4 @@
             <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
     </body>
-
 </html>
