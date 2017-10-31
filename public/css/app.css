@@ -1,14 +1,9 @@
-.pusher {
-    padding-top: 130px;
-}
 
-#navbar {
-    background-color: #2574A9;
-}
+.pusher {  padding-top: 75px;  }
 
-.logo {
-    width:100px !important;
-}
+#navbar {  background-color: #2574A9;  }
+
+.logo {  width:100px !important;  }
 
 .logo + span {
     font-family: 'Sofia', cursive;
@@ -23,17 +18,11 @@
     text-align: center;
 }
 
-.sofia {
-    font-family: 'Sofia', cursive;
-}
+.sofia {  font-family: 'Sofia', cursive;  }
 
-.ui.cards > .card {
-    width: 31.95%; /** To fit 3 cards in the container */
-}
+.ui.cards > .card {  width: 31.95%; /** To fit 3 cards in the container */  }
 
-.profile-header {
-    margin: 1.9em 0;
-}
+.profile-header {  margin: 1.9em 0; }
 
 .profile-name {
     font-size: 2em;
@@ -50,16 +39,11 @@ span.profile-city {
     padding-left: 1.2em;
 }
 
-#city-marker {
-    margin-bottom: 0.6em;
-}
-#city {
-    font-size: 1.3em;
-}
+#city-marker { margin-bottom: 0.6em; }
 
-.text-center {
-    text-align: center;
-}
+#city { font-size: 1.3em; }
+
+.text-center { text-align: center; }
 
 #hamburger-menu{
     width: 2em;
@@ -95,17 +79,11 @@ span.profile-city {
     transition: .3s ease-in-out;
 }
 
-#hamburger-menu span:nth-child(1) {
-    top: 0;
-}
+#hamburger-menu span:nth-child(1) { top: 0; }
 
-#hamburger-menu span:nth-child(2),#hamburger-menu span:nth-child(3) {
-    top: 9px;
-}
+#hamburger-menu span:nth-child(2), #hamburger-menu span:nth-child(3) { top: 9px; }
 
-#hamburger-menu span:nth-child(4) {
-    top: 18px;
-}
+#hamburger-menu span:nth-child(4) { top: 18px; }
 
 #hamburger-menu.open span:nth-child(1) {
     top: 18px;
@@ -139,7 +117,35 @@ span.hamburger-item {
     margin-left: 1.8em;
 }
 
+#menu {
+    font-weight: bold;
+    margin-right: 1.3em;
+    text-transform: uppercase;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+}
 
+
+
+@media (min-height: 320px) {
+    .ui.footer.form-page {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #414141;
+        padding: 2em 0;
+    }
+
+    .ui.link.list > a.item, .ui.footer.form-page .ui.header {
+        color: #d2d7d3;
+    }
+    .ui.footer.form-page .ui.header {
+        text-transform: uppercase;
+    }
+
+}
 /* Mobile */
 
 @media only screen and (max-width: 767px) {
