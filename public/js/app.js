@@ -10,6 +10,7 @@ $(function () {
 
     $('#open-menu').click(function(){
         $('#hamburger-menu').toggleClass('open')
+        $('#menu').transition('fade left', '50ms')
     })
 
 });
