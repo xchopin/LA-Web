@@ -4,7 +4,7 @@ set adminTools = [
 ]
 %}
 
-<div class="ui vertical inverted sidebar menu left uncover">
+<div class="ui vertical inverted very sidebar menu left uncover">
     <div class="item">
         <a class="ui logo icon image" href="{{ path('home') }}">
             <img src="{{ asset('img/ul_logo.png') }}">
@@ -41,6 +41,7 @@ set adminTools = [
 
 <nav id='navbar' class="ui borderless top inverted fixed menu">
     <a id='open-menu' class="toc item computer hidden widescreen monitor hidden">
+        <span id="menu">{{ dictionary.tabs.menu }}</span>
         <div id="hamburger-menu">
             <span></span>
             <span></span>
@@ -52,7 +53,7 @@ set adminTools = [
         <img src="{{ asset('img/ul_logo.png') }}" class="logo"> &nbsp;&nbsp; | <span> Analytics</span>
     </a>
     <div class="ui pointing dropdown link item mobile hidden tablet hidden">
-        <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.LANGUAGE }}</span>
+        <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.self_name }}</span>
         <i class="dropdown icon"></i>
         <div id='language-list' class="ui inverted menu">
             {% for language, id in languages() %}
@@ -93,7 +94,6 @@ set adminTools = [
         {% endif %}
     </div>
 </nav>
-
 
 <div id='loader' class="ui dimmer">
     <div class="ui text loader">{{ dictionary.loading }}</div>
