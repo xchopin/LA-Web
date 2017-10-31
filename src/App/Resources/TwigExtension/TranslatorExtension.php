@@ -63,7 +63,7 @@ class TranslatorExtension extends Twig_Extension
 
         foreach (glob(__DIR__ . '/../' . DICTIONARY_PATH . '*.json') as $file) {
             $language = json_decode(file_get_contents($file), GLOB_BRACE);
-            $languages += [ $language['LANGUAGE'] => substr(basename($file), 0, 2) ];
+            $languages += [ $language['self_name'] => substr(basename($file), 0, 2) ];
         }
 
         return $languages;

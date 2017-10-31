@@ -1,12 +1,19 @@
 {
-  "LANGUAGE": "Français",
-
+  "self_name": "Français",
   "loading": "Chargement",
   "tabs": {
     "home": "Accueil",
     "login": "Connexion",
     "logout": "Déconnexion",
-    "profile": "Mon profil"
+    "profile": "Mon profil",
+    "menu": "Menu"
+  },
+  "footer:": {
+    "social_network": "Réseaux sociaux",
+    "quick_links": "Liens utiles",
+    "about": "A propos",
+    "security_assistance": "Assistance",
+    "legal_notice": "Mention Légale"
   },
   "admin_tools": {
     "self_name": "Outils administrateur",
@@ -17,5 +24,4 @@
       "no_results": "Désolé, aucun résultat"
     }
   }
-
 }

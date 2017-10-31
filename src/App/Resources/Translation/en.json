@@ -1,12 +1,19 @@
 {
-  "LANGUAGE": "English",
-
+  "self_name": "English",
   "loading": "Loading",
   "tabs": {
     "home": "Home",
     "login": "Log in",
     "logout": "Log out",
-    "profile": "Profile"
+    "profile": "Profile",
+    "menu": "Menu"
+  },
+  "footer:": {
+    "social_network": "Social networks",
+    "quick_links": "Useful Links",
+    "about": "About",
+    "security_assistance": "Security & Assistance",
+    "legal_notice": "Legal Notice"
   },
   "admin_tools": {
     "self_name": "Administrator tools",
