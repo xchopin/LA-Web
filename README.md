@@ -11,6 +11,16 @@
 
 ##### Web application for universities using the Moodle LMS and OpenLRW.
 
+## Features
+- CAS Authentication
+- LDAP Access
+- Roles (Admins and users)
+- Multilingual
+- Responsive-Design
+- Charts
+- Active Record ORM for MongoDB
+- API calls to OpenLRW
+
 ## Requirements
 - PHP ⩾ 7.0
 - PHP LDAP module
