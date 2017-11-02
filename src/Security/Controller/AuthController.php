@@ -20,7 +20,8 @@ class AuthController extends Controller
 
     public function login(Request $request, Response $response)
     {
-        phpCAS::client(CAS_VERSION_2_0,'auth.univ-lorraine.fr',443,'');
+        $cas = $this->container['parameters']['cas'];
+        phpCAS::client(CAS_VERSION_2_0, $cas['host'], $cas['port'], '');
         phpCAS::setNoCasServerValidation();
         phpCAS::forceAuthentication();
         phpCAS::getUser();
@@ -31,7 +32,9 @@ class AuthController extends Controller
 
     public function logout(Request $request, Response $response)
     {
-        phpCAS::client(CAS_VERSION_2_0,'auth.univ-lorraine.fr',443,'');
+        $cas = $this->container['parameters']['cas'];
+        phpCAS::client(CAS_VERSION_2_0, $cas['host'], $cas['port'], '');
+        phpCAS::setServerLogoutURL('http://' . $request->getUri()->getHost());
         phpCAS::logout();
     }
 }
