@@ -9,7 +9,6 @@
 
 namespace Security\Controller;
 
-use Respect\Validation\Validator as V;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Controller\Controller;
@@ -34,7 +33,6 @@ class AuthController extends Controller
     {
         $cas = $this->container['parameters']['cas'];
         phpCAS::client(CAS_VERSION_2_0, $cas['host'], $cas['port'], '');
-        phpCAS::setServerLogoutURL('http://' . $request->getUri()->getHost());
-        phpCAS::logout();
+        phpCAS::logoutWithRedirectService('http://' . $request->getUri()->getHost());
     }
 }
