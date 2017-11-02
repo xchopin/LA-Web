@@ -1,33 +1,37 @@
-<footer>
-    <div class="ui vertical footer segment form-page">
+<footer class="ui vertical footer segment form-page">
         <div class="ui container">
             <div class="ui stackable relaxed centered grid">
-                <div class="four wide column">
+                <div class="three wide column">
                     <h4 class="ui header">
-                        Réseaux sociaux
+                        {{ dictionary.footer.social_network }}
                     </h4>
                     <div class="ui link list">
                         <a class="item" href="https://semantic-ui.com" target="_blank">Semanti-UI</a><a class="item" href="https://nanoc.ws" target="_blank">Nanoc</a>
                     </div>
                 </div>
-                <div class="four wide column">
+                <div class="three wide column">
                     <h4 class="ui header">
-                        Liens utiles
+                        {{ dictionary.footer.quick_links }}
                     </h4>
                     <div class="ui link list">
                         <a class="item" href="http://semantic-ui-forest.com/themes" target="_blank">Themes</a><a class="item" href="http://semantic-ui-forest.com/templates" target="_blank">Templates</a>
                     </div>
                 </div>
-                <div class="four wide column">
+                <div class="three wide column">
                     <h4 class="ui header">
-                        A propos
+                        {{ dictionary.footer.about }}
                     </h4>
                     <div class="ui link list">
-                        <a class="item" href="" target="_blank"> Help </a>
-                        <a class="item" href="" target="_blank"> Mentions légales </a>
+                        <a class="item" href="" target="_blank"> {{ dictionary.footer.assistance }} </a>
+                        <a class="item" href="" target="_blank"> {{ dictionary.footer.legal_notice }} </a>
                     </div>
                 </div>
+                <div class="three wide column">
+                   <img class="footer-logo" src="{{ asset('img/logo.png') }}" alt="Logo">
+                </div>
             </div>
+            <p class="footer-outro">
+                © 2017 Université de Lorraine
+            </p>
         </div>
-    </div>
 </footer>

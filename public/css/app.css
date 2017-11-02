@@ -39,6 +39,9 @@ span.profile-city {
     padding-left: 1.2em;
 }
 
+
+
+
 #city-marker { margin-bottom: 0.6em; }
 
 #city { font-size: 1.3em; }
@@ -121,21 +124,23 @@ span.hamburger-item {
     font-weight: bold;
     margin-right: 1.3em;
     text-transform: uppercase;
-    -webkit-transition: .5s ease-in-out;
-    -moz-transition: .5s ease-in-out;
-    -o-transition: .5s ease-in-out;
-    transition: .5s ease-in-out;
 }
 
-
-
 @media (min-height: 320px) {
+    .site {
+        display: flex;
+        height: 100%;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    .site-content {  flex: 1;  }
+
     .ui.footer.form-page {
-        position: absolute;
-        bottom: 0;
         width: 100%;
         background-color: #414141;
-        padding: 2em 0;
+        padding: 2.5em 0;
+        margin-top: 5em;
     }
 
     .ui.link.list > a.item, .ui.footer.form-page .ui.header {
@@ -143,6 +148,20 @@ span.hamburger-item {
     }
     .ui.footer.form-page .ui.header {
         text-transform: uppercase;
+    }
+
+    .footer-outro {
+        border-top: 1px solid #d2d7d3;
+        margin-top: 2.3em;
+        padding-top: 1.5em;
+        color: #d2d7d3;
+    }
+
+    img.footer-logo {
+        width: auto;
+        height: 60px;
+        -webkit-filter: opacity(.53);
+        filter: opacity(.53);
     }
 
 }

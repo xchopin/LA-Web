@@ -23,12 +23,13 @@
             {% include 'App/navbar.twig' %}
         {% endblock %}
 
-        <div class="pusher">
+        <div class="pusher site" >
+            <main class="site-content">
                 {% block flash %}
                     {% include 'App/flash.twig' %}
                 {% endblock %}
-
                 {% block body %}{% endblock %}
+            </main>
 
             {% block footer %}
                 {% include 'App/footer.twig' %}
