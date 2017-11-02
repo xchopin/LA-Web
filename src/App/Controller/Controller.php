@@ -43,7 +43,7 @@ abstract class Controller
     private $parameters;
 
     /**
-     * Guzzle HTTP client instance
+     * Guzzle HTTP client instance linked to the OpenLRW API
      *
      * @var Client
      */
@@ -59,7 +59,7 @@ abstract class Controller
     {
         $this->container = $container;
         $this->parameters = Yaml::parse(file_get_contents(__DIR__ . '../../../../app/config/parameters.yml'));
-        $this->http = new Client(['base_uri' => $this->parameters['api']['url']]);
+        $this->http = new Client(['base_uri' => $this->parameters['api']['uri']]);
     }
 
     /**
