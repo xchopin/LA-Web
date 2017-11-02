@@ -5,20 +5,18 @@
 
         <div class="ui twelve column stackable center aligned page grid">
             <div class="ui container">
-
-                     <h1 class="ui center aligned header">{{ dictionary.admin_tools.find_student.self_name }}</h1> <br>
-
-
-                    <form method='post' id="form-student">
-                        <div id='search-bar' class="ui left icon big fluid action input">
-                            <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.find_student.search }}...">
-                            <i class="address book icon"></i>
-                            <button id='search' class="ui submit button">{{ dictionary.admin_tools.find_student.search }}</button>
-                            {{ csrf() }}
-                        </div>
-                    </form>
-                    <br><br>
-                    <div class="ui cards fluid" id="results"></div>
+                <h1 class="ui center aligned header">{{ dictionary.admin_tools.find_student.self_name }}</h1> <br>
+                <form method='post' id="form-student">
+                    <div id='search-bar' class="ui left icon big fluid action input">
+                        <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.find_student.search }}...">
+                        <i class="address book icon"></i>
+                        <button id='search' class="ui submit button">{{ dictionary.admin_tools.find_student.search }}</button>
+                        {{ csrf() }}
+                    </div>
+                </form>
+                <br>
+                <br>
+                <div class="ui cards fluid" id="results"></div>
             </div>
         </div>
 
