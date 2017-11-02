@@ -40,7 +40,7 @@ set adminTools = [
 </div>
 
 <nav id='navbar' class="ui borderless top inverted fixed menu">
-    <a id='open-menu' class="toc item computer hidden widescreen monitor hidden">
+    <a id='open-menu' class="toc item mobile only tablet only">
         <span id="menu">{{ dictionary.tabs.menu }}</span>
         <div id="hamburger-menu">
             <span></span>
@@ -49,7 +49,7 @@ set adminTools = [
             <span></span>
         </div>
     </a>
-    <a href="{{ path('home') }}" class="header item mobile hidden">
+    <a href="{{ path('home') }}" class="header item mobile hidden tablet hidden">
         <img src="{{ asset('img/logo.png') }}" class="logo" alt="logo"> &nbsp;&nbsp; | <span> Analytics</span>
     </a>
     <div class="ui pointing dropdown link item mobile hidden tablet hidden">
