@@ -1,13 +1,18 @@
 # MongoDB Settings
 nosql:
-    driver: mongodb
-    host:
-    port: 27017
-    database:
-    username:
-    password:
-    'options':
-        database: matthews # MongoDB 3 Required
+  driver: mongodb
+  host:
+  port: 27017
+  database:
+  username:
+  password:
+  'options':
+      database: matthews # MongoDB 3 Required
+
+# CAS Settings
+cas:
+  uri:
+  port:
 
 # LDAP Settings
 ldap:
@@ -19,9 +24,9 @@ ldap:
 
 # OpenLRW API Settings
 api:
-    url:  # Must starts with 'http://' or 'https://' and finishes with '/'
-    username:
-    password:
+  uri:  # Must starts with 'http://' or 'https://' and finishes with '/'
+  username:
+  password:
 
 # List of super administrators (LDAP uid)
 administrators:
