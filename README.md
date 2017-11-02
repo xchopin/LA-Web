@@ -9,7 +9,7 @@
 
 > Work in Progress <br>
 
-##### Web application for universities using the Moodle LMS and OpenLRW.
+#### Web application for universities using the Moodle LMS and OpenLRW.
 
 ## Features
 - CAS Authentication
