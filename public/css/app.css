@@ -111,7 +111,6 @@ span.profile-city {
     left: 50%;
 }
 
-
 span.hamburger-item {
     font-size: 1.3em;
     margin-left: 1.8em;
@@ -153,6 +152,11 @@ span.hamburger-item {
         color: #d2d7d3;
     }
 
+    .footer-icon {
+        color: #d2d7d3 !important;
+
+    }
+
     img.footer-logo {
         width: auto;
         height: 60px;
@@ -162,7 +166,6 @@ span.hamburger-item {
 
 }
 /* Mobile */
-
 @media only screen and (max-width: 767px) {
     [class*="mobile hidden"],
     [class*="tablet only"]:not(.mobile),
@@ -189,7 +192,6 @@ span.hamburger-item {
 
 
 /* Computer / Desktop / iPad Landscape */
-
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     [class*="mobile only"]:not(.computer),
     [class*="tablet only"]:not(.computer),
@@ -203,7 +205,6 @@ span.hamburger-item {
 
 
 /* Large Monitor */
-
 @media only screen and (min-width: 1200px) and (max-width: 1919px) {
     [class*="mobile only"]:not([class*="large monitor"]),
     [class*="tablet only"]:not([class*="large monitor"]),
@@ -217,7 +218,6 @@ span.hamburger-item {
 
 
 /* Widescreen Monitor */
-
 @media only screen and (min-width: 1920px) {
     [class*="mobile only"]:not([class*="widescreen monitor"]),
     [class*="tablet only"]:not([class*="widescreen monitor"]),
