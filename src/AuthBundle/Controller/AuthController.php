@@ -21,10 +21,9 @@ class AuthController extends Controller
      * Redirects to the CAS authentication page.
      *
      * @Route("/login", name="login")
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function login(Request $request)
+    public function login()
     {
         $settings = $this->getParameter('cas');
         phpCAS::client(CAS_VERSION_2_0, $settings['host'], $settings['port'], '');
@@ -40,7 +39,6 @@ class AuthController extends Controller
      *
      * @Route("/logout", name="logout")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function logout(Request $request)
     {
