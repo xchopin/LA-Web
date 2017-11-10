@@ -1,0 +1,28 @@
+{
+  "self_name": "Français",
+  "loading": "Chargement",
+  "tabs": {
+    "home": "Accueil",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "profile": "Mon profil",
+    "menu": "Menu",
+    "languages": "Langues"
+  },
+  "footer": {
+    "social_network": "Réseaux sociaux",
+    "quick_links": "Liens utiles",
+    "about": "A propos",
+    "security_assistance": "Assistance",
+    "legal_notice": "Mention Légale"
+  },
+  "admin_tools": {
+    "self_name": "Outils administrateur",
+    "find_student": {
+      "self_name": "Trouver un étudiant",
+      "search": "Rechercher",
+      "visit_profile": "Visiter le profil",
+      "no_results": "Désolé, aucun résultat"
+    }
+  }
+}

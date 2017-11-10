@@ -1,32 +1,36 @@
-# MongoDB Settings
-nosql:
-  driver: mongodb
-  host:
-  port: 27017
-  database:
-  username:
-  password:
-  'options':
-      database: matthews # MongoDB 3 Required
+parameters:
+    # A secret key that's used to generate certain security-related tokens
+    secret: ThisTokenIsNotSoSecretChangeIt
 
-# CAS Settings
-cas:
-  uri:
-  port:
+    # MongoDB Settings
+    nosql:
+      driver: mongodb
+      host:
+      port: 27017
+      database:
+      username:
+      password:
+      'options':
+          database: matthews # MongoDB 3 Required
 
-# LDAP Settings
-ldap:
-  host:
-  port:
-  base_dn:
-  username:
-  password:
+    # CAS Settings
+    cas:
+      uri:
+      port:
 
-# OpenLRW API Settings
-api:
-  uri:  # Must starts with 'http://' or 'https://' and finishes with '/'
-  username:
-  password:
+    # LDAP Settings
+    ldap:
+      host:
+      port:
+      base_dn:
+      username:
+      password:
 
-# List of super administrators (LDAP uid)
-administrators:
+    # OpenLRW API Settings
+    api:
+      uri:  # Must starts with 'http://' or 'https://' and finishes with '/'
+      username:
+      password:
+
+    # List of super administrators (LDAP uid)
+    administrators:

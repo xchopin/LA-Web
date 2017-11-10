@@ -1,0 +1,7 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+auth:
+    resource: '@AuthBundle/Controller/'
+    type: annotation

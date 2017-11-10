@@ -1,0 +1,12 @@
+<div class="ui container flash">
+    {% for label, messages in app.flashes %}
+        <div class="ui {{ label }} message">
+            <i class="close icon"></i>
+            <div class="header">
+                {% for message in messages %}
+                    {{ message|raw }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
