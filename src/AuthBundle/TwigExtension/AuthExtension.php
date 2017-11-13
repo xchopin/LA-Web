@@ -9,6 +9,7 @@
 
 namespace AuthBundle\TwigExtension;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -31,15 +32,14 @@ class AuthExtension extends Twig_Extension
 
     /**
      * AuthExtension constructor.
-     * @param resource $ldap
-     * @param string $baseDN
-     * @param array $administrators
+     *
+     * @param ContainerInterface $container
      */
-    public function __construct($ldap = null, $baseDN = '', $administrators = [])
+    public function __construct(ContainerInterface $container)
     {
-        $this->ldap = $ldap;
-        $this->baseDN = $baseDN;
-        $this->administrators = $administrators;
+        $this->ldap = $container->get('ldap');
+        $this->baseDN = $container->getParameter('ldap')['base_dn'];
+        $this->administrators = $container->getParameter('administrators');
     }
 
     public function getName()
@@ -64,9 +64,9 @@ class AuthExtension extends Twig_Extension
         if (isset($_SESSION['phpCAS']['user'])) {
             $logged = true;
             $username = $_SESSION['phpCAS']['user'];
-           // $query = ldap_search($this->ldap, $this->baseDN, "uid=$username");
-          //  $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
-           // $isAdmin = (in_array($username, $this->administrators));
+            $query = ldap_search($this->ldap, $this->baseDN, "uid=$username");
+            $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
+            $isAdmin = (in_array($username, $this->administrators));
         }
 
         return (object)
