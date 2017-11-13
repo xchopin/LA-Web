@@ -1,8 +1,9 @@
 vendor/
 node_modules/
-public/lib/
+web/lib/*
 .idea/
 var/cache/*
+var/sessions/*
 !var/cache/.gitkeep
 var/logs/*
 !var/logs/.gitkeep
