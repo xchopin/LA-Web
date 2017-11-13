@@ -16,6 +16,7 @@ use Twig_SimpleFunction;
 class AuthExtension extends Twig_Extension
 {
     /**
+     *
      * @var resource LDAP Instance
      */
     protected $ldap;
