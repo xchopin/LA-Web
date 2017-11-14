@@ -48,7 +48,7 @@ class Providers
         $ldapInstance = ldap_connect($settings['host'], $settings['port']);
         ldap_set_option($ldapInstance, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($ldapInstance, LDAP_OPT_REFERRALS, 0);
-        $this->container->set('ldap', $ldapInstance);
+        $this->container->set('ldap', (object) $ldapInstance);
     }
 
     public static function getSubscribedEvents()
