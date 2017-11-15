@@ -7,13 +7,15 @@
         {
             "name": "Xavier Chopin",
             "email": "xavier.chopin@univ-lorraine.fr",
-            "homepage": "https://xavierchop.in"
+            "homepage": "https://github.com/xchopin"
         }
     ],
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
-            "AuthBundle\\": "src/AuthBundle"
+            "AdminBundle\\": "src/AdminBundle",
+            "AuthBundle\\": "src/AuthBundle",
+            "CoreBundle\\": "src/CoreBundle"
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
@@ -21,13 +23,19 @@
         "psr-4": { "Tests\\": "tests/" },
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
+
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "guzzlehttp/guzzle": "^6.3.0",
+        "illuminate/events": "^5.5",
+        "illuminate/database": "^5.5",
+        "illuminate/support": "^5.5",
         "incenteev/composer-parameter-handler": "^2.0",
         "jasig/phpcas": "^1.3",
+        "jenssegers/mongodb": "^3.3.1",
+        "mongodb/mongodb": "1.0.0",
         "jms/i18n-routing-bundle": "^2.0.1",
         "jms/translation-bundle": "^1.3.2",
         "sensio/distribution-bundle": "^5.0.19",
@@ -59,7 +67,7 @@
     },
     "config": {
         "platform": {
-            "php": "5.5.9"
+            "php": "7.0"
         },
         "sort-packages": true
     },
