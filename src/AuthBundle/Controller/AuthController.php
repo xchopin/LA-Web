@@ -9,14 +9,14 @@
 
 namespace AuthBundle\Controller;
 
+use CoreBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
 use phpCAS;
 
-class AuthController extends Controller
+class AuthController extends AbstractController
 {
+    
     /**
      * Redirects to the CAS authentication page.
      *
