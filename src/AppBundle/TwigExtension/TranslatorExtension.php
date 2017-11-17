@@ -9,36 +9,54 @@
 
 namespace AppBundle\TwigExtension;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class TranslatorExtension
- * Useful Twig function for translating words or getting the languages available
+ * Useful Twig function for translating words or getting the languages available.
+ *
  * @package AppBundle\TwigExtension
  */
 class TranslatorExtension extends Twig_Extension
 {
-    /**
-     * Path to the translations folder
-     */
-    const DICTIONARY_PATH = __DIR__ . '/../../../app/resources/Translations/';
 
     /**
      * @var string
      */
     protected $country_id;
 
-    public function __construct($country_id = 'fr')
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * TranslatorExtension constructor.
+     *
+     * @param ContainerInterface $container
+     * @param RequestStack $request_stack
+     */
+    public function __construct(ContainerInterface $container, RequestStack $request_stack)
     {
-        $this->country_id = $country_id;
+        $this->container = $container;
+        $request = $request_stack->getCurrentRequest();
+        $this->country_id = $request->get('_locale');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'translate';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFunctions()
     {
         return [
@@ -47,22 +65,28 @@ class TranslatorExtension extends Twig_Extension
         ];
     }
 
+    /**
+     * Returns a dictionary of keywords for the current language.
+     *
+     * @return array
+     */
     public function dictionary()
     {
-        $file = self::DICTIONARY_PATH . $this->country_id . '.json';
-        $dictionary = json_decode(file_get_contents($file), true);
-
+        $dictionary = $this->container->getParameter('dictionaries')[$this->country_id];
         return $dictionary;
     }
 
+    /**
+     * Returns the list of the languages translated.
+     *
+     * @return array
+     */
     public function languagesAvailable()
     {
-        $languages = [];
-        foreach (glob(self::DICTIONARY_PATH . '*.json') as $file) {
-            $language = json_decode(file_get_contents($file), GLOB_BRACE);
-            $languages += [ $language['self_name'] => substr(basename($file), 0, 2) ];
-        }
-
+       $languages = [];
+       foreach ($this->container->getParameter('dictionaries') as $languageId => $dictionary) {
+           $languages += [ $dictionary['self_name'] => $languageId ];
+       }
         return $languages;
     }
 }
