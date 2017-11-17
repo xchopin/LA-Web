@@ -5,8 +5,10 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+
     public function registerBundles()
     {
+
         $bundles = [
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
@@ -14,11 +16,22 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new AdminBundle\AdminBundle(),
             new AppBundle\AppBundle(),
             new AuthBundle\AuthBundle(),
+            new CoreBundle\CoreBundle(),
         ];
+
+        /**
+         * Fixes the Jenssegers/MongoDB dependency issue for Query Builders when not using Lumen Micro-framework or Laravel Framework
+         * (It helps to know by using the Eloquent version if it has to use tables or collections)
+         */
+        function app() {
+            return new class {
+                public function version() { return '5.5'; }
+            };
+        }
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
@@ -53,4 +66,6 @@ class AppKernel extends Kernel
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+
 }
