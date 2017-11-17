@@ -1,7 +1,7 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -13,38 +13,49 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
+    auth.admin_middleware:
+        class: AuthBundle\EventSubscriber\AdminSubscriber
+        argument: ["@service_container"]
+
+    app.core.controller:
+      class: CoreBundle\Controller\AbstractController
+      argument: ["@service_container"]
+
     app.providers:
-        class: AppBundle\EventListener\Providers
+        class: CoreBundle\EventListener\LocaleListener
         arguments: ["@service_container"]
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, }
 
-    auth.twig_extension:
-        class: AuthBundle\TwigExtension\AuthExtension
-        arguments: ["@service_container"]
-        tags:
-          - { name: twig.extension }
-
-    multilingual.user_language.event_listener.locale_listener:
+    app.multilingual.favorite_language:
         class: AppBundle\EventListener\LocaleListener
         arguments: ["@router", "%kernel.default_locale%", "%jms_i18n_routing.locales%"]
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, }
 
-    multilingual.translator.twig_extension:
+    app.multilingual.twig_extension:
         class: AppBundle\TwigExtension\TranslatorExtension
+        argument: ["@service_container", "@request_stack"]
         tags:
           - { name: twig.extension }
-
 
     # makes classes in Bundles available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
 
+    AdminBundle\:
+        resource: '../../src/AdminBundle/*'
+        exclude: '../../src/AdminBundle/{Entity,Repository,Tests}'
+
+    AdminBundle\Controller\:
+        resource: '../../src/AdminBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
     AppBundle\:
         resource: '../../src/AppBundle/*'
-        exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
+        exclude: '../../src/AppBundle/{Entity,Repository,Tests,TwigExtension}'
 
     AppBundle\Controller\:
         resource: '../../src/AppBundle/Controller'
@@ -59,6 +70,16 @@ services:
         resource: '../../src/AuthBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    CoreBundle\:
+        resource: '../../src/CoreBundle/*'
+        exclude: '../../src/CoreBundle/{Entity,Repository,Tests}'
+
+    CoreBundle\Controller\:
+        resource: '../../src/CoreBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
