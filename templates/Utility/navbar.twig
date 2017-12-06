@@ -1,0 +1,100 @@
+{%
+set adminTools = [
+    {'route': 'find-student', 'icon': 'search', 'name': dictionary.admin_tools.find_student.self_name },
+]
+%}
+
+<div class="ui vertical inverted very sidebar menu left uncover">
+    <div class="item">
+        <a class="ui logo icon image" href="{{ path('home') }}">
+            <img src="{{ asset('img/logo.png') }}" alt="logo">
+        </a>
+        &nbsp; | <span>Analytics</span>
+    </div>
+
+    <a class="item" href="{{ path('home') }}">
+        <h3><i class="home icon"></i> {{ dictionary.tabs.home }}</h3>
+    </a>
+    <div class="item">
+        <h3><i class="world icon"></i> {{ dictionary.tabs.languages }}  <i class="small down caret icon"></i></h3>
+        <div class="collapsible menu">
+            {% for language, id in languages() %}
+                <a class="item" href="{{ path('home', {'_locale': id}) }}">
+                    <span class="hamburger-item">{{ language }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% if auth().isAdmin %}
+        <div class="item">
+            <h3> <i class="archive icon"></i> {{ dictionary.admin_tools.self_name }} <i class="small down caret icon"></i></h3>
+            <div class="collapsible menu">
+                {% for tool in adminTools %}
+                    <a class="item" href={{ path(tool.route) }}>
+                        <span class="hamburger-item"> <i class="{{ tool.icon }} icon"></i>{{ tool.name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<nav id='navbar' class="ui borderless top inverted fixed menu">
+    <a id='open-menu' class="toc item mobile only tablet only">
+        <span id="menu">{{ dictionary.tabs.menu }}</span>
+        <div id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </a>
+    <a href="{{ path('home') }}" class="header item mobile hidden tablet hidden">
+        <img src="{{ asset('img/logo.png') }}" class="logo" alt="logo"> &nbsp;&nbsp; | <span> Analytics</span>
+    </a>
+    <div class="ui pointing dropdown link item mobile hidden tablet hidden">
+        <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.self_name }}</span>
+        <i class="dropdown icon"></i>
+        <div id='language-list' class="ui inverted menu">
+            {% for language, id in languages() %}
+                <a class="item" href="{{ path('home', {'_locale': id}) }}">
+                    <span class="text">{{ language }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% if auth().isAdmin %}
+        <div class="ui pointing dropdown link item mobile hidden tablet hidden">
+            <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
+            <i class="dropdown icon"></i>
+            {% for tool in adminTools %}
+                <div class="ui inverted menu">
+                    <a class="item" href="{{ path(tool.route) }}">
+                        <span class="text"> <i class="{{ tool.icon }} icon"></i> {{ tool.name }}</span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="right menu">
+        {% if not auth().isLogged %}
+            <a href="{{ path('login') }}" class="item">
+                <i class="sign in icon"></i> {{ dictionary.tabs.login }}
+            </a>
+        {% else %}
+            <div class="ui pointing dropdown link item">
+                <span id="user" class="text"><i class='large user circle icon'></i>{{ auth().name }}</span>
+                <i class="dropdown icon"></i>
+                <div id='menu' class="ui inverted menu">
+                    <a class="item" href="{{ path('logout') }}">
+                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.tabs.logout }}</span>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+
+<div id='loader' class="ui dimmer">
+    <div class="ui text loader">{{ dictionary.loading }}</div>
+</div>

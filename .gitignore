@@ -1,10 +1,10 @@
-vendor/
-node_modules/
-web/lib/*
+###> symfony/framework-bundle ###
 .idea/
-var/cache/*
-var/sessions/*
-!var/cache/.gitkeep
-var/logs/*
-!var/logs/.gitkeep
-app/config/parameters.yml
+.env
+!.env.dist
+/public/bundles/
+public/lib/
+!var/.gitkeep
+/var/
+/vendor/
+###< symfony/framework-bundle ###

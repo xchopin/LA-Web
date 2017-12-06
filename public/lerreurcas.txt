@@ -1,0 +1,15 @@
+9A4B .START (2017-12-04 16:41:00) phpCAS-1.3.5 ****************** [CAS.php:468]
+9A4B .=> phpCAS::client('2.0', 'auth.univ-lorraine.fr', '443', '') [AuthController.php:29]
+9A4B .|    => phpCAS::error('CAS_TypeMismatchException: type mismatched for parameter $server_port (should be \'integer \'), string given. ') [CAS.php:362]
+9A4B .|    |    CAS_TypeMismatchException: type mismatched for parameter $server_port (should be 'integer '), string given.  in /Library/WebServer/www/LAWA/src/Controller/AuthController.phpon line 29 [CAS.php:566]
+9A4B .|    <= ''
+EE5B .START (2017-12-04 16:41:50) phpCAS-1.3.5 ****************** [CAS.php:468]
+EE5B .=> phpCAS::client('2.0', 'auth.univ-lorraine.fr', '443', '') [AuthController.php:29]
+EE5B .|    => phpCAS::error('CAS_TypeMismatchException: type mismatched for parameter $server_port (should be \'integer \'), string given. ') [CAS.php:362]
+EE5B .|    |    CAS_TypeMismatchException: type mismatched for parameter $server_port (should be 'integer '), string given.  in /Library/WebServer/www/LAWA/src/Controller/AuthController.phpon line 29 [CAS.php:566]
+EE5B .|    <= ''
+18A4 .START (2017-12-04 16:42:10) phpCAS-1.3.5 ****************** [CAS.php:468]
+18A4 .=> phpCAS::client('2.0', 'auth.univ-lorraine.fr', '443', '') [AuthController.php:29]
+18A4 .|    => phpCAS::error('CAS_TypeMismatchException: type mismatched for parameter $server_port (should be \'integer \'), string given. ') [CAS.php:362]
+18A4 .|    |    CAS_TypeMismatchException: type mismatched for parameter $server_port (should be 'integer '), string given.  in /Library/WebServer/www/LAWA/src/Controller/AuthController.phpon line 29 [CAS.php:566]
+18A4 .|    <= ''
