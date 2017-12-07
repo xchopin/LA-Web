@@ -24,8 +24,8 @@
 
 ## 2. Requirements
 - Apache
+- MongoDB ⩾ 3.0
 - [Moodle LMS](https://moodle.org)
-- MongoDB
 - [OpenLRW](https://github.com/Apereo-Learning-Analytics-Initiative/OpenLRW)
 - PHP ⩾ 7.1
 - PHP modules: 
@@ -36,6 +36,8 @@
 - [Symfony Framework (v4.0)](https://symfony.com/doc/4.0/index.html)
 - [Eloquent ORM for MongoDB](https://github.com/jenssegers/laravel-mongodb) ([since Doctrine does not support PHP⩾7.0 yet](http://www.doctrine-project.org/2016/02/16/doctrine-mongodb-odm-release-1.0.5.html))
 - [Guzzle](http://docs.guzzlephp.org)
+>>
+- [Chart.js](http://www.chartjs.org/docs/latest/)
 - [Semantic UI](https://semantic-ui.com/introduction/getting-started.html)
 - [jQuery](https://api.jquery.com/)
 
