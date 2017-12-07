@@ -63,13 +63,16 @@ class LocaleListener
         $capsule->addConnection([
             'driver' => 'mongodb',
             'host' => env('DB_HOST'),
-            'port' => env('DB_PORT'),
+            'port' => intval(env('DB_PORT')),
             'database' => env('DB_NAME'),
             'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD')
+            'password' => env('DB_PASSWORD'),
+            'options' => [
+                'database' => env('DB_NAME'),
+            ]
         ]);
-        $capsule->bootEloquent();
         $capsule->setAsGlobal();
+        $capsule->bootEloquent();
         $this->container->set('capsule', $capsule);
     }
 

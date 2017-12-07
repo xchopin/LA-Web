@@ -23,6 +23,16 @@ if ($_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev'))) {
     Debug::enable();
 }
 
+/**
+ * Fixes the Jenssegers/MongoDB dependency issue for Query Builders when not using Lumen Micro-framework or Laravel Framework
+ * (It helps to know by using the Eloquent version if it has to use tables or collections)
+ */
+function app() {
+    return new class {
+        public function version() { return '5.5'; }
+    };
+}
+
 // Request::setTrustedProxies(['0.0.0.0/0'], Request::HEADER_FORWARDED);
 
 $kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', $_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev')));
