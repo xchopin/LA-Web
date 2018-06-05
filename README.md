@@ -45,7 +45,7 @@
 # Installation
 ## 1. Clone the repository
 ``` bash
-$ git clone https://gitlab.univ-lorraine.fr/chopin1/LA-Webapp
+$ git clone https://github.com/xchopin/LAWA-UL.git
 ```
 
 ## 2. Install front-end dependencies
@@ -149,3 +149,8 @@ server {
 # Documentation
 ## Key files
 // ToDo
+
+## Known Issues
+- Composer cannot detect the MongoDB PHP Driver
+
+`composer require jenssegers/mongodb --ignore-platform-reqs`
