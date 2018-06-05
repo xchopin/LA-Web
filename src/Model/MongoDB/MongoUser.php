@@ -1,10 +1,17 @@
 <?php
 
+/*
+ * @author  Xavier Chopin <xavier.chopin@univ-lorraine.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Model;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class User extends Eloquent {
+class MongoUser extends Eloquent {
 
     protected $collection = 'mongoUser';
 
@@ -18,9 +25,10 @@ class User extends Eloquent {
      */
     public static function moodleId($uid)
     {
-        $user = User::find($uid);
+        $user = MongoUser::find($uid);
         return $user == null ? null : $user->user['sourcedId'];
     }
+
 
 }
 

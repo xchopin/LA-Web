@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * @author  Xavier Chopin <xavier.chopin@univ-lorraine.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use GuzzleHttp\Client;
@@ -14,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
      *
      * @var Client
      */
-    protected $http;
+    static public $http;
 
     /**
      * Constructor.
@@ -22,24 +29,40 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->http = new Client(['base_uri' => env('API_URI')]);
+        self::$http = new Client(['base_uri' => env('API_URI')]);
+        $container->set('http', self::$http);
     }
 
-    /**
-     * Creates and return a JSON Web Token through the OpenLRW API by using credentials filled in parameters.yml
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     */
-    protected function createJWT()
+     /**
+      * Creates and return a JSON Web Token through the OpenLRW API by using credentials filled in .env
+      *
+      * @return mixed|\Psr\Http\Message\ResponseInterface
+      * @throws \GuzzleHttp\Exception\GuzzleException
+      */
+    public static function generateJwt()
     {
-        return json_decode( $this->http->request('POST', 'auth/login', [
+        $_SESSION['JWT'] = json_decode( self::$http->request('POST', 'api/auth/login', [
             'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
             'json' => [
                 'username' => env('API_USERNAME'),
                 'password' => env('API_PASSWORD')
             ]
         ])->getBody()
-          ->getContents());
+          ->getContents())->token;
+
+        return $_SESSION['JWT'];
+
+    }
+
+
+    protected static function getJwt()
+    {
+        return $_SESSION['JWT'];
+    }
+
+    static function makeJwt()
+    {
+        return isset($_SESSION['JWT']) ? self::getJwt() : self::generateJwt();
     }
 
     /**
@@ -47,7 +70,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
      *
      * @param mixed $variable
      */
-    protected function debug($variable)
+    static protected function debug($variable)
     {
         die('<pre>' . print_r($variable, true) . '</pre>');
     }

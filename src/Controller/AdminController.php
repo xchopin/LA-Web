@@ -9,7 +9,7 @@
 
 namespace App\Controller;
 
-use App\Model\User;
+use App\Model\API\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -58,26 +58,39 @@ class AdminController extends AbstractController implements AdminAuthenticatedCo
      */
     public function studentProfile(Request $request, $id = '')
     {
-        $classes = [];
-        $moodleId = User::moodleId($id);
 
-        if ($moodleId === null) {
+        //ToDo: separate with ajax calls
+        $classes = [];
+
+        $user = User::find($id);
+
+        if ($user === null) {
             $this->addFlash('error', "Student `$id` does not exist");
             return $this->redirectToRoute('home');
         }
 
-        $enrollments = $this->http->get('users/' . User::moodleId($id) . '/enrollments', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->createJWT()->token]
-        ]);
+        $events = User::events($id);
 
-        foreach (json_decode($enrollments->getBody()->getContents()) as $enrollment) {
-            if ($enrollment->class->title != null)
-                array_push($classes, $enrollment->class);
+        $activities = [];
+
+        if ($events != null)
+        {
+            foreach ($events as $event)
+                array_push($activities, $event->object->{'@type'});
+
+            $activities = array_count_values($activities);
         }
 
-        return $this->render('admin/user.twig',[
-            'classes' => $classes,
-            'student_name' => $this->ldapFirst("uid=$id")['displayname'][0]
+       //foreach (json_decode($enrollments->getBody()->getContents()) as $enrollment) {
+       //    if ($enrollment->class->title != null)
+       //        array_push($classes, $enrollment->class);
+       //}
+
+        return $this->render('admin/user.twig', [
+            'givenName' => $user->givenName,
+            'classes' => null,
+            'events' => $events,
+            'event_activities' => json_encode($activities, JSON_UNESCAPED_SLASHES )
         ]);
 
     }
