@@ -86,7 +86,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedCo
        //        array_push($classes, $enrollment->class);
        //}
 
-        return $this->render('admin/user.twig', [
+        return $this->render('Admin/user.twig', [
             'givenName' => $user->givenName,
             'classes' => null,
             'events' => $events,
