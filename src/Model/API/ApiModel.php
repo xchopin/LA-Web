@@ -44,6 +44,8 @@ abstract class ApiModel
                     die($e->getMessage());
                 }
                 self::get($route);
+            }else {
+                die($e->getMessage());
             }
             return null;
         }
