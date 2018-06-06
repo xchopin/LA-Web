@@ -3,6 +3,7 @@
 {% block body %}
 
 
+
 <div class="ui grid">
     <div class="one wide column"></div>
     <div class="three wide column ">
@@ -56,7 +57,7 @@
     </div>
     <div class="ten wide column">
         <div class="profile-header">
-             <span class="profile-name">{{ student_name }}</span>
+             <span class="profile-name">{{ givenName }}</span>
              <span class="profile-city">
                  <i id='city-marker' class="large marker icon"></i><span id="city">IUT Nancy Charlemagne</span>
              </span>
@@ -68,10 +69,10 @@
             <a class="item" data-tab="third">Cours</a>
         </div>
         <div class="ui active tab" data-tab="first">
-            <canvas id="myChart" width="auto" height="100"></canvas>
+            <canvas id="chartPeriod" width="auto" height="100"></canvas>
         </div>
-        <div class="ui tab" data-tab="second">
-            Aucun évenement.
+        <div class="ui tab" data-tab="second" style="overflow-x:visible">
+            <canvas id="myChart" width="auto"></canvas>
         </div>
         <div class="ui tab" data-tab="third">
             <div class="ui cards">
@@ -92,16 +93,20 @@
 
 
     <script>
+        let activities =  {{ event_activities | raw}}
+
         $(function () {
             $('.menu .item').tab({ context: $('#summary')})
+            Chart.defaults.global.defaultFontFamily = "Lato"
+            Chart.defaults.global.defaultFontSize = 18
             var ctx = document.getElementById("myChart").getContext('2d')
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ["Arch", "ENT", "Zimbra", "Eduroam", "B'ul", "Agatte"],
+                    labels: Object.keys(activities),
                     datasets: [{
                         label: 'Nombre de connections',
-                        data: [12, 19, 3, 5, 2, 3],
+                        data: Object.values(activities),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -121,16 +126,118 @@
                         borderWidth: 1
                     }]
                 },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value) { if (Number.isInteger(value)) { return value; } }
+                        }
+                    }]
                 }
             })
+
+            chartForPeriod()
+
+
+
         })
+
+        function chartForPeriod() {
+            var ctx = document.getElementById("chartPeriod").getContext('2d')
+            Chart.defaults.global.legend.labels.usePointStyle = true;
+            const defaultGenerateLabels = Chart.defaults.polarArea.legend.labels.generateLabels;
+
+
+            var yourImage = new Image();
+            yourImage.src ='http://style.anu.edu.au/_anu/4/images/buttons/arrow-down-black.png';
+            var xLabels = {
+                0 : 'Lundi',
+                1 : 'Mardi',
+                2 : 'Mecredi',
+                3 : 'Jeudi',
+                4 : 'Vendredi',
+                5 : 'Samedi',
+                6 : 'Dimanche'
+            }
+
+            var yLabels = {
+                0 : 'Zimbra',
+                1 : 'Indkøb',
+                2 : 'Tøj på',
+                3 : 'Spise',
+                4 : 'Trapper',
+                5 : 'Bad',
+                6 : 'Hygiejne',
+                7 : 'Toiletbesøg',
+                8 : 'På toilet',
+                9 : 'Op ad send'
+            }
+
+            var myChart = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Darligere',
+                        data: [{x:0, y:0, r:20},
+                            {x:1, y:0, r:2},
+                            {x:2, y:0, r:5},
+                            {x:3, y:0, r:10},
+                            {x:4, y:0, r:1}],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255,99,132,1)',
+                        borderWidth: 2
+
+                    }]
+                },
+                options: {
+                    legend:{
+                        display: true,
+                        position: 'bottom'
+                    },
+
+                    tooltips:{enabled:false},
+                    // legend: {
+                    //    display: true,
+                    //    position: 'bottom'
+                    // },
+                    scales: {
+                        xAxes: [{
+                            position: 'top' ,
+                            ticks: {
+                                min: -0.5,
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                    return xLabels[value];
+                                },
+                                padding: 30
+                            },
+                            gridLines : {
+                                display : false
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines : {
+                                drawBorder : false
+                            },
+                            ticks: {
+                                min: -0.5,
+                                fontStyle:'bold',
+                                padding:10,
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                    return yLabels[value];
+                                }
+                            },
+                        }],
+                    }
+                }
+            });
+
+        }
+
+
+
+
+
     </script>
 {% endblock %}
