@@ -8,7 +8,7 @@ foreach (glob($path) as $file) {
     $languageId = substr(basename($file), 0, 2);
     $content = json_decode(file_get_contents($file), GLOB_BRACE);
 
-    $dictionaries += [$languageId => $content];
+    $dictionaries += [$languageId => $content]; // ToDo : optimize by selecting only the language used
     array_push($languages, $languageId);
 }
 
