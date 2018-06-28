@@ -9,8 +9,6 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-
-class UserController extends AbstractController implements AuthenticatedInterface
+interface AuthenticatedInterface
 {
 }
