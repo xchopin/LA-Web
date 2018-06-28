@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/tools")
  */
-class Admin extends AbstractController implements AdminAuthenticated
+class AdminController extends AbstractController implements AdminAuthenticatedInterface
 {
     /**
      * GET : Renders a form page to find a student

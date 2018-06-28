@@ -2,9 +2,9 @@
 
 namespace App\Event;
 
+use App\Controller\AdminAuthenticatedInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use App\Controller\AdminAuthenticatedController;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -33,7 +33,7 @@ class AdminSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($controller[0] instanceof AdminAuthenticatedController) {
+        if ($controller[0] instanceof AdminAuthenticatedInterface) {
             $isAdmin = false;
             if (isset($_SESSION['phpCAS']['user'])) {
                 if (in_array($_SESSION['phpCAS']['user'], $this->administrators))
