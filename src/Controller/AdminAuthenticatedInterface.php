@@ -9,6 +9,6 @@
 
 namespace App\Controller;
 
-interface AdminAuthenticatedController
+interface AdminAuthenticatedInterfaceInterface extends AuthenticatedInterface
 {
 }

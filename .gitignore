@@ -7,4 +7,5 @@ public/lib/
 !var/.gitkeep
 /var/
 /vendor/
+node_modules/
 ###< symfony/framework-bundle ###
