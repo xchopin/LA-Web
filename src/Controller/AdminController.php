@@ -76,7 +76,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedCo
         if ($events != null)
         {
             foreach ($events as $event)
-                array_push($activities, $event->object->{'@type'});
+                array_push($activities, $event->object->name);
 
             $activities = array_count_values($activities);
         }
@@ -94,6 +94,5 @@ class AdminController extends AbstractController implements AdminAuthenticatedCo
         ]);
 
     }
-
 }
 
