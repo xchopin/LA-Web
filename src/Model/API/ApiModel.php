@@ -20,6 +20,7 @@ abstract class ApiModel
      *
      * @param String $route
      * @return mixed|object
+     * @throws \Exception
      */
     public static function get(String $route)
     {
@@ -44,8 +45,8 @@ abstract class ApiModel
                     die($e->getMessage());
                 }
                 self::get($route);
-            }else {
-                die($e->getMessage());
+            } else {
+                throw new \Exception($e);
             }
             return null;
         }

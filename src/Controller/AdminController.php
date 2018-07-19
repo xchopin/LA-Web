@@ -62,7 +62,12 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
         //ToDo: separate with ajax calls
         $classes = [];
 
-        $user = User::find($id);
+        try {
+            $user = User::find($id);
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Service unavailable');
+            return $this->redirectToRoute('home');
+        }
 
         if ($user === null) {
             $this->addFlash('error', "Student `$id` does not exist");
