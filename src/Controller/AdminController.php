@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Model\API\User;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -64,7 +65,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
 
         try {
             $user = User::find($id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->addFlash('error', 'Service unavailable');
             return $this->redirectToRoute('home');
         }

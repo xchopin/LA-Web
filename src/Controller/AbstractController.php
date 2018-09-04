@@ -124,5 +124,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
         return ldap_get_entries($this->__get('ldap'), $this->searchLDAP($filter, $arg))[0];
     }
 
+     /**
+      * Function to check if OpenLRW is up
+      *
+      * @return boolean
+      * @throws \GuzzleHttp\Exception\GuzzleException
+      */
+     public static function isUp()
+     {
+         return self::$http->request('GET', '/info.json')->getStatusCode() == 200;
+     }
+
 
 }

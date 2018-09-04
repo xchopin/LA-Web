@@ -1,0 +1,72 @@
+
+{% set dictionary = dictionary() %}
+
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Application Web de Learning Analytics{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('lib/semantic-ui/dist/semantic.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+{% block navbar %}
+
+    <div class="ui vertical inverted very sidebar menu left uncover">
+        <div class="item">
+            <a class="ui logo icon image">
+                <img src="{{ asset('img/logo.png') }}" alt="logo">
+            </a>
+            &nbsp; | <span>Analytics</span>
+        </div>
+
+    </div>
+
+    <nav id='navbar' class="ui borderless top inverted fixed menu" style="background-color: #a32c33">
+        <a href="{{ path('home') }}" class="header item mobile hidden tablet hidden">
+            <img src="{{ asset('img/logo.png') }}" class="logo" alt="logo"> &nbsp;&nbsp; | <span> Analytics</span>
+        </a>
+
+        <div class="right menu">
+           <a  class="item">
+               <i class="exclamation triangle icon"></i> Indisponible
+           </a>
+        </div>
+    </nav>
+
+{% endblock %}
+
+<div class="pusher site" >
+    <main class="site-content">
+        {% block body %}
+            <div class="ui container">
+                <h1 class="ui center aligned header">
+                    Ce service est momentanément indisponible. <br>
+                    Veuillez nous excuser pour la gêne occasionnée.
+                </h1>
+                <br> <br> <br>
+                <h4 class="ui center aligned header"><i>Impossible de contacter l'application d'analyse.</i></h4>
+            </div>
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+        {% include 'Utility/footer.twig' %}
+    {% endblock %}
+</div>
+
+{% block javascript %}
+   <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
+</body>
+</html>
+

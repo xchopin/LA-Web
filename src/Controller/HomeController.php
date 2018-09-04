@@ -21,10 +21,14 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function index(Request $request)
     {
-        return $this->render('home.twig');
+        if (self::isUp())
+            return $this->render('home.twig');
+        else
+            return $this->render('Error/unavailable.twig');
     }
 
 }

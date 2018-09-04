@@ -16,9 +16,10 @@ abstract class ApiModel
 {
 
     /**
-     * Generic function to GET OpenLRW routes
+     * Generic function to GET /api/ OpenLRW routes
      *
      * @param String $route
+     * @param String $prefix
      * @return mixed|object
      * @throws \Exception
      */
@@ -27,7 +28,7 @@ abstract class ApiModel
         try {
             return json_decode(Provider::$http->request(
                 'GET',
-                "api/$route",
+                'api/' . $route,
                 [
                     'headers' => [
                         'X-Requested-With' => 'XMLHttpRequest',
@@ -53,6 +54,7 @@ abstract class ApiModel
 
     }
 
+
     /**
      * Generic function to POST OpenLRW routes
      *
@@ -68,5 +70,8 @@ abstract class ApiModel
            'json' => $args
        ])->getBody()->getContents());
     }
+
+
+
 
 }
