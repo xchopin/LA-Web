@@ -3,12 +3,12 @@
 {% block body %}
     <div class="ui twelve column stackable center aligned page grid">
         <div class="ui container">
-            <h1 class="ui center aligned header">{{ dictionary.admin_tools.find_student.self_name }}</h1> <br>
+            <h1 class="ui center aligned header">{{ dictionary.admin_tools.view_as.self_name }}</h1> <br>
             <form method='post' id="form-student" name="form-student">
                 <div id='search-bar' class="ui left icon big fluid action input">
-                    <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.find_student.search }}...">
+                    <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.view_as.search }}...">
                     <i class="address book icon"></i>
-                    <button id='search' class="ui submit button">{{ dictionary.admin_tools.find_student.search }}</button>
+                    <button id='search' class="ui submit button">{{ dictionary.admin_tools.view_as.search }}</button>
                    <!-- <input type="hidden" name="_csrf_token" value=""> -->
                 </div>
             </form>
@@ -25,18 +25,18 @@
                     $('#search-bar').addClass('loading')
                     $('#results').empty()
                     $.ajax({
-                        url: "{{ path('find-student') }}",
+                        url: "{{ path('view-as') }}",
                         type: 'POST',
                         data: { 'name': $('#student_name').val() },
                         success: function (response) {
                             $('#search-bar').removeClass('loading')
                             if (Object.keys(response).length < 1) {
                                 $('#results').append(
-                                    $('<h1>').addClass('ui center aligned header').text('{{ dictionary.admin_tools.find_student.no_results }}')
+                                    $('<h1>').addClass('ui center aligned header').text('{{ dictionary.admin_tools.view_as.no_results }}')
                                 )
                             } else {
                                 $.each(response, function (k, v) {
-                                    var url = '{{ path('student-profile', {'id': 'user_id'}) }}';
+                                    var url = '{{ path('enable-view', {'id': 'user_id'}) }}';
                                     url = url.replace("user_id", k);
                                     $('#results').append(
                                         $('<div>').addClass('card').append(
@@ -46,7 +46,7 @@
                                             ),
                                             $('<a>').prop('href', url).addClass('visit_profile').append(
                                                 $('<div>').addClass('ui bottom attached button').append(
-                                                    $('<i>').addClass('user icon'), '{{ dictionary.admin_tools.find_student.visit_profile }}'
+                                                    $('<i>').addClass('user icon'), '{{ dictionary.admin_tools.view_as.select }}'
                                                 )
                                             ).click(function() {
                                                 $('#loader').addClass('active').transition('fade in')

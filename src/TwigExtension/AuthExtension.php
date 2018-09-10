@@ -66,6 +66,8 @@ class AuthExtension extends Twig_Extension
         $logged = false;
         $isAdmin = false;
         $username = null;
+        $viewAsMode = false;
+        $originalUsername = null;
 
         if (isset($_SESSION['phpCAS']['user'])) {
             $logged = true;
@@ -73,6 +75,11 @@ class AuthExtension extends Twig_Extension
             $query = ldap_search($this->ldap, $this->baseDN, "uid=$username");
             $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
             $isAdmin = (in_array($username, $this->administrators));
+
+            if (isset($_SESSION['username'])) {
+                $viewAsMode = true;
+                $originalUsername = $_SESSION['username'];
+            }
         }
 
         return (object)
@@ -80,7 +87,9 @@ class AuthExtension extends Twig_Extension
             'isLogged' => $logged,
             'isAdmin' =>  $isAdmin,
             'username' => $username,
-            'name' => $name
+            'name' => $name,
+            'viewAsMode' => $viewAsMode,
+            'originalUsername' => $originalUsername
         ];
     }
 }

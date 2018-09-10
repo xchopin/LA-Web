@@ -1,11 +1,11 @@
 {%
 set adminTools = [
-    {'route': 'find-student', 'icon': 'search', 'name': dictionary.admin_tools.find_student.self_name },
+    {'route': 'view-as', 'icon': 'eye', 'name': dictionary.admin_tools.view_as.self_name },
 ]
 %}
 
 <div class="ui vertical inverted very sidebar menu left uncover">
-    <div class="item">
+    <div id="brand" class="item">
         <a class="ui logo icon image" href="{{ path('home') }}">
             <img src="{{ asset('img/logo.png') }}" alt="logo">
         </a>
@@ -39,6 +39,9 @@ set adminTools = [
     {% endif %}
 </div>
 
+
+
+
 <nav id='navbar' class="ui borderless top inverted fixed menu">
     <a id='open-menu' class="toc item mobile only tablet only">
         <span id="menu">{{ dictionary.tabs.menu }}</span>
@@ -49,51 +52,70 @@ set adminTools = [
             <span></span>
         </div>
     </a>
-    <a href="{{ path('home') }}" class="header item mobile hidden tablet hidden">
-        <img src="{{ asset('img/logo.png') }}" class="logo" alt="logo"> &nbsp;&nbsp; | <span> Analytics</span>
-    </a>
-    <div class="ui pointing dropdown link item mobile hidden tablet hidden">
-        <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.self_name }}</span>
-        <i class="dropdown icon"></i>
-        <div id='language-list' class="ui inverted menu">
-            {% for language, id in languages() %}
-                <a class="item" href="{{ path('home', {'_locale': id}) }}">
-                    <span class="text">{{ language }}</span>
-                </a>
-            {% endfor %}
+    <div class="ui container">
+        <div class="header item mobile hidden tablet hidden">
+            <img class="logo" src="{{ asset('img/logo.png') }}"> &nbsp;
+            | <span> Analytics</span>
         </div>
-    </div>
-    {% if auth().isAdmin %}
         <div class="ui pointing dropdown link item mobile hidden tablet hidden">
-            <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
+            <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.self_name }}</span>
             <i class="dropdown icon"></i>
-            {% for tool in adminTools %}
-                <div class="ui inverted menu">
-                    <a class="item" href="{{ path(tool.route) }}">
-                        <span class="text"> <i class="{{ tool.icon }} icon"></i> {{ tool.name }}</span>
+            <div id='language-list' class="ui inverted menu">
+                {% for language, id in languages() %}
+                    <a class="item" href="{{ path('home', {'_locale': id}) }}">
+                        <span class="text">{{ language }}</span>
                     </a>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    {% endif %}
-    <div class="right menu">
-        {% if not auth().isLogged %}
-            <a href="{{ path('login') }}" class="item">
-                <i class="sign in icon"></i> {{ dictionary.tabs.login }}
-            </a>
-        {% else %}
-            <div class="ui pointing dropdown link item">
-                <span id="user" class="text"><i class='large user circle icon'></i>{{ auth().name }}</span>
+        {% if auth().isAdmin %}
+            <div class="ui pointing dropdown link item mobile hidden tablet hidden">
+                <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
                 <i class="dropdown icon"></i>
-                <div id='menu' class="ui inverted menu">
-                    <a class="item" href="{{ path('logout') }}">
-                        <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.tabs.logout }}</span>
-                    </a>
-                </div>
+                {% for tool in adminTools %}
+                    <div class="ui inverted menu">
+                        <a class="item" href="{{ path(tool.route) }}">
+                            <span class="text"> <i class="{{ tool.icon }} icon"></i> {{ tool.name }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         {% endif %}
+        <div class="right menu">
+            {% if not auth().isLogged %}
+                <a href="{{ path('login') }}" class="item">
+                    <i class="sign in icon"></i> {{ dictionary.tabs.login }}
+                </a>
+            {% else %}
+                <a href="{{ path('profile') }}" class="item">
+                    <i class='large user circle icon'></i>{{ auth().name }}
+                </a>
+                <a href="{{ path('home') }}" class="item">
+                    {{ dictionary.tabs.home}}
+                </a>
+                <div class="ui pointing dropdown link item">
+                    <i class="dropdown icon"></i>
+                    <div class="ui inverted menu">
+                        <a class="item" href="{{ path('logout') }}">
+                            <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.tabs.logout }}</span>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </nav>
+{% if auth().viewAsMode %}
+<nav id="view-as" class="ui black borderless top inverted fixed menu">
+    <p class="message-view">
+        <a id='leave-view' href="{{ path('leave-view-as') }}" data-content="Quitter voir en tant que..." data-position="bottom center" >
+            <i class="times circle icon" ></i>
+        </a>
+        L'application ressemble à ça pour : &nbsp; <i class="small user icon"></i> {{ auth().name }}</p>
+    <a href="{{ path('new-view-as') }}" id="change-view"> Aperçu en tant qu'une personne particulière</a>
+</nav>
+<div id="leave-popup"></div>
+{% endif %}
 
 <div id='loader' class="ui dimmer">
     <div class="ui text loader">{{ dictionary.loading }}</div>

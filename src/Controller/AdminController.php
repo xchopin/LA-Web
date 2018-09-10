@@ -21,10 +21,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController implements AdminAuthenticatedInterface
 {
     /**
-     * GET : Renders a form page to find a student
-     * POST : Returns JSON data for a name given
+     * GET: Renders a form page to find a student
+     * POST: Returns JSON data for a name given
      *
-     * @Route("/find-student", name="find-student")
+     * @Route("/view-as", name="view-as")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse | \Symfony\Component\HttpFoundation\Response
      */
@@ -47,58 +47,18 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
         return $this->render('Admin/find-student.twig');
     }
 
-
-
     /**
-     * Renders the profile of a student with several data from OpenLRW API.
      *
-     * @Route("/student-profile/{id}", name="student-profile")
+     * @Route("/view/{id}", name="enable-view")
      * @param Request $request
-     * @param $id
+     * @param String $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function studentProfile(Request $request, $id = '')
+    public function viewAs(Request $request, String $id)
     {
-
-        //ToDo: separate with ajax calls
-        $classes = [];
-
-        try {
-            $user = User::find($id);
-        } catch (Exception $e) {
-            $this->addFlash('error', 'Service unavailable');
-            return $this->redirectToRoute('home');
-        }
-
-        if ($user === null) {
-            $this->addFlash('error', "Student `$id` does not exist");
-            return $this->redirectToRoute('home');
-        }
-
-        $events = User::events($id);
-
-        $activities = [];
-
-        if ($events != null)
-        {
-            foreach ($events as $event)
-                array_push($activities, $event->object->name);
-
-            $activities = array_count_values($activities);
-        }
-
-       //foreach (json_decode($enrollments->getBody()->getContents()) as $enrollment) {
-       //    if ($enrollment->class->title != null)
-       //        array_push($classes, $enrollment->class);
-       //}
-
-        return $this->render('Admin/user.twig', [
-            'givenName' => $user->givenName,
-            'classes' => null,
-            'events' => $events,
-            'event_activities' => json_encode($activities, JSON_UNESCAPED_SLASHES )
-        ]);
-
+        $_SESSION['username'] =  $_SESSION['phpCAS']['user'];
+        $_SESSION['phpCAS']['user'] = $id;
+        return $this->redirectToRoute('home');
     }
 }
 

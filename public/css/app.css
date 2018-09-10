@@ -1,14 +1,82 @@
 
 .pusher {  padding-top: 90px;  }
 
-#navbar {  background-color: #2574A9;  }
+#navbar {
+    background-color: #256aa9;
+    height:42px !important;
+}
 
-.logo {  width:100px !important;  }
+#view-as {
+    margin-top:42px;
+    z-index: 12;
+    height: 37px !important;
+}
+
+#view-as > p, a {
+    line-height: 37px;
+}
+
+.message-view > a {
+    color: #929292
+}
+
+.message-view > a:hover {
+    color: #b4b4b4
+}
+
+
+.message-view {
+    margin-left: 23vw;
+    color: #929292;
+}
+
+#change-view {
+    margin-left: 1em;
+    color: white;
+    font-weight: 600;
+}
+
+#change-view:hover {
+    text-decoration: underline;
+}
+
+.popup {
+    z-index: 45 !important;
+    width: 14em !important;
+    color:white !important;
+    background-color: black !important;
+    border-color:black !important;
+    overflow: visible !important;
+}
+
+div.ui.popup.bottom.left.transition.visible::before {
+    background-color: black !important;
+    border-color:black !important;
+}
+
+
+div.ui.popup.bottom.center.transition.visible::before {
+    background-color: black !important;
+    border-color:black !important;
+}
+
+
+#leave-popup {
+    margin-left: 23vw;
+    width: 1%;
+    margin-top: 80px;
+    background-color :red;
+}
+
+
+.logo {
+    width:90px !important;
+}
 
 .logo + span {
     font-family: 'Sofia', cursive;
     margin-left: 0.5em;
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-style: italic;
     font-weight: bold;
 }

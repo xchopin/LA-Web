@@ -25,4 +25,7 @@ $(function () {
         $(this).closest('div').find('.collapsible').transition('fade down')
     })
 
+    $('#leave-view').popup({
+        target   : '#leave-popup',
+    });
 })

@@ -18,10 +18,10 @@
   },
   "admin_tools": {
     "self_name": "Administrative tools",
-    "find_student": {
-      "self_name": "Find a student",
+    "view_as": {
+      "self_name": "View as",
       "search": "Search",
-      "visit_profile": "Visit profile",
+      "select": "Select",
       "no_results": "Sorry, no results found"
     }
   }

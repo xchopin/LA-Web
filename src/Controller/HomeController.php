@@ -16,7 +16,7 @@ class HomeController extends AbstractController
 {
 
     /**
-     * Renders the home page.
+     * Render the home page.
      *
      * @Route("/", name="home")
      * @param Request $request
@@ -29,6 +29,34 @@ class HomeController extends AbstractController
             return $this->render('home.twig');
         else
             return $this->render('Error/unavailable.twig');
+    }
+
+    /**
+     * Leave the "View as" mode.
+     *
+     * @Route("/view/actions/leave", name="leave-view-as")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function leaveViewAs(Request $request)
+    {
+        $_SESSION['phpCAS']['user'] = $_SESSION['username'];
+        unset($_SESSION['username']);
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * Redirect to "View as" form page by giving back admin rights.
+     *
+     * @Route("/view/actions/new", name="new-view-as")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function changeViewAsTarget(Request $request)
+    {
+        $_SESSION['phpCAS']['user'] = $_SESSION['username'];
+        unset($_SESSION['username']);
+        return $this->redirectToRoute('view-as');
     }
 
 }
