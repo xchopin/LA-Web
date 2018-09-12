@@ -135,5 +135,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
          return self::$http->request('GET', '/info.json')->getStatusCode() == 200;
      }
 
+     /**
+      * Get the logged username
+      *
+      * @return mixed
+      */
+     public static function loggedUser()
+     {
+         return $_SESSION['phpCAS']['user'];
+     }
+
 
 }
