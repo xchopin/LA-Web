@@ -11,47 +11,12 @@
         <hr>
         <div class="ui list">
             <div class="item">
-                <i class="intergender icon"></i>
-                <div class="content">
-                     <b>Genre:</b> Masculin
-                </div>
-            </div>
-            <div class="item">
-                <i class="birthday icon"></i>
-                <div class="content">
-                    <b>Date de Naissance:</b> 01/01/1970
-                </div>
-            </div>
-            <div class="item">
                 <i class="mail outline icon"></i>
                 <div class="content">
                     <b>Adresse email:</b> john@doe.com
                 </div>
             </div>
-            <div class="item">
-                <i class="money icon"></i>
-                <div class="content">
-                    <b>Boursier:</b> Non
-                </div>
-            </div>
-            <div class="item">
-                <i class="travel icon"></i>
-                <div class="content">
-                    <b>Salarié:</b> Non
-                </div>
-            </div>
-            <div class="item">
-                <i class="child icon"></i>
-                <div class="content">
-                    <b>Enfants:</b> Non
-                </div>
-            </div>
-            <div class="item">
-                <i class="handicap icon"></i>
-                <div class="content">
-                    <b>Handicap:</b> Non
-                </div>
-            </div>
+
 
         </div>
     </div>
@@ -59,14 +24,14 @@
         <div class="profile-header">
              <span class="profile-name">{{ givenName }}</span>
              <span class="profile-city">
-                 <i id='city-marker' class="large marker icon"></i><span id="city">IUT Nancy Charlemagne</span>
+                 <i id='city-marker' class="large marker icon"></i><span id="city">Univ</span>
              </span>
         </div>
 
         <div class="ui pointing secondary menu">
             <a class="item active" id='summary' data-tab="first">Résumé</a>
-            <a class="item" data-tab="second">Évenements</a>
-            <a class="item" data-tab="third">Cours</a>
+            <a class="item" data-tab="second">Mes derniers évenements</a>
+            <a class="item" id='courses-tab' data-tab="third">Mes cours</a>
         </div>
         <div class="ui active tab" data-tab="first">
             <canvas id="chartPeriod" width="auto" height="100"></canvas>
@@ -74,17 +39,8 @@
         <div class="ui tab" data-tab="second" style="overflow-x:visible">
             <canvas id="myChart" width="auto"></canvas>
         </div>
-        <div class="ui tab" data-tab="third">
-            <div class="ui cards">
-                {% for class in classes %}
-                    <div class="card">
-                        <div class="content">
-                            <div class="header">{{ class.title }}</div>
-                            <div class="description">Id: {{ class.sourcedId }}</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+        <div id='my-classes' class="ui tab" data-tab="third">
+            <div id='enrollments' class="ui list"></div>
         </div>
 
     </div>
@@ -236,6 +192,35 @@
             });
 
         }
+
+        $(function () {
+            $('#courses-tab').on('click', function(e) {
+                    $('#my-classes').addClass('loading');
+                    //$('#results').empty();
+                    $.ajax({
+                        url: "{{ path('enrollments') }}",
+                        type: 'GET',
+                        success: function (response) {
+                            $('#my-classes').removeClass('loading');
+                            $.each(response, function (k, v) {
+                                var url = '{{ path('class', {'id': 'classId'}) }}';
+                                url = url.replace("classId", v.class.sourcedId);
+                                $('#enrollments').append(
+                                    $('<a>').addClass('item').prop('href', url).append(
+                                        $('<i>').addClass('folder outline icon'),
+                                        $('<div>').addClass('content').append(
+                                            $('<div>').addClass('header').text(v.title)
+                                        )
+                                )).transition('fade in');
+                            });
+                        },
+                        fail: function (response) {
+                            console.log('AJAX Call error')
+                        }
+                    })
+            })
+
+        });
 
 
 

@@ -347,7 +347,7 @@ span.hamburger-item {
 }
 
 .cbp_tmtimeline > li .cbp_tmtime span:last-child {
-    font-size: 2.9em;
+    font-size: 2.5em;
     color: #3594cb;
     margin-right: 0.2em;
 }
@@ -361,12 +361,20 @@ span.hamburger-item {
     margin: 0 0 15px 25%;
     background: #3594cb;
     color: #fff;
-    padding: 2em;
-    font-size: 1.2em;
+    padding: 1.2em;
+    font-size: 1.1em;
     font-weight: 300;
     line-height: 1.4;
     position: relative;
     border-radius: 5px;
+}
+
+.cbp_tmlabel > h2 {
+    font-size: 1.3em;
+}
+
+.cbp_tmlabel > p {
+    font-size: 0.9em;
 }
 
 .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel {

@@ -13,13 +13,13 @@ use App\Model\API\Klass;
 use App\Model\API\User;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 
 class UserController extends AbstractController implements AuthenticatedInterface
 {
-
 
 
     /**
@@ -51,13 +51,13 @@ class UserController extends AbstractController implements AuthenticatedInterfac
 
         $activities = [];
 
-        if ($events != null)
-        {
+        if ($events != null) {
             foreach ($events as $event)
                 array_push($activities, $event->object->name);
 
             $activities = array_count_values($activities);
         }
+
 
         //foreach (json_decode($enrollments->getBody()->getContents()) as $enrollment) {
         //    if ($enrollment->class->title != null)
@@ -74,25 +74,67 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     }
 
 
+
     /**
-     * Shows events for a class and user given
+     * Give enrollments for a user given.
      *
-     * @Route("/classes/{id}", name="class-events")
+     * @Route("/me/enrollments", name="enrollments")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function enrollments(Request $request)
+    {
+        $id = $_SESSION['phpCAS']['user'];
+        $classes = [];
+
+        $enrollments = User::enrollments($id);
+
+        if ($enrollments != null) {
+            foreach ($enrollments as $enrollment) {
+                $class = Klass::find($enrollment->class->sourcedId);
+                isset($class->title) ? $enrollment->title = $class->title : $enrollment->title = 'null';
+                array_push($classes, $enrollment);
+            }
+        } else {
+            return new Response('Enrollments not found.', 404);
+        }
+
+        usort($classes, function($a, $b) { // ASC Sort
+            return strtolower($a->title) > strtolower($b->title);
+        });
+
+
+        return $this->json($classes);
+    }
+
+
+    /**
+     * Show events for a class and a user given.
+     *
+     * @Route("/classes/{id}", name="class")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function classEvents(Request $request, $id = '')
+    public function class(Request $request, String $id = '')
     {
+        $class = Klass::find($id);
 
-        //$events = Klass::events($id);
-        //var_dump($events);
+        if ($class == null) {
+            $this->addFlash('error', 'Class does not exist');
+            return $this->redirectToRoute('home');
+        }
+
+        $events = Klass::eventsForUser($id, self::loggedUser());
+
+        if ($events != null)
+            usort($events, function($a, $b) {return $a->eventTime < $b->eventTime;});
+
         return $this->render('User/class.twig', [
-            'givenName' => null,
-            'classes' => null,
-            'events' => null,
-            'event_activities' => null
+            'class' => $class,
+            'events' => $events
         ]);
+
     }
 
 }
