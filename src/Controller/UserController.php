@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-
 class UserController extends AbstractController implements AuthenticatedInterface
 {
 
@@ -31,48 +30,51 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      */
     public function profile(Request $request)
     {
-
-        //ToDo: separate with ajax calls
-        $classes = [];
-        $id = $_SESSION['phpCAS']['user'];
-
-        try {
-            $user = User::find($id);
-        } catch (Exception $e) {
-            return $this->render('Error/unavailable.twig');
-        }
+        $user = User::find(self::loggedUser());
 
         if ($user === null) {
-            $this->addFlash('error', "Student `$id` does not exist");
+            $this->addFlash('error', "Student does not exist");
             return $this->redirectToRoute('home');
         }
 
-        $events = User::events($id);
+        $events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime("-1 week")));
 
-        $activities = [];
+        $events['cas'] = null;
+        $events['moodle'] = null;
 
-        if ($events != null) {
-            foreach ($events as $event)
-                array_push($activities, $event->object->name);
+        if ($events['all'] != null) {
+            usort($events['all'], function ($a, $b) {
+                return $a->eventTime < $b->eventTime;
+            });
 
-            $activities = array_count_values($activities);
+            for ($i = 7; $i >= 0; $i--) {
+                $cas_events[date('Y-m-d', strtotime("-$i day"))] = [];
+                $moodle_events[date('Y-m-d', strtotime("-$i day"))] = [];
+            }
+
+            foreach ($events['all'] as $event) {
+                $date = date('Y-m-d', strtotime($event->eventTime));
+                if ($event->object->{'@type'} == 'SoftwareApplication') {
+                    if (array_key_exists($date, $cas_events))
+                        array_push($cas_events[$date], $event);
+                } else {
+                    if (array_key_exists($date, $moodle_events))
+                        array_push($moodle_events[$date], $event);
+                }
+            }
+
+            $events['cas'] = $cas_events;
+            $events['moodle'] = $moodle_events;
+
         }
 
 
-        //foreach (json_decode($enrollments->getBody()->getContents()) as $enrollment) {
-        //    if ($enrollment->class->title != null)
-        //        array_push($classes, $enrollment->class);
-        //}
-
         return $this->render('User/profile.twig', [
             'givenName' => $user->givenName,
-            'classes' => null,
-            'events' => $events,
-            'event_activities' => json_encode($activities, JSON_UNESCAPED_SLASHES )
+            'events' => $events
         ]);
 
     }
-
 
 
     /**
@@ -134,6 +136,36 @@ class UserController extends AbstractController implements AuthenticatedInterfac
             'class' => $class,
             'events' => $events
         ]);
+
+    }
+
+    /**
+     * Return results for a class and a user given.
+     *
+     * @Route("/classes/{id}/results", name="class-results")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function classResults(Request $request, String $id = '')
+    {
+        try {
+            $results = Klass::resultsForUser($id, self::loggedUser());
+            $lineItems = Klass::lineItems($id);
+            $res = []; $i = 0;
+            foreach ($results as $result) {
+                $res[$i]['date'] = $result->date;
+                $res[$i]['score'] = $result->score;
+                foreach ($lineItems as $lineItem) {
+                    if ($lineItem->sourcedId == $result->lineitem->sourcedId)
+                        $res[$i]['title'] = $lineItem->title;
+                } $i++;
+            }
+
+            return $this->json($res);
+        }catch (Exception $e) {
+            return new Response($e->getMessage(), 404);
+        }
 
     }
 
