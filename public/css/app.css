@@ -9,6 +9,7 @@
 #view-as {
     margin-top:42px;
     z-index: 12;
+    background-color: #86130e;
     height: 37px !important;
 }
 
@@ -17,7 +18,7 @@
 }
 
 .message-view > a {
-    color: #929292
+    color: #fff1fa
 }
 
 .message-view > a:hover {
@@ -27,7 +28,7 @@
 
 .message-view {
     margin-left: 23vw;
-    color: #929292;
+    color: #fff1fa;
 }
 
 #change-view {
@@ -90,7 +91,7 @@ div.ui.popup.bottom.center.transition.visible::before {
 
 .ui.cards > .card {  width: 31.95%; /** To fit 3 cards in the container */  }
 
-.profile-header {  margin: 1.9em 0; }
+.profile-header {  margin: 32px 0; }
 
 .profile-name {
     font-size: 2em;
@@ -369,6 +370,7 @@ span.hamburger-item {
     border-radius: 5px;
 }
 
+
 .cbp_tmlabel > h2 {
     font-size: 1.3em;
 }
@@ -382,7 +384,7 @@ span.hamburger-item {
 }
 
 .cbp_tmtimeline > li .cbp_tmlabel h2 {
-    margin-top: 0px;
+    margin-top: 0;
     padding: 0 0 10px 0;
     border-bottom: 1px solid rgba(255,255,255,0.4);
 }
@@ -478,4 +480,151 @@ span.hamburger-item {
         left: auto;
         margin: -55px 5px 0 0px;
     }
+}
+
+
+/* ---- Timeline ---- */
+.events-timeline {
+    position: relative;
+    height: 3px;
+    margin-top: 100px;
+    background: #dedcd9;
+}
+
+
+/* ---- Timeline elements ---- */
+.dot-event {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 12.5%;
+    font: bold 14px arial;
+    height: 25px;
+}
+.dot-event .date {
+    position: absolute;
+    top: -47px;
+    left: 28%;
+    color: #000000;
+}
+.dot-event .point, .small-point, .medium-point, .large-point {
+    content: "";
+    position: absolute;
+    top: -8px;
+    display: block;
+    left: 34%;
+    border-radius: 500px;
+}
+
+.small-point {
+    border-width: 5px !important;
+    top: -4px !important;
+    left: 40% !important;
+}
+
+.medium-point {
+    border-width: 11px !important;
+    top: -9px !important;
+}
+
+.large-point {
+    border-width: 16px !important;
+    top: -17px !important;
+    left: 30% !important;
+}
+
+.moodle {
+    border: 0 solid #387db3;
+}
+
+.cas {
+    border: 0 solid #ea9127;
+}
+
+.dot-event .description {
+    display: none;
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-top: 20px;
+    position: relative;
+    font-weight: normal;
+    z-index: 1;
+}
+.description::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #f4f4f4;
+    position: absolute;
+    top: -5px;
+    left: 43%;
+}
+
+/* ---- Hover effects ---- */
+.dot-event:hover {
+    cursor: pointer;
+    color: #48A4D2;
+}
+.dot-event:hover .description {
+    display: block;
+}
+
+.hide {
+    display: none !important;
+}
+
+.cbp_tmtimeline > li .cbp_tmlabel_cas {
+    margin: 0 0 15px 25%;
+    color: #fff;
+    padding: 1.2em;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.4;
+    position: relative;
+    border-radius: 5px;
+    background: #ea7d2c;
+}
+
+/* The triangle */
+.cbp_tmtimeline > li .cbp_tmlabel_cas:after {
+    right: 100%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: 10px solid transparent;
+    border-right-color: #ea7d2c;
+    top: 10px;
+}
+
+.cbp_tmtimeline > li .cbp_tmlabel_moodle {
+    margin: 0 0 15px 25%;
+    color: #fff;
+    padding: 1.2em;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.4;
+    position: relative;
+    border-radius: 5px;
+    background: #6CBFEE;
+}
+
+/* The triangle */
+.cbp_tmtimeline > li .cbp_tmlabel_moodle:after {
+    right: 100%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: 10px solid transparent;
+    border-right-color: #6CBFEE;
+    top: 10px;
+}
+
+.more {
+    margin-top: 3em;
 }
