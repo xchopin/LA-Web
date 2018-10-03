@@ -13,32 +13,104 @@
             <div class="item">
                 <i class="mail outline icon"></i>
                 <div class="content">
-                    <b>Adresse email:</b> john@doe.com
+                    <b>Adresse email:</b> anais.febre@etu.univ-lorraine.fr
                 </div>
             </div>
-
-
         </div>
     </div>
     <div class="ten wide column">
         <div class="profile-header">
              <span class="profile-name">{{ givenName }}</span>
-             <span class="profile-city">
-                 <i id='city-marker' class="large marker icon"></i><span id="city">Univ</span>
-             </span>
         </div>
 
         <div class="ui pointing secondary menu">
-            <a class="item active" id='summary' data-tab="first">Résumé</a>
-            <a class="item" data-tab="second">Mes derniers évenements</a>
-            <a class="item" id='courses-tab' data-tab="third">Mes cours</a>
+            <a class="item active" id='summary' data-tab="first">{{ dictionary.profile.summary }}</a>
+            <a class="item" data-tab="second">{{ dictionary.profile.last_events }}</a>
+            <a class="item" id='courses-tab' data-tab="third">{{ dictionary.profile.classes }}</a>
         </div>
         <div class="ui active tab" data-tab="first">
-            <canvas id="chartPeriod" width="auto" height="100"></canvas>
+            {% if events is not null %}
+                <div class="ui four column grid">
+                        <div class="three wide column">
+                            <div style="margin-top: 6.3em; font-weight: bold;">{{ dictionary.profile.cas_title }}</div>
+                            <div style="margin-top: 6em; font-weight: bold;">{{ dictionary.profile.moodle_title }}</div>
+                        </div>
+                        <div class="thirteen wide column">
+                            <div class="events-timeline">
+                                {% for key, value in events.cas  %}
+                                        <div class="dot-event">
+                                            <p class="date">{{ key | date("d/m") }}</p>
+                                            {% if value|length > 0  %}
+                                                {% if value|length < 6 %}
+                                                    {% set class = "small-point" %}
+                                                {% elseif value|length < 14 %}
+                                                    {% set class = "medium-point" %}
+                                                {% else %}
+                                                    {% set class = "large-point" %}
+                                                {% endif %}
+                                                <span class="cas {{ class }}"></span>
+                                                <p class="description">
+                                                    {{ value|length }} {{ dictionary.profile.cas_description }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="events-timeline">
+                                {% for key, value in events.moodle  %}
+                                    <div class="dot-event">
+                                        {% if value|length > 0  %}
+                                            {% if value|length < 6 %}
+                                                {% set class = "small-point" %}
+                                            {% elseif value|length < 14 %}
+                                                {% set class = "medium-point" %}
+                                            {% else %}
+                                                {% set class = "large-point" %}
+                                            {% endif %}
+                                            <span class="moodle {{ class }}"></span>
+                                            <p class="description">
+                                                {{ value|length }} {{ dictionary.profile.moodle_description }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                </div>
+
+
+            <p class="more" align="center">
+                <button id="see-more" class="ui primary basic icon button">{{ dictionary.profile.see_more }} <i class="icon caret down"></i></button>
+                <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ dictionary.profile.hide_more }} <i class="icon caret up"></i></button>
+            </p>
+                <div id="more-events" style="display:none;">
+                    <ul class="cbp_tmtimeline">
+                        {% for event in events.all %}
+                            <li>
+                                <p class="cbp_tmtime"><span>{{ event.eventTime|date("d/m/Y") }}</span> <span>{{ event.eventTime|date("H:i") }}</span></p>
+                                {% if event.action == 'Viewed' %}
+                                    <div class="cbp_tmicon"> <i class="eye icon"></i></div>
+                                    <div class="cbp_tmlabel_moodle">
+                                        <h2>Visualisation d'une ressource</h2>
+                                        <p>{{ event.object.name }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="cbp_tmicon"> <i class="sign in icon"></i></div>
+                                    <div class="cbp_tmlabel_cas">
+                                        <h2>Connexion à un service</h2>
+                                        <p>{{ event.object.name }}</p>
+                                    </div>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <h2> Aucun évenements.</h2>
+            {% endif %}
         </div>
-        <div class="ui tab" data-tab="second" style="overflow-x:visible">
-            <canvas id="myChart" width="auto"></canvas>
-        </div>
+        <div class="ui tab" data-tab="second" style="overflow-x:visible"></div>
         <div id='my-classes' class="ui tab" data-tab="third">
             <div id='enrollments' class="ui list"></div>
         </div>
@@ -49,161 +121,45 @@
 
 
     <script>
-        let activities =  {{ event_activities | raw}}
-
         $(function () {
-            $('.menu .item').tab({ context: $('#summary')})
-            Chart.defaults.global.defaultFontFamily = "Lato"
-            Chart.defaults.global.defaultFontSize = 18
-            var ctx = document.getElementById("myChart").getContext('2d')
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(activities),
-                    datasets: [{
-                        label: 'Nombre de connexions',
-                        data: Object.values(activities),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            callback: function (value) { if (Number.isInteger(value)) { return value; } }
-                        }
-                    }]
-                }
-            })
+            $('.menu .item').tab({context: $('#summary')});
+            $('#see-more').on('click', () => { seeMore(); });
+            $('#hide-more').on('click', () => { hideMore(); });
+        });
 
-            chartForPeriod()
-
-
-
-        })
-
-        function chartForPeriod() {
-            var ctx = document.getElementById("chartPeriod").getContext('2d')
-            Chart.defaults.global.legend.labels.usePointStyle = true;
-            const defaultGenerateLabels = Chart.defaults.polarArea.legend.labels.generateLabels;
-
-
-            var yourImage = new Image();
-            yourImage.src ='http://style.anu.edu.au/_anu/4/images/buttons/arrow-down-black.png';
-            var xLabels = {
-                0 : 'Lundi',
-                1 : 'Mardi',
-                2 : 'Mecredi',
-                3 : 'Jeudi',
-                4 : 'Vendredi',
-                5 : 'Samedi',
-                6 : 'Dimanche'
-            }
-
-            var yLabels = {
-                0 : 'Zimbra',
-                1 : 'Indkøb',
-                2 : 'Tøj på',
-                3 : 'Spise',
-                4 : 'Trapper',
-                5 : 'Bad',
-                6 : 'Hygiejne',
-                7 : 'Toiletbesøg',
-                8 : 'På toilet',
-                9 : 'Op ad send'
-            }
-
-            var myChart = new Chart(ctx, {
-                type: 'bubble',
-                data: {
-                    datasets: [{
-                        label: 'Connexions',
-                        data: [{x:0, y:0, r:6},
-                            {x:1, y:0, r:2},
-                            {x:2, y:0, r:5},
-                            {x:3, y:0, r:10},
-                            {x:4, y:0, r:8},
-                            {x:5, y:0, r:15},
-                            {x:6, y:0, r:10}],
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255,99,132,1)',
-                        borderWidth: 2
-
-                    }]
-                },
-                options: {
-                    legend:{
-                        display: true,
-                        position: 'bottom'
-                    },
-
-                    tooltips:{enabled:false},
-                    // legend: {
-                    //    display: true,
-                    //    position: 'bottom'
-                    // },
-                    scales: {
-                        xAxes: [{
-                            position: 'top' ,
-                            ticks: {
-                                min: -0.5,
-                                beginAtZero: true,
-                                callback: function(value, index, values) {
-                                    return xLabels[value];
-                                },
-                                padding: 30
-                            },
-                            gridLines : {
-                                display : false
-                            }
-                        }],
-                        yAxes: [{
-                            gridLines : {
-                                drawBorder : false
-                            },
-                            ticks: {
-                                min: -0.5,
-                                fontStyle:'bold',
-                                padding:10,
-                                beginAtZero: true,
-                                callback: function(value, index, values) {
-                                    return yLabels[value];
-                                }
-                            },
-                        }],
-                    }
-                }
-            });
-
+        function seeMore() {
+            $('#see-more').toggle();
+            $('#hide-more').toggle();
+            $('#more-events').transition({
+                    animation  : 'fade up',
+                    duration   : '0.7s',
+                    onComplete : function() {}
+                });
         }
 
+        function hideMore() {
+            $('#see-more').toggle();
+            $('#hide-more').toggle();
+            $('#more-events').transition({
+                animation  : 'fade',
+                duration   : '0.5s',
+                onComplete : function() {}
+            });
+        }
         $(function () {
+            let done = false;
             $('#courses-tab').on('click', function(e) {
-                    $('#my-classes').addClass('loading');
-                    //$('#results').empty();
+                $('#my-classes').addClass('loading');
+                if (!done) {
+                    $('#enrollments').empty(); // Errors create a message and does not set DONE variable true.
                     $.ajax({
                         url: "{{ path('enrollments') }}",
                         type: 'GET',
                         success: function (response) {
                             $('#my-classes').removeClass('loading');
+                            done = true;
                             $.each(response, function (k, v) {
-                                var url = '{{ path('class', {'id': 'classId'}) }}';
+                                let url = '{{ path('class', {'id': 'classId'}) }}';
                                 url = url.replace("classId", v.class.sourcedId);
                                 $('#enrollments').append(
                                     $('<a>').addClass('item').prop('href', url).append(
@@ -211,19 +167,21 @@
                                         $('<div>').addClass('content').append(
                                             $('<div>').addClass('header').text(v.title)
                                         )
-                                )).transition('fade in');
+                                    )).transition('fade in');
                             });
+                        },
+                        error: function () {
+                            $('#my-classes').removeClass('loading');
+                            $('#enrollments').append($('<h2>').addClass('item').text("Aucun cours disponible.")).transition('fade in');
                         },
                         fail: function (response) {
                             console.log('AJAX Call error')
                         }
                     })
+                }
             })
 
         });
-
-
-
 
 
     </script>
