@@ -11,6 +11,7 @@ namespace App\Model\API;
 
 use App\Controller\AbstractController as Provider;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class ApiModel
 {
@@ -46,6 +47,8 @@ abstract class ApiModel
                     die($e->getMessage());
                 }
                 self::get($route);
+            } else if ($e->getCode() == 404) {
+                return null;
             } else {
                 throw new \Exception($e);
             }
