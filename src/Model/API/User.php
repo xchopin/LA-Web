@@ -28,5 +28,15 @@ class User extends ApiModel
         return parent::get("users/$id/events");
     }
 
+    public static function eventsFrom(String $id, String $from)
+    {
+        return parent::get("users/$id/events?from=$from");
+    }
+
+    public static function eventsFromTo(String $id, String $from, String $to)
+    {
+        return parent::get("users/$id/events?from=$from&to=$to");
+    }
+
 
 }

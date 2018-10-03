@@ -33,5 +33,14 @@ class Klass extends ApiModel
         return parent::get("classes/$id/events/user/$userId");
     }
 
+    public static function resultsForUser(String $id, String $userId)
+    {
+        return parent::get("classes/$id/results/user/$userId");
+    }
+
+    public static function lineItems(String $id) {
+        return parent::get("classes/$id/lineitems");
+    }
+
 
 }
