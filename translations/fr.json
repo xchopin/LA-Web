@@ -16,6 +16,17 @@
     "security_assistance": "Assistance",
     "legal_notice": "Mention Légale"
   },
+  "profile": {
+    "summary": "Résumé",
+    "last_events": "Mes derniers évenements",
+    "classes": "Mes cours",
+    "cas_title": "Connexion aux services",
+    "moodle_title": "Actions Arche",
+    "cas_description": "Connexions",
+    "moodle_description": "Actions sur arche",
+    "see_more": "Voir plus",
+    "hide_more": "Masquer les détails"
+  },
   "admin_tools": {
     "self_name": "Outils administrateur",
     "view_as": {
