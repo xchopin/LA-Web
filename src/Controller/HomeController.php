@@ -40,7 +40,12 @@ class HomeController extends AbstractController
      */
     public function leaveViewAs(Request $request)
     {
-        $_SESSION['phpCAS']['user'] = $_SESSION['username'];
+        $username = $_SESSION['username'];
+        $result = $this->ldapFirst("uid=$username");
+
+        $_SESSION['phpCAS']['user'] = $username;
+        $_SESSION['name'] = $result['displayname'][0];
+        $_SESSION['email'] = $result['mail'][0];
         unset($_SESSION['username']);
         return $this->redirectToRoute('home');
     }
@@ -54,7 +59,12 @@ class HomeController extends AbstractController
      */
     public function changeViewAsTarget(Request $request)
     {
-        $_SESSION['phpCAS']['user'] = $_SESSION['username'];
+        $username = $_SESSION['username'];
+        $result = $this->ldapFirst("uid=$username");
+
+        $_SESSION['phpCAS']['user'] = $username;
+        $_SESSION['name'] = $result['displayname'][0];
+        $_SESSION['email'] = $result['mail'][0];
         unset($_SESSION['username']);
         return $this->redirectToRoute('view-as');
     }

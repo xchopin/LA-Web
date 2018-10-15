@@ -56,8 +56,13 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
      */
     public function viewAs(Request $request, String $id)
     {
-        $_SESSION['username'] =  $_SESSION['phpCAS']['user'];
+        $_SESSION['username'] = $_SESSION['phpCAS']['user'];
         $_SESSION['phpCAS']['user'] = $id;
+
+        $result = $this->ldapFirst("uid=$id");
+        $_SESSION['name'] = $result['displayname'][0];
+        $_SESSION['email'] = $result['mail'][0];
+
         return $this->redirectToRoute('home');
     }
 }
