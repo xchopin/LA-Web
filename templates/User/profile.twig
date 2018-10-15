@@ -6,36 +6,33 @@
 
 <div class="ui grid">
     <div class="one wide column"></div>
-    <div class="three wide column ">
+    <div class="three wide column tablet or lower hidden">
         <h1 class="text-center"> <i class="huge circle user icon"></i> </h1>
         <hr>
         <div class="ui list">
             <div class="item">
                 <i class="mail outline icon"></i>
-                <div class="content">
-                    <b>Adresse email:</b> anais.febre@etu.univ-lorraine.fr
-                </div>
+                <div class="content"> {{ auth().email }} </div>
             </div>
         </div>
     </div>
-    <div class="ten wide column">
+    <div class="ten wide computer column fourteen wide tablet column">
         <div class="profile-header">
              <span class="profile-name">{{ givenName }}</span>
         </div>
 
         <div class="ui pointing secondary menu">
             <a class="item active" id='summary' data-tab="first">{{ dictionary.profile.summary }}</a>
-            <a class="item" data-tab="second">{{ dictionary.profile.last_events }}</a>
             <a class="item" id='courses-tab' data-tab="third">{{ dictionary.profile.classes }}</a>
         </div>
         <div class="ui active tab" data-tab="first">
-            {% if events is not null %}
-                <div class="ui four column grid">
-                        <div class="three wide column">
+            {% if events.all is not null %}
+                <div class="ui grid">
+                        <div class="three wide column tablet or lower hidden">
                             <div style="margin-top: 6.3em; font-weight: bold;">{{ dictionary.profile.cas_title }}</div>
                             <div style="margin-top: 6em; font-weight: bold;">{{ dictionary.profile.moodle_title }}</div>
                         </div>
-                        <div class="thirteen wide column">
+                        <div class="thirteen wide computer column sixteen wide mobile column">
                             <div class="events-timeline">
                                 {% for key, value in events.cas  %}
                                         <div class="dot-event">
@@ -77,6 +74,10 @@
                                 {% endfor %}
                             </div>
                         </div>
+                    <div class="mobile only">
+                        {{ dictionary.profile.cas_title }} <br>
+                        {{ dictionary.profile.moodle_title }}
+                    </div>
                 </div>
 
 
@@ -85,18 +86,24 @@
                 <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ dictionary.profile.hide_more }} <i class="icon caret up"></i></button>
             </p>
                 <div id="more-events" style="display:none;">
+                    <div class="profile-timeline">
                     <ul class="cbp_tmtimeline">
                         {% for event in events.all %}
                             <li>
                                 <p class="cbp_tmtime"><span>{{ event.eventTime|date("d/m/Y") }}</span> <span>{{ event.eventTime|date("H:i") }}</span></p>
                                 {% if event.action == 'Viewed' %}
-                                    <div class="cbp_tmicon"> <i class="eye icon"></i></div>
+                                    <div class="cbp_tmicon grey-icon"> <i class="eye icon"></i></div>
                                     <div class="cbp_tmlabel_moodle">
-                                        <h2>Visualisation d'une ressource</h2>
+                                        <h2>
+                                            Visualisation d'une ressource
+                                            <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">Voir cours</a>
+                                        </h2>
                                         <p>{{ event.object.name }}</p>
                                     </div>
                                 {% else %}
-                                    <div class="cbp_tmicon"> <i class="sign in icon"></i></div>
+                                    <div class="cbp_tmicon">
+                                        <i class="sign in icon"></i>
+                                    </div>
                                     <div class="cbp_tmlabel_cas">
                                         <h2>Connexion à un service</h2>
                                         <p>{{ event.object.name }}</p>
@@ -105,16 +112,16 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    </div>
                 </div>
             {% else %}
-                <h2> Aucun évenements.</h2>
+                <h2>{{ dictionary.profile.cas_title }}</h2>
             {% endif %}
         </div>
         <div class="ui tab" data-tab="second" style="overflow-x:visible"></div>
         <div id='my-classes' class="ui tab" data-tab="third">
             <div id='enrollments' class="ui list"></div>
         </div>
-
     </div>
     <div class="one wide column"></div>
 </div>
@@ -123,34 +130,25 @@
     <script>
         $(function () {
             $('.menu .item').tab({context: $('#summary')});
-            $('#see-more').on('click', () => { seeMore(); });
-            $('#hide-more').on('click', () => { hideMore(); });
+            $('#see-more').on('click', () => { toggleMore(); });
+            $('#hide-more').on('click', () => { toggleMore(); });
         });
 
-        function seeMore() {
+        function toggleMore() {
             $('#see-more').toggle();
             $('#hide-more').toggle();
             $('#more-events').transition({
                     animation  : 'fade up',
                     duration   : '0.7s',
                     onComplete : function() {}
-                });
-        }
-
-        function hideMore() {
-            $('#see-more').toggle();
-            $('#hide-more').toggle();
-            $('#more-events').transition({
-                animation  : 'fade',
-                duration   : '0.5s',
-                onComplete : function() {}
             });
         }
+
         $(function () {
             let done = false;
             $('#courses-tab').on('click', function(e) {
-                $('#my-classes').addClass('loading');
                 if (!done) {
+                    $('#my-classes').addClass('loading');
                     $('#enrollments').empty(); // Errors create a message and does not set DONE variable true.
                     $.ajax({
                         url: "{{ path('enrollments') }}",
@@ -180,9 +178,7 @@
                     })
                 }
             })
-
         });
-
 
     </script>
 {% endblock %}
