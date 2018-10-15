@@ -21,20 +21,19 @@
         "jenssegers/mongodb": "^3.3.1",
         "mongodb/mongodb": "1.0.0",
         "jms/i18n-routing-bundle": "^3.0.2",
-        "symfony/asset": "^4.0",
-        "symfony/console": "^4.0",
-        "symfony/flex": "^1.0",
-        "sensio/framework-extra-bundle": "^5.1.3",
-        "symfony/lts": "^4@dev",
-        "symfony/profiler-pack": "^1.0",
-        "symfony/security-core": "^4.0",
-        "symfony/security-csrf": "^4.0",
-        "symfony/twig-bundle": "^4.0",
-        "symfony/validator": "^4.0",
-        "symfony/yaml": "^4.0"
+        "symfony/asset": "^4.1.6",
+        "symfony/console": "^4.1.6",
+        "symfony/flex": "^1.1.1",
+        "sensio/framework-extra-bundle": "^5.2.1",
+        "symfony/profiler-pack": "^1.0.3",
+        "symfony/security-core": "^4.1.6",
+        "symfony/security-csrf": "^4.1.6",
+        "symfony/twig-bundle": "^4.1.6",
+        "symfony/validator": "^4.1.6",
+        "symfony/yaml": "^4.1.6"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.0"
+        "symfony/dotenv": "^4.1.6"
     },
     "config": {
         "preferred-install": {
