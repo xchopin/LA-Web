@@ -20,16 +20,20 @@ class AuthController extends AbstractController
      * Redirects to the CAS authentication page.
      *
      * @Route("/login", name="login")
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function login()
+    public function login(Request $request)
     {
-
         phpCAS::client(CAS_VERSION_2_0, env('CAS_HOST'), intval(env('CAS_PORT')), '');
         phpCAS::setNoCasServerValidation();
         phpCAS::forceAuthentication();
         phpCAS::getUser();
 
+        $username = $_SESSION['phpCAS']['user'];
+        $result = $this->ldapFirst("uid=$username");
+        $_SESSION['name'] = $result['displayname'][0];
+        $_SESSION['email'] = $result['mail'][0];
         return $this->redirectToRoute('home');
     }
 
@@ -42,6 +46,7 @@ class AuthController extends AbstractController
     public function logout(Request $request)
     {
         phpCAS::client(CAS_VERSION_2_0, env('CAS_HOST'), intval(env('CAS_PORT')), '');
+        session_destroy();
         phpCAS::logoutWithRedirectService('http://' . $request->getBaseUrl());
     }
 }

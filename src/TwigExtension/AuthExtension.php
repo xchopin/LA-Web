@@ -9,7 +9,6 @@
 
 namespace App\TwigExtension;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
@@ -39,12 +38,6 @@ class AuthExtension extends Twig_Extension
      */
     public function __construct(ContainerInterface $container)
     {
-        $ldapInstance = ldap_connect(env('LDAP_HOST'), env('LDAP_PORT'));
-        ldap_set_option($ldapInstance, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option($ldapInstance, LDAP_OPT_REFERRALS, 0);
-        $container->set('ldap', /** @scrutinizer ignore-type */ $ldapInstance);
-        $this->ldap = $ldapInstance;
-        $this->baseDN = env('LDAP_BASE_DN');
         $this->administrators = explode(',', env('ADMINISTRATORS'));
     }
 
@@ -62,18 +55,14 @@ class AuthExtension extends Twig_Extension
 
     public function auth()
     {
-        $name = null;
-        $logged = false;
-        $isAdmin = false;
-        $username = null;
-        $viewAsMode = false;
+        $name = null; $logged = false; $isAdmin = false; $username = null; $email = null; $viewAsMode = false;
         $originalUsername = null;
 
         if (isset($_SESSION['phpCAS']['user'])) {
             $logged = true;
             $username = $_SESSION['phpCAS']['user'];
-            $query = ldap_search($this->ldap, $this->baseDN, "uid=$username");
-            $name = ldap_get_entries($this->ldap, $query)[0]['displayname'][0];
+            $name = $_SESSION['name'];
+            $email = $_SESSION['email'];
             $isAdmin = (in_array($username, $this->administrators));
 
             if (isset($_SESSION['username'])) {
@@ -87,6 +76,7 @@ class AuthExtension extends Twig_Extension
             'isLogged' => $logged,
             'isAdmin' =>  $isAdmin,
             'username' => $username,
+            'email' => $email,
             'name' => $name,
             'viewAsMode' => $viewAsMode,
             'originalUsername' => $originalUsername

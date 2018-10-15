@@ -23,6 +23,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
      */
     static public $http;
 
+    static private $ldap;
+
+    static private $baseDN;
+
     /**
      * Constructor.
      * @param ContainerInterface $container
@@ -30,7 +34,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
     public function __construct(ContainerInterface $container)
     {
         self::$http = new Client(['base_uri' => env('API_URI')]);
+        self::$ldap = ldap_connect(env('LDAP_HOST'), env('LDAP_PORT'));
+        self::$baseDN = env('LDAP_BASE_DN');
+        ldap_set_option(self::$ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option(self::$ldap, LDAP_OPT_REFERRALS, 0);
+
         $container->set('http', self::$http);
+        $container->set('ldap', /** @scrutinizer ignore-type */ self::$ldap);
     }
 
      /**
@@ -97,7 +107,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
      */
     protected function searchLDAP($filter, $arg = [])
     {
-        return ldap_search($this->__get('ldap'), env('LDAP_BASE_DN'), $filter, $arg);
+        return ldap_search(self::$ldap, self::$baseDN, $filter, $arg);
     }
 
     /**
@@ -109,7 +119,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
      */
     protected function ldap($filter, $arg = [])
     {
-        return ldap_get_entries($this->__get('ldap'), $this->searchLDAP($filter, $arg));
+        return ldap_get_entries(self::$ldap, $this->searchLDAP($filter, $arg));
     }
 
     /**
