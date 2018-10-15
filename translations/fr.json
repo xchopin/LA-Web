@@ -22,8 +22,20 @@
     "classes": "Mes cours",
     "cas_title": "Connexion aux services",
     "moodle_title": "Actions Arche",
-    "cas_description": "Connexions",
-    "moodle_description": "Actions sur arche",
+    "cas_description": "connexion(s)",
+    "moodle_description": "action(s) sur arche",
+    "see_more": "Voir plus",
+    "hide_more": "Masquer les détails"
+  },
+  "profile": {
+    "title": "Mes événements sur %s",
+    "summary": "Résumé",
+    "last_events": "Mes derniers évenements",
+    "classes": "Mes cours",
+    "cas_title": "Connexion aux services",
+    "moodle_title": "Actions Arche",
+    "cas_description": "connexion(s)",
+    "moodle_description": "action(s) sur arche",
     "see_more": "Voir plus",
     "hide_more": "Masquer les détails"
   },
