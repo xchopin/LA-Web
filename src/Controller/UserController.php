@@ -65,7 +65,6 @@ class UserController extends AbstractController implements AuthenticatedInterfac
 
             $events['cas'] = $cas_events;
             $events['moodle'] = $moodle_events;
-
         }
 
 
@@ -94,8 +93,10 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         if ($enrollments != null) {
             foreach ($enrollments as $enrollment) {
                 $class = Klass::find($enrollment->class->sourcedId);
-                isset($class->title) ? $enrollment->title = $class->title : $enrollment->title = 'null';
-                array_push($classes, $enrollment);
+                if (isset($class->title) ) {
+                    $enrollment->title = $class->title;
+                    array_push($classes, $enrollment);
+                }
             }
         } else {
             return new Response('Enrollments not found.', 404);
