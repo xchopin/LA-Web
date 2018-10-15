@@ -35,21 +35,10 @@ class LocaleListener
         if (HttpKernel::MASTER_REQUEST != $event->getRequestType())
             return;
 
-        $this->registerLDAP();
         $this->registerCapsule();
 
     }
 
-    /**
-     * Registers a LDAP Instance into the container.
-     */
-    private function registerLDAP()
-    {
-        $ldapInstance = ldap_connect(env('LDAP_HOST'), env('LDAP_PORT'));
-        ldap_set_option($ldapInstance, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option($ldapInstance, LDAP_OPT_REFERRALS, 0);
-        $this->container->set('ldap', /** @scrutinizer ignore-type */ $ldapInstance);
-    }
 
     /**
      * Sets globally and registers the Eloquent ORM's Capsule Manager into the container.
