@@ -46,7 +46,6 @@ class AuthController extends AbstractController
     public function logout(Request $request)
     {
         phpCAS::client(CAS_VERSION_2_0, env('CAS_HOST'), intval(env('CAS_PORT')), '');
-        session_destroy();
         phpCAS::logoutWithRedirectService('http://' . $request->getBaseUrl());
     }
 }
