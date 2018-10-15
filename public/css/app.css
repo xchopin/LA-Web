@@ -69,6 +69,22 @@ div.ui.popup.bottom.center.transition.visible::before {
     background-color :red;
 }
 
+/* Mobile and tablet timeline */
+@media screen and (max-width: 992px) {
+    .message-view {
+        margin-left: 2vw;
+    }
+}
+@media screen and (max-width: 669px) {
+    .message-view {
+        font-size: 10px;
+    }
+    #change-view {
+        font-size: 10px;
+    }
+}
+
+
 
 .logo {
     width:90px !important;
@@ -107,10 +123,6 @@ span.profile-city {
     color: #8d8d8d;
     padding-left: 1.2em;
 }
-
-#city-marker { margin-bottom: 0.6em; }
-
-#city { font-size: 1.3em; }
 
 .text-center { text-align: center; }
 
@@ -313,13 +325,13 @@ span.hamburger-item {
 .cbp_tmtimeline:before {
     content: '';
     position: absolute;
-    top: 0;
+    top: 5px;
     bottom: 0;
     width: 10px;
     background: #afdcf8;
-    left: 20%;
-    margin-left: -10px;
+    margin-left: 155px;
 }
+
 
 .cbp_tmtimeline > li {
     position: relative;
@@ -328,8 +340,7 @@ span.hamburger-item {
 /* The date/time */
 .cbp_tmtimeline > li .cbp_tmtime {
     display: block;
-    width: 25%;
-    padding-right: 100px;
+    margin-right: 20%;
     position: absolute;
 }
 
@@ -359,7 +370,7 @@ span.hamburger-item {
 
 /* Right content */
 .cbp_tmtimeline > li .cbp_tmlabel {
-    margin: 0 0 15px 25%;
+    margin: 0 0 15px 245px;
     background: #3594cb;
     color: #fff;
     padding: 1.2em;
@@ -369,7 +380,6 @@ span.hamburger-item {
     position: relative;
     border-radius: 5px;
 }
-
 
 .cbp_tmlabel > h2 {
     font-size: 1.3em;
@@ -392,14 +402,13 @@ span.hamburger-item {
 /* The triangle */
 .cbp_tmtimeline > li .cbp_tmlabel:after {
     right: 100%;
-    border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
+    border: 10px solid transparent;
     border-right-color: #3594cb;
-    border-width: 10px;
     top: 10px;
 }
 
@@ -425,10 +434,56 @@ span.hamburger-item {
     border-radius: 50%;
     box-shadow: 0 0 0 8px #afdcf8;
     text-align: center;
-    left: 20%;
-    top: 0;
-    margin: 0 0 0 -25px;
+    top: 10px;
+    margin-left: 140px;
 }
+
+
+/* PROFILE TIMELINE */
+.profile-timeline > .cbp_tmtimeline:before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+    width: 10px;
+    background: #dfdfdf;
+    margin-left: 155px;
+}
+
+.profile-timeline > .cbp_tmtimeline >  li .icon {
+    width: 40px;
+    height: 40px;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 1.4em;
+    line-height: 40px;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    color: #fff;
+    background: #8d8d8d;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px #d9d9d9;
+    text-align: center;
+    top: 10px;
+    margin-left: 140px;
+}
+
+.profile-timeline > .cbp_tmtimeline > li .cbp_tmtime span:last-child {
+    font-size: 2.5em;
+    color: #8d8d8d;
+    margin-right: 0.2em;
+}
+
+.profile-timeline > .cbp_tmtimeline > li:nth-child(odd) .cbp_tmtime span:last-child {
+    color: #bdbdbd;
+}
+
+
+
+
 
 
 /* Example Media Queries */
@@ -507,6 +562,7 @@ span.hamburger-item {
     left: 28%;
     color: #000000;
 }
+
 .dot-event .point, .small-point, .medium-point, .large-point {
     content: "";
     position: absolute;
@@ -533,12 +589,37 @@ span.hamburger-item {
     left: 30% !important;
 }
 
+/* Mobile and tablet timeline */
+@media screen and (max-width: 510px) {
+    .dot-event .date {
+        font-weight: normal !important;
+        font-size: 12px !important;
+    }
+
+    .small-point {
+        border-width: 5px !important;
+        top: -4px !important;
+        left: 40% !important;
+    }
+
+    .medium-point {
+        border-width: 9px !important;
+        top: -7px !important;
+    }
+
+    .large-point {
+        border-width: 14px !important;
+        top: -13px !important;
+        left: 32% !important;
+    }
+}
+
 .moodle {
     border: 0 solid #387db3;
 }
 
 .cas {
-    border: 0 solid #ea9127;
+    border: 0 solid #ff9800;
 }
 
 .dot-event .description {
@@ -548,8 +629,11 @@ span.hamburger-item {
     margin-top: 20px;
     position: relative;
     font-weight: normal;
+    text-align:center;
+    width: 12.5em;
     z-index: 1;
 }
+
 .description::before {
     content: '';
     width: 0;
@@ -559,13 +643,13 @@ span.hamburger-item {
     border-bottom: 5px solid #f4f4f4;
     position: absolute;
     top: -5px;
-    left: 43%;
+    left: 23%;
 }
 
 /* ---- Hover effects ---- */
 .dot-event:hover {
     cursor: pointer;
-    color: #48A4D2;
+    color: #1f1d1e;
 }
 .dot-event:hover .description {
     display: block;
@@ -627,4 +711,21 @@ span.hamburger-item {
 
 .more {
     margin-top: 3em;
+}
+
+a.check-class {
+    font-size: 0.6em;
+    color: white;
+    float: right;
+    line-height: 0.6em;
+}
+
+a.check-class:hover {
+    color: #3f5f7f;
+}
+
+.page-description {
+    margin-top: 1.5em;
+    font-size: 1.2em;
+    font-style: italic;
 }
