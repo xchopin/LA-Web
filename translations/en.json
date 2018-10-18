@@ -11,18 +11,53 @@
   },
   "footer": {
     "social_network": "Social networks",
-    "quick_links": "Useful Links",
+    "quick_links": "Quick links",
     "about": "About",
-    "security_assistance": "Security & Assistance",
-    "legal_notice": "Legal Notice"
+    "security_assistance": "Assistance",
+    "legal_notice": "Legal notice"
+  },
+  "profile": {
+    "tab_one" : {
+      "name": "My last events",
+      "no_result": "There is no event for this period.",
+      "see_more": "See more",
+      "hide_more": "Hide",
+      "cas_title": "CAS services activity",
+      "moodle_title": "Moodle actions",
+      "cas_description": "connection(s)",
+      "moodle_description": "moodle action(s)",
+      "check_class": "Check this class"
+    },
+    "tab_two" : {
+      "name": "My classes",
+      "no_result": "You are not enrolled to any classes."
+    }
+  },
+  "class": {
+    "title": "Overview on",
+    "tab_one" : {
+      "name": "My events",
+      "no_result": "There is no event to show."
+    },
+    "tab_two": {
+      "name": "My grades",
+      "no_result": "There is no grade to show."
+    }
   },
   "admin_tools": {
-    "self_name": "Administrative tools",
+    "self_name": "Admin tools",
     "view_as": {
       "self_name": "View as",
       "search": "Search",
       "select": "Select",
-      "no_results": "Sorry, no results found"
+      "no_results": "Sorry, there is no result.",
+      "message_navbar": "This application looks like this for: ",
+      "view_as_someone": "View as another person",
+      "leave": "Leave `View As` mode..."
     }
+  },
+  "date": {
+    "month_day": "m-d",
+    "year_month_day": "Y-m-d"
   }
 }

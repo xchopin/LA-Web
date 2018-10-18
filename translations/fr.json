@@ -17,27 +17,32 @@
     "legal_notice": "Mention Légale"
   },
   "profile": {
-    "summary": "Résumé",
-    "last_events": "Mes derniers évenements",
-    "classes": "Mes cours",
-    "cas_title": "Connexion aux services",
-    "moodle_title": "Actions Arche",
-    "cas_description": "connexion(s)",
-    "moodle_description": "action(s) sur arche",
-    "see_more": "Voir plus",
-    "hide_more": "Masquer les détails"
+    "tab_one" : {
+      "name": "Mes derniers évenements",
+      "no_result": "Aucun évenement disponible.",
+      "see_more": "Voir plus",
+      "hide_more": "Masquer les détails",
+      "cas_title": "Connexion aux services",
+      "moodle_title": "Actions Arche",
+      "cas_description": "connexion(s)",
+      "moodle_description": "action(s) sur Arche",
+      "check_class": "Voir le cours"
+    },
+    "tab_two" : {
+      "name": "Mes cours",
+      "no_result": "Vous n'êtes inscrit à aucun cours."
+    }
   },
-  "profile": {
-    "title": "Mes événements sur %s",
-    "summary": "Résumé",
-    "last_events": "Mes derniers évenements",
-    "classes": "Mes cours",
-    "cas_title": "Connexion aux services",
-    "moodle_title": "Actions Arche",
-    "cas_description": "connexion(s)",
-    "moodle_description": "action(s) sur arche",
-    "see_more": "Voir plus",
-    "hide_more": "Masquer les détails"
+  "class": {
+    "title": "Vue d'ensemble sur",
+    "tab_one" : {
+      "name": "Mes évenements",
+      "no_result": "Aucun évenement disponible."
+    },
+    "tab_two": {
+      "name": "Mes notes",
+      "no_result": "Aucune note disponible."
+    }
   },
   "admin_tools": {
     "self_name": "Outils administrateur",
@@ -45,7 +50,14 @@
       "self_name": "Voir en tant que",
       "search": "Rechercher",
       "select": "Sélectionner",
-      "no_results": "Désolé, aucun résultat"
+      "no_results": "Désolé, aucun résultat",
+      "message_navbar": "L'application ressemble à ça pour: ",
+      "view_as_someone": "Aperçu en tant qu'une personne particulière",
+      "leave": "Quitter voir en tant que..."
     }
+  },
+  "date": {
+    "month_day": "d/m",
+    "year_month_day": "d/m/Y"
   }
 }
