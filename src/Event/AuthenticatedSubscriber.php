@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class StudentSubscriber implements EventSubscriberInterface
+class AuthenticatedSubscriber implements EventSubscriberInterface
 {
 
 
@@ -29,14 +29,12 @@ class StudentSubscriber implements EventSubscriberInterface
          * This is not usual in Symfony but it may happen.
          * If it is a class, it comes in array format
          */
-        if (!is_array($controller)) {
+        if (!is_array($controller))
             return;
-        }
 
         if ($controller[0] instanceof AuthenticatedInterface) {
-            if (isset($_SESSION['phpCAS']['user'])) {
-                throw new AccessDeniedHttpException('Access forbidden.');
-            }
+            if (!isset($_SESSION['phpCAS']['user']))
+                throw new AccessDeniedHttpException('Access forbidden. User is not logged.');
         }
     }
 
