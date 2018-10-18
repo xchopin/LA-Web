@@ -3,21 +3,23 @@
 
 {% block body %}
 
+{% set i18n = dictionary.class %}
+
 <div class="ui grid">
     <div class="one wide column"></div>
     <div class="fourteen wide column">
-            <span class="profile-name">Mes événements sur "{{ class.title }}"</span>
+            <span class="profile-name">{{ i18n.title }} "{{ class.title }}"</span>
             <div class="page-description">{{ class.metadata.summary|striptags }}</div>
         <div class="ui pointing secondary menu">
-            <a style="width:50%; text-align:center;" class="item active" id='summary' data-tab="first">Mes dernières actions</a>
-            <a style="width:50%; text-align:center;" id='results-tab' class="item" data-tab="second">Mes notes</a>
+            <a style="width:50%; text-align:center;" class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
+            <a style="width:50%; text-align:center;" id='results-tab' class="item" data-tab="second">{{ i18n.tab_two.name }}</a>
         </div>
         <div class="ui active tab" data-tab="first">
             <ul class="cbp_tmtimeline">
                 {% for event in events %}
                     <li>
                         <p class="cbp_tmtime">
-                            <span>{{ event.eventTime|date("m/d/Y") }}</span>
+                            <span>{{ event.eventTime|date(dictionary.date.year_month_day) }}</span>
                             <span>{{ event.eventTime|date("H:i") }}</span>
                         </p>
                         {% if event.action == 'Viewed' %}
@@ -82,7 +84,7 @@
                         if(xhr.status === 404) {
                             $('#my-results').removeClass('loading');
                             $('#results').append(
-                                $('<h2>').addClass('item').text("Aucune note disponible.")
+                                $('<h2>').addClass('item').text("{{ i18n.tab_two.no_result }}")
                             ).transition('fade in');
                         }
                     }

@@ -108,11 +108,11 @@ set adminTools = [
 {% if auth().viewAsMode %}
 <nav id="view-as" class="ui borderless top inverted fixed menu">
     <p class="message-view">
-        <a id='leave-view' href="{{ path('leave-view-as') }}" data-content="Quitter voir en tant que..." data-position="bottom center" >
+        <a id='leave-view' href="{{ path('leave-view-as') }}" data-content="{{ dictionary.admin_tools.view_as.leave }}" data-position="bottom center" >
             <i class="times circle icon" ></i>
         </a>
-        L'application ressemble à ça pour : &nbsp; <i class="small user icon"></i> {{ auth().name }}</p>
-    <a href="{{ path('new-view-as') }}" id="change-view"> Aperçu en tant qu'une personne particulière</a>
+        {{ dictionary.admin_tools.view_as.message_navbar }} &nbsp; <i class="small user icon"></i> {{ auth().name }}</p>
+    <a href="{{ path('new-view-as') }}" id="change-view"> {{ dictionary.admin_tools.view_as.view_as_someone }}</a>
 </nav>
 <div id="leave-popup"></div>
 {% endif %}

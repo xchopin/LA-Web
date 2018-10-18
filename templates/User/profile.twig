@@ -2,7 +2,7 @@
 
 {% block body %}
 
-
+{% set i18n = dictionary.profile %}
 
 <div class="ui grid">
     <div class="one wide column"></div>
@@ -18,25 +18,25 @@
     </div>
     <div class="ten wide computer column fourteen wide tablet column">
         <div class="profile-header">
-             <span class="profile-name">{{ givenName }}</span>
+             <span class="profile-name">{{ auth().name }}</span>
         </div>
 
         <div class="ui pointing secondary menu">
-            <a class="item active" id='summary' data-tab="first">{{ dictionary.profile.summary }}</a>
-            <a class="item" id='courses-tab' data-tab="third">{{ dictionary.profile.classes }}</a>
+            <a class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
+            <a class="item" id='courses-tab' data-tab="third">{{ i18n.tab_two.name }}</a>
         </div>
         <div class="ui active tab" data-tab="first">
             {% if events.all is not null %}
                 <div class="ui grid">
                         <div class="three wide column tablet or lower hidden">
-                            <div style="margin-top: 6.3em; font-weight: bold;">{{ dictionary.profile.cas_title }}</div>
-                            <div style="margin-top: 6em; font-weight: bold;">{{ dictionary.profile.moodle_title }}</div>
+                            <div style="margin-top: 6.3em; font-weight: bold;">{{ i18n.tab_one.cas_title }}</div>
+                            <div style="margin-top: 6em; font-weight: bold;">{{ i18n.tab_one.moodle_title }}</div>
                         </div>
                         <div class="thirteen wide computer column sixteen wide mobile column">
                             <div class="events-timeline">
                                 {% for key, value in events.cas  %}
                                         <div class="dot-event">
-                                            <p class="date">{{ key | date("d/m") }}</p>
+                                            <p class="date">{{ key | date(dictionary.date.month_day) }}</p>
                                             {% if value|length > 0  %}
                                                 {% if value|length < 6 %}
                                                     {% set class = "small-point" %}
@@ -47,7 +47,7 @@
                                                 {% endif %}
                                                 <span class="cas {{ class }}"></span>
                                                 <p class="description">
-                                                    {{ value|length }} {{ dictionary.profile.cas_description }}
+                                                    {{ value|length }} {{ i18n.tab_one.cas_description }}
                                                 </p>
                                             {% endif %}
                                         </div>
@@ -67,7 +67,7 @@
                                             {% endif %}
                                             <span class="moodle {{ class }}"></span>
                                             <p class="description">
-                                                {{ value|length }} {{ dictionary.profile.moodle_description }}
+                                                {{ value|length }} {{ i18n.tab_one.moodle_description }}
                                             </p>
                                         {% endif %}
                                     </div>
@@ -75,28 +75,28 @@
                             </div>
                         </div>
                     <div class="mobile only">
-                        {{ dictionary.profile.cas_title }} <br>
-                        {{ dictionary.profile.moodle_title }}
+                        {{ i18n.tab_one.cas_title }} <br>
+                        {{ i18n.tab_one.moodle_title }}
                     </div>
                 </div>
 
 
             <p class="more" align="center">
-                <button id="see-more" class="ui primary basic icon button">{{ dictionary.profile.see_more }} <i class="icon caret down"></i></button>
-                <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ dictionary.profile.hide_more }} <i class="icon caret up"></i></button>
+                <button id="see-more" class="ui primary basic icon button">{{ i18n.tab_one.see_more }} <i class="icon caret down"></i></button>
+                <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ i18n.tab_one.hide_more }} <i class="icon caret up"></i></button>
             </p>
                 <div id="more-events" style="display:none;">
                     <div class="profile-timeline">
                     <ul class="cbp_tmtimeline">
                         {% for event in events.all %}
                             <li>
-                                <p class="cbp_tmtime"><span>{{ event.eventTime|date("d/m/Y") }}</span> <span>{{ event.eventTime|date("H:i") }}</span></p>
+                                <p class="cbp_tmtime"><span>{{ event.eventTime|date(dictionary.date.year_month_day) }}</span> <span>{{ event.eventTime|date("H:i") }}</span></p>
                                 {% if event.action == 'Viewed' %}
                                     <div class="cbp_tmicon grey-icon"> <i class="eye icon"></i></div>
                                     <div class="cbp_tmlabel_moodle">
                                         <h2>
                                             Visualisation d'une ressource
-                                            <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">Voir cours</a>
+                                            <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">{{ dictionary.profile.check_course }}</a>
                                         </h2>
                                         <p>{{ event.object.name }}</p>
                                     </div>
@@ -115,7 +115,7 @@
                     </div>
                 </div>
             {% else %}
-                <h2>{{ dictionary.profile.cas_title }}</h2>
+                <h2>{{ i18n.tab_one.no_result }}</h2>
             {% endif %}
         </div>
         <div class="ui tab" data-tab="second" style="overflow-x:visible"></div>
@@ -170,7 +170,7 @@
                         },
                         error: function () {
                             $('#my-classes').removeClass('loading');
-                            $('#enrollments').append($('<h2>').addClass('item').text("Aucun cours disponible.")).transition('fade in');
+                            $('#enrollments').append($('<h2>').addClass('item').text("{{ i18n.tab_two.no_result }}")).transition('fade in');
                         },
                         fail: function (response) {
                             console.log('AJAX Call error')
