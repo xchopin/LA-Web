@@ -33,7 +33,7 @@
     - MongoDB driver
 
 ## 3. Technology Used
-- [Symfony Framework (v4.0)](https://symfony.com/doc/4.0/index.html)
+- [Symfony Framework (v4.1.6)](https://symfony.com/doc/4.1.6/index.html)
 - [Eloquent ORM for MongoDB](https://github.com/jenssegers/laravel-mongodb) ([since Doctrine does not support PHP⩾7.0 yet](http://www.doctrine-project.org/2016/02/16/doctrine-mongodb-odm-release-1.0.5.html))
 - [Guzzle](http://docs.guzzlephp.org)
 >>
@@ -45,7 +45,7 @@
 # Installation
 ## 1. Clone the repository
 ``` bash
-$ git clone https://github.com/xchopin/LAWA-UL.git
+$ git clone https://github.com/xchopin/OpenDashboard-Advanced.git
 ```
 
 ## 2. Install front-end dependencies
