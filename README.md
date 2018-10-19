@@ -1,4 +1,4 @@
-# Learning Analytics Web Application (L.A.W.A.)
+# OpenDashboard Advanced
 
 <p align="center">  
   <img src='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/build.png?b=master'>
@@ -10,17 +10,19 @@
 > Work in Progress <br>
 
 # Introduction
-#### Learning Analytics Web Application for universities using the Moodle LMS and OpenLRW.
+#### OpenDashboard Advanced is an alternative project of the [Apereo OpenDashboard](https://github.com/Apereo-Learning-Analytics-Initiative/OpenDashboard) application. It is made for University of Lorraine and the ESUP-Portail consortium. ODA is CASified application that provide visualizations and data for professors and students about their Learning Analytics.
+
 
 ## 1. Features
 - CAS Authentication
 - LDAP Access
 - Roles (Admins and users)
+- Modern Design
+- Admin tools
 - Multilingual
 - Responsive-Design
 - Dynamic Charts
 - ODM for MongoDB
-- API calls to OpenLRW
 
 ## 2. Requirements
 - Apache
