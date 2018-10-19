@@ -1,16 +1,24 @@
 # OpenDashboard Advanced
 
 <p align="center">  
+  <img width='45%' src='/.github/logo.png'>
+</p>
+
+
+<p align="center">  
   <img src='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/build.png?b=master'>
   <a href='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/?branch=master'>
      <img src='https://scrutinizer-ci.com/g/xchopin/LAWA-UL/badges/quality-score.png?b=master'>
   </a>
 </p>
 
+
+
 > Work in Progress <br>
 
+
 # Introduction
-#### OpenDashboard Advanced is an alternative project of the [Apereo OpenDashboard](https://github.com/Apereo-Learning-Analytics-Initiative/OpenDashboard) application. It is made for University of Lorraine and the ESUP-Portail consortium. ODA is CASified application that provide visualizations and data for professors and students about their Learning Analytics.
+#### OpenDashboard Advanced is an alternative project of the [Apereo OpenDashboard](https://github.com/Apereo-Learning-Analytics-Initiative/OpenDashboard) application. It is made for University of Lorraine and the ESUP-Portail consortium. ODA is an efficient CASified application that provide visualizations and data for professors and students about their Learning Analytics.
 
 
 ## 1. Features
@@ -25,9 +33,8 @@
 - ODM for MongoDB
 
 ## 2. Requirements
-- Apache
+- Apache or Nginx
 - MongoDB ⩾ 3.0
-- [Moodle LMS](https://moodle.org)
 - [OpenLRW](https://github.com/Apereo-Learning-Analytics-Initiative/OpenLRW)
 - PHP ⩾ 7.1
 - PHP modules: 
