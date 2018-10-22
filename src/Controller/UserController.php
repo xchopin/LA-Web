@@ -15,6 +15,7 @@ use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\SessionUnavailableException;
 
 
 class UserController extends AbstractController implements AuthenticatedInterface
@@ -30,48 +31,50 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      */
     public function profile(Request $request)
     {
-        $user = User::find(self::loggedUser());
+        try {
+            $user = User::find(self::loggedUser());
 
-        if ($user === null) {
-            $this->addFlash('error', "Student does not exist");
-            return $this->redirectToRoute('home');
-        }
-
-        $events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime("-1 week")));
-
-        $events['cas'] = null;
-        $events['moodle'] = null;
-
-        if ($events['all'] != null) {
-            usort($events['all'], function ($a, $b) {
-                return $a->eventTime < $b->eventTime;
-            });
-
-            for ($i = 7; $i >= 0; $i--) {
-                $cas_events[date('Y-m-d', strtotime("-$i day"))] = [];
-                $moodle_events[date('Y-m-d', strtotime("-$i day"))] = [];
+            if ($user === null) {
+                $this->addFlash('error', "Student does not exist");
+                return $this->redirectToRoute('home');
             }
 
-            foreach ($events['all'] as $event) {
-                $date = date('Y-m-d', strtotime($event->eventTime));
-                if ($event->object->{'@type'} == 'SoftwareApplication') {
-                    if (array_key_exists($date, $cas_events))
-                        array_push($cas_events[$date], $event);
-                } else {
-                    if (array_key_exists($date, $moodle_events))
-                        array_push($moodle_events[$date], $event);
+            $events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime("-1 week")));
+            $events['cas'] = null;
+            $events['moodle'] = null;
+
+            if ($events['all'] != null) {
+                usort($events['all'], function ($a, $b) {
+                    return $a->eventTime < $b->eventTime;
+                });
+
+                for ($i = 7; $i >= 0; $i--) {
+                    $cas_events[date('Y-m-d', strtotime("-$i day"))] = [];
+                    $moodle_events[date('Y-m-d', strtotime("-$i day"))] = [];
                 }
+
+                foreach ($events['all'] as $event) {
+                    $date = date('Y-m-d', strtotime($event->eventTime));
+                    if ($event->object->{'@type'} == 'SoftwareApplication') {
+                        if (array_key_exists($date, $cas_events))
+                            array_push($cas_events[$date], $event);
+                    } else {
+                        if (array_key_exists($date, $moodle_events))
+                            array_push($moodle_events[$date], $event);
+                    }
+                }
+
+                $events['cas'] = $cas_events;
+                $events['moodle'] = $moodle_events;
             }
 
-            $events['cas'] = $cas_events;
-            $events['moodle'] = $moodle_events;
+            return $this->render('User/profile.twig', [
+                'givenName' => $user->givenName,
+                'events' => $events
+            ]);
+        } catch (SessionUnavailableException $e) {
+            return $this->redirectToRoute('login', 'profile');
         }
-
-
-        return $this->render('User/profile.twig', [
-            'givenName' => $user->givenName,
-            'events' => $events
-        ]);
 
     }
 
