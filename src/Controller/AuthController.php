@@ -15,7 +15,7 @@ use phpCAS;
 
 class AuthController extends AbstractController
 {
-    
+
     /**
      * Redirects to the CAS authentication page.
      *
@@ -34,7 +34,13 @@ class AuthController extends AbstractController
         $result = $this->ldapFirst("uid=$username");
         $_SESSION['name'] = $result['displayname'][0];
         $_SESSION['email'] = $result['mail'][0];
-        return $this->redirectToRoute('home');
+
+        if (isset($_GET['redirect']))
+            return $this->redirect($_GET['redirect']);
+        else
+            return $this->redirectToRoute('home');
+
+
     }
 
     /**
@@ -46,6 +52,6 @@ class AuthController extends AbstractController
     public function logout(Request $request)
     {
         phpCAS::client(CAS_VERSION_2_0, env('CAS_HOST'), intval(env('CAS_PORT')), '');
-        phpCAS::logoutWithRedirectService('http://' . $request->getBaseUrl());
+        phpCAS::logout();
     }
 }

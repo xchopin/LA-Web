@@ -5,19 +5,23 @@ namespace App\Event;
 use App\Controller\AuthenticatedInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Exception\SessionUnavailableException;
 
 class AuthenticatedSubscriber implements EventSubscriberInterface
 {
 
+    private $router;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, RouterInterface $router)
     {
-
+        $this->router = $router;
     }
 
     public function onKernelController(FilterControllerEvent $event)
@@ -33,8 +37,14 @@ class AuthenticatedSubscriber implements EventSubscriberInterface
             return;
 
         if ($controller[0] instanceof AuthenticatedInterface) {
-            if (!isset($_SESSION['phpCAS']['user']))
-                throw new AccessDeniedHttpException('Access forbidden. User is not logged.');
+
+            $url = $this->router->generate('login', ['redirect' => $event->getRequest()->getPathInfo()]);
+            if (!isset($_SESSION['phpCAS']['user'])) {
+                $event->setController(function() use ($url) {
+                    return new RedirectResponse($url);
+                });
+            }
+
         }
     }
 
