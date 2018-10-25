@@ -120,6 +120,13 @@
         </div>
         <div class="ui tab" data-tab="second" style="overflow-x:visible"></div>
         <div id='my-classes' class="ui tab" data-tab="third">
+            <div class="ui search">
+                <div class="ui fluid icon input">
+                    <input id="filter" class="prompt" type="text" placeholder="Filtrer">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
             <div id='enrollments' class="ui list"></div>
         </div>
     </div>
@@ -128,23 +135,40 @@
 
 
     <script>
-        $(function () {
-            $('.menu .item').tab({context: $('#summary')});
-            $('#see-more').on('click', () => { toggleMore(); });
-            $('#hide-more').on('click', () => { toggleMore(); });
-        });
-
         function toggleMore() {
             $('#see-more').toggle();
             $('#hide-more').toggle();
             $('#more-events').transition({
-                    animation  : 'fade up',
-                    duration   : '0.7s',
-                    onComplete : function() {}
+               animation  : 'fade up',
+               duration   : '0.7s',
+               onComplete : function() {}
             });
         }
 
+        function filterEnrollments() {
+            let filter, element, title, enrollments;
+            filter = $('#filter').val().toUpperCase();
+            enrollments = $('#enrollments').children('a');
+
+            $.each(enrollments, (key, value) => {
+                element = $(value).find('div.content');
+                title = element[0].innerText.toUpperCase();
+                if (title.indexOf(filter) > -1) {
+                    element.parent().show()
+                } else {
+                    element.parent().hide()
+                }
+
+            });
+
+        }
+
         $(function () {
+            $('.menu .item').tab({context: $('#summary')});
+            $('#see-more').on('click', () => { toggleMore(); });
+            $('#hide-more').on('click', () => { toggleMore(); });
+            $('#filter').on('keyup', () => { filterEnrollments()});
+
             let done = false;
             $('#courses-tab').on('click', function(e) {
                 if (!done) {
