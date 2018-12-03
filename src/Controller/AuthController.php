@@ -25,21 +25,29 @@ class AuthController extends AbstractController
      */
     public function login(Request $request)
     {
-        phpCAS::client(CAS_VERSION_2_0, env('CAS_HOST'), intval(env('CAS_PORT')), '');
-        phpCAS::setNoCasServerValidation();
-        phpCAS::forceAuthentication();
-        phpCAS::getUser();
 
-        $username = $_SESSION['phpCAS']['user'];
-        $result = $this->ldapFirst("uid=$username");
-        $_SESSION['name'] = $result['displayname'][0];
-        $_SESSION['email'] = $result['mail'][0];
+            phpCAS::client(CAS_VERSION_2_0, env('CAS_HOST'), intval(env('CAS_PORT')), '');
+            phpCAS::setNoCasServerValidation();
+            phpCAS::forceAuthentication();
+            phpCAS::getUser();
 
-        if (isset($_GET['redirect']))
-            return $this->redirect($_GET['redirect']);
-        else
-            return $this->redirectToRoute('home');
+            $username = $_SESSION['phpCAS']['user'];
+            $result = $this->ldapFirst("uid=$username");
+            $_SESSION['name'] = $result['displayname'][0];
+            $_SESSION['email'] = $result['mail'][0];
+            if (env('APP_ENV') == 'dev') {
+                $isAdmin = (in_array($username, explode(',', env('ADMINISTRATORS'))));
+                if (!$isAdmin) {
+                    session_destroy();
+                    $this->addFlash('error', 'You are not allowed to log in.');
+                    return $this->redirectToRoute('home');
+                }
+            }
 
+            if (isset($_GET['redirect']))
+                return $this->redirect($_GET['redirect']);
+            else
+                return $this->redirectToRoute('home');
 
     }
 
