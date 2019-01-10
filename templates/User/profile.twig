@@ -22,112 +22,18 @@
         </div>
 
         <div class="ui pointing secondary menu">
-            <a class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
-            <a class="item" id='courses-tab' data-tab="third">{{ i18n.tab_two.name }}</a>
+            <a class="item active" id='summary' data-tab="first">{{ i18n.summary_tab.name }}</a>
+            <a class="item" id='score' data-tab="second">{{ i18n.score_tab.name }}</a>
+            <a class="item" id='courses-tab' data-tab="third">{{ i18n.enrollments_tab.name }}</a>
         </div>
         <div class="ui active tab" data-tab="first">
-            {% if events.all is not null %}
-                <div class="ui grid">
-                        <div class="three wide column tablet or lower hidden">
-                            <div style="margin-top: 6.3em; font-weight: bold;">{{ i18n.tab_one.cas_title }}</div>
-                            <div style="margin-top: 6em; font-weight: bold;">{{ i18n.tab_one.moodle_title }}</div>
-                        </div>
-                        <div class="thirteen wide computer column sixteen wide mobile column">
-                            <div class="events-timeline">
-                                {% for key, value in events.cas  %}
-                                        <div class="dot-event">
-                                            <p class="date">{{ key | date(dictionary.date.month_day) }}</p>
-                                            {% if value|length > 0  %}
-                                                {% if value|length < 6 %}
-                                                    {% set class = "small-point" %}
-                                                {% elseif value|length < 14 %}
-                                                    {% set class = "medium-point" %}
-                                                {% else %}
-                                                    {% set class = "large-point" %}
-                                                {% endif %}
-                                                <span class="cas {{ class }}"></span>
-                                                <p class="description">
-                                                    {{ value|length }} {{ i18n.tab_one.cas_description }}
-                                                </p>
-                                            {% endif %}
-                                        </div>
-                                {% endfor %}
-                            </div>
-
-                            <div class="events-timeline">
-                                {% for key, value in events.moodle  %}
-                                    <div class="dot-event">
-                                        {% if value|length > 0  %}
-                                            {% if value|length < 6 %}
-                                                {% set class = "small-point" %}
-                                            {% elseif value|length < 14 %}
-                                                {% set class = "medium-point" %}
-                                            {% else %}
-                                                {% set class = "large-point" %}
-                                            {% endif %}
-                                            <span class="moodle {{ class }}"></span>
-                                            <p class="description">
-                                                {{ value|length }} {{ i18n.tab_one.moodle_description }}
-                                            </p>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    <div class="mobile only">
-                        {{ i18n.tab_one.cas_title }} <br>
-                        {{ i18n.tab_one.moodle_title }}
-                    </div>
-                </div>
-
-
-            <p class="more" align="center">
-                <button id="see-more" class="ui primary basic icon button">{{ i18n.tab_one.see_more }} <i class="icon caret down"></i></button>
-                <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ i18n.tab_one.hide_more }} <i class="icon caret up"></i></button>
-            </p>
-                <div id="more-events" style="display:none;">
-                    <div class="profile-timeline">
-                    <ul class="cbp_tmtimeline">
-                        {% for event in events.all %}
-                            <li>
-                                <p class="cbp_tmtime"><span>{{ event.eventTime|date(dictionary.date.year_month_day) }}</span> <span>{{ event.eventTime|date("H:i") }}</span></p>
-                                {% if event.action == 'Viewed' %}
-                                    <div class="cbp_tmicon grey-icon"> <i class="eye icon"></i></div>
-                                    <div class="cbp_tmlabel_moodle">
-                                        <h2>
-                                            Visualisation d'une ressource
-                                            <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">{{ dictionary.profile.tab_one.check_class }}</a>
-                                        </h2>
-                                        <p>{{ event.object.name }}</p>
-                                    </div>
-                                {% else %}
-                                    <div class="cbp_tmicon">
-                                        <i class="sign in icon"></i>
-                                    </div>
-                                    <div class="cbp_tmlabel_cas">
-                                        <h2>Connexion à un service</h2>
-                                        <p>{{ event.object.name }}</p>
-                                    </div>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    </div>
-                </div>
-            {% else %}
-                <h2>{{ i18n.tab_one.no_result }}</h2>
-            {% endif %}
+            {% include 'User/Profile/summary_tab.twig'  %}
         </div>
-        <div class="ui tab" data-tab="second" style="overflow-x:visible"></div>
+        <div class="ui tab" data-tab="second">
+            {% include 'User/Profile/score_tab.twig'  %}
+        </div>
         <div id='my-classes' class="ui tab" data-tab="third">
-            <div class="ui search">
-                <div class="ui fluid icon input">
-                    <input id="filter" class="prompt" type="text" placeholder="Filtrer">
-                    <i class="search icon"></i>
-                </div>
-                <div class="results"></div>
-            </div>
-            <div id='enrollments' class="ui list"></div>
+            {% include 'User/Profile/enrollments_tab.twig'  %}
         </div>
     </div>
     <div class="one wide column"></div>
@@ -145,63 +51,13 @@
             });
         }
 
-        function filterEnrollments() {
-            let filter, element, title, enrollments;
-            filter = $('#filter').val().toUpperCase();
-            enrollments = $('#enrollments').children('a');
 
-            $.each(enrollments, (key, value) => {
-                element = $(value).find('div.content');
-                title = element[0].innerText.toUpperCase();
-                if (title.indexOf(filter) > -1) {
-                    element.parent().show()
-                } else {
-                    element.parent().hide()
-                }
-
-            });
-
-        }
 
         $(function () {
             $('.menu .item').tab({context: $('#summary')});
             $('#see-more').on('click', () => { toggleMore(); });
             $('#hide-more').on('click', () => { toggleMore(); });
-            $('#filter').on('keyup', () => { filterEnrollments()});
 
-            let done = false;
-            $('#courses-tab').on('click', function(e) {
-                if (!done) {
-                    $('#my-classes').addClass('loading');
-                    $('#enrollments').empty(); // Errors create a message and does not set DONE variable true.
-                    $.ajax({
-                        url: "{{ path('enrollments') }}",
-                        type: 'GET',
-                        success: function (response) {
-                            $('#my-classes').removeClass('loading');
-                            done = true;
-                            $.each(response, function (k, v) {
-                                let url = '{{ path('class', {'id': 'classId'}) }}';
-                                url = url.replace("classId", v.class.sourcedId);
-                                $('#enrollments').append(
-                                    $('<a>').addClass('item').prop('href', url).append(
-                                        $('<i>').addClass('folder outline icon'),
-                                        $('<div>').addClass('content').append(
-                                            $('<div>').addClass('header').text(v.title)
-                                        )
-                                    )).transition('fade in');
-                            });
-                        },
-                        error: function () {
-                            $('#my-classes').removeClass('loading');
-                            $('#enrollments').append($('<h2>').addClass('item').text("{{ i18n.tab_two.no_result }}")).transition('fade in');
-                        },
-                        fail: function (response) {
-                            console.log('AJAX Call error')
-                        }
-                    })
-                }
-            })
         });
 
     </script>

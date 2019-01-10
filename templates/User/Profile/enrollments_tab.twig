@@ -1,0 +1,64 @@
+<div class="ui search">
+    <div class="ui fluid icon input">
+        <input id="filter" class="prompt" type="text" placeholder="Filtrer">
+        <i class="search icon"></i>
+    </div>
+    <div class="results"></div>
+</div>
+<div id='enrollments' class="ui list"></div>
+
+<script>
+    $(function () {
+        $('#filter').on('keyup', () => { filterEnrollments()});
+        let done = false;
+        $('#courses-tab').on('click', function(e) {
+            if (!done) {
+                $('#my-classes').addClass('loading');
+                $('#enrollments').empty(); // Errors create a message and does not set DONE variable true.
+                $.ajax({
+                    url: "{{ path('enrollments') }}",
+                    type: 'GET',
+                    success: function (response) {
+                        $('#my-classes').removeClass('loading');
+                        done = true;
+                        $.each(response, function (k, v) {
+                            let url = '{{ path('class', {'id': 'classId'}) }}';
+                            url = url.replace("classId", v.class.sourcedId);
+                            $('#enrollments').append(
+                                $('<a>').addClass('item').prop('href', url).append(
+                                    $('<i>').addClass('folder outline icon'),
+                                    $('<div>').addClass('content').append(
+                                        $('<div>').addClass('header').text(v.title)
+                                    )
+                                )).transition('fade in');
+                        });
+                    },
+                    error: function () {
+                        $('#my-classes').removeClass('loading');
+                        $('#enrollments').append($('<h2>').addClass('item').text("{{ i18n.summary_tab.no_result }}")).transition('fade in');
+                    },
+                    fail: function (response) {
+                        console.log('AJAX Call error')
+                    }
+                })
+            }
+        })
+    });
+    function filterEnrollments() {
+        let filter, element, title, enrollments;
+        filter = $('#filter').val().toUpperCase();
+        enrollments = $('#enrollments').children('a');
+
+        $.each(enrollments, (key, value) => {
+            element = $(value).find('div.content');
+            title = element[0].innerText.toUpperCase();
+            if (title.indexOf(filter) > -1) {
+                element.parent().show()
+            } else {
+                element.parent().hide()
+            }
+
+        });
+
+    }
+</script>
