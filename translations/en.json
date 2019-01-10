@@ -17,7 +17,7 @@
     "legal_notice": "Legal notice"
   },
   "profile": {
-    "tab_one" : {
+    "summary_tab" : {
       "name": "My last events",
       "no_result": "There is no event for this period.",
       "see_more": "See more",
@@ -28,7 +28,10 @@
       "moodle_description": "moodle action(s)",
       "check_class": "Check this class"
     },
-    "tab_two" : {
+    "score_tab" : {
+      "name": "Score"
+    },
+    "enrollments_tab" : {
       "name": "My classes",
       "no_result": "You are not enrolled to any classes."
     }

@@ -17,7 +17,7 @@
     "legal_notice": "Mention Légale"
   },
   "profile": {
-    "tab_one" : {
+    "summary_tab" : {
       "name": "Mes derniers évenements",
       "no_result": "Aucun évenement disponible.",
       "see_more": "Voir plus",
@@ -28,7 +28,10 @@
       "moodle_description": "action(s) sur Arche",
       "check_class": "Voir le cours"
     },
-    "tab_two" : {
+    "score_tab" : {
+      "name": "Score"
+    },
+    "enrollments_tab" : {
       "name": "Mes cours",
       "no_result": "Vous n'êtes inscrit à aucun cours."
     }
