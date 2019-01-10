@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Model\API;
+namespace App\Model;
 
 use App\Controller\AbstractController as Provider;
 use GuzzleHttp\Exception\GuzzleException;
@@ -20,7 +20,6 @@ abstract class ApiModel
      * Generic function to GET /api/ OpenLRW routes
      *
      * @param String $route
-     * @param String $prefix
      * @return mixed|object
      * @throws \Exception
      */

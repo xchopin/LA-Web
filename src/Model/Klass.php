@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Model\API;
+namespace App\Model;
 
 
 class Klass extends ApiModel
@@ -41,6 +41,5 @@ class Klass extends ApiModel
     public static function lineItems(String $id) {
         return parent::get("classes/$id/lineitems");
     }
-
 
 }

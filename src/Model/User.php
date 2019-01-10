@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Model\API;
+namespace App\Model;
 
 
 class User extends ApiModel
