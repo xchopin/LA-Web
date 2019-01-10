@@ -9,8 +9,8 @@
 
 namespace App\Controller;
 
-use App\Model\API\Klass;
-use App\Model\API\User;
+use App\Model\Klass;
+use App\Model\User;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
