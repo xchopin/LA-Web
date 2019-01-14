@@ -13,6 +13,7 @@ namespace App\Model;
 class User extends ApiModel
 {
 
+
     public static function find(String $id)
     {
         return parent::get("users/$id");
