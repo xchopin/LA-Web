@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Model\Klass;
 use App\Model\User;
 use Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,6 +71,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
 
             return $this->render('User/profile.twig', [
                 'givenName' => $user->givenName,
+                'metadata' => $user->metadata,
                 'events' => $events
             ]);
         } catch (SessionUnavailableException $e) {
@@ -172,5 +174,53 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         }
 
     }
+
+    /**
+     *
+     * @Route("/me/settings", name="get_settings", methods={"GET"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function userSettings(Request $request)
+    {
+
+        $id = $_SESSION['phpCAS']['user'];
+        $user = User::find($id);
+        $metadata = $user->metadata;
+        $settings = [];
+        foreach ($metadata as $key => $value) {
+            if (substr( $key, 0, 8 ) === "settings")
+                array_push($settings, array($key, $value));
+        }
+
+        return $this->json($settings);
+    }
+
+    /**
+     *
+     * @Route("/me/settings", name="edit_settings", methods={"POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
+     */
+    public function editSettings(Request $request)
+    {
+        try {
+
+            $key = $request->request->get('key');
+            $value = $request->request->get('value');
+            $id = $_SESSION['phpCAS']['user'];
+            $user = User::find($id);
+            $json = $user->metadata;
+            $json->{$key} = $value;
+            $json = '{ "metadata" : '. json_encode($json) .'}';
+            $status = User::update($id, $json);
+
+            return new Response("Setting parameter sent to the API.", $status);
+        } catch (Exception $e) {
+            return new Response($e->getMessage(), 404);
+        }
+
+    }
+
 
 }
