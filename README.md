@@ -54,7 +54,7 @@
 # Installation
 ## 1. Clone the repository
 ``` bash
-$ git clone https://github.com/xchopin/OpenDashboard-Advanced.git
+$ git clone https://gitlab.univ-lorraine.fr/dn-infra-mauve/la-web.git
 ```
 
 ## 2. Install front-end dependencies
