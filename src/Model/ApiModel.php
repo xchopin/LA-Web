@@ -73,6 +73,43 @@ abstract class ApiModel
        ])->getBody()->getContents());
     }
 
+    /**
+     * Generic function to send HTTP PATCH requests
+     *
+     * @param String $route
+     * @param String $json
+     * @return mixed|null
+     * @throws \Exception
+     */
+    public function patch(String $route, String $json)
+    {
+        try {
+            return Provider::$http->patch("api/$route", [
+                    'headers' => [
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer ' . Provider::makeJWT()
+                    ],
+                    'body' => $json
+                ])
+                ->getStatusCode();
+        } catch (GuzzleException $e) {
+            if ($e->getCode() == 401) {
+                try {
+                    Provider::generateJwt();
+                } catch (GuzzleException $e) {
+                    die($e->getMessage());
+                }
+                self::get($route);
+            } else if ($e->getCode() == 404) {
+                return null;
+            } else {
+                throw new \Exception($e);
+            }
+            return null;
+        }
+    }
+
 
 
 
