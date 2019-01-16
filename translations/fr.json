@@ -29,11 +29,15 @@
       "check_class": "Voir le cours"
     },
     "score_tab" : {
-      "name": "Score"
+      "name": "Mon score"
     },
     "enrollments_tab" : {
       "name": "Mes cours",
       "no_result": "Vous n'êtes inscrit à aucun cours."
+    },
+    "settings_tab" : {
+      "name": "Mes préférences",
+      "notifications": "Activer les alertes"
     }
   },
   "class": {

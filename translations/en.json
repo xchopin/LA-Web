@@ -34,6 +34,10 @@
     "enrollments_tab" : {
       "name": "My classes",
       "no_result": "You are not enrolled to any classes."
+    },
+    "settings_tab" : {
+      "name": "Settings",
+      "notifications": "Enable notifications"
     }
   },
   "class": {
