@@ -19,6 +19,11 @@ class User extends ApiModel
         return parent::get("users/$id");
     }
 
+    public static function update(String $id,  $json)
+    {
+        return parent::patch("users/$id", $json);
+    }
+
     public static function enrollments(String $id)
     {
         return parent::get("users/$id/enrollments");
