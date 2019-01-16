@@ -176,6 +176,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     }
 
     /**
+     * Return the settings of a user.
      *
      * @Route("/me/settings", name="get_settings", methods={"GET"})
      * @param Request $request
@@ -197,6 +198,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     }
 
     /**
+     * Update the settings of a user.
      *
      * @Route("/me/settings", name="edit_settings", methods={"POST"})
      * @param Request $request
@@ -215,7 +217,8 @@ class UserController extends AbstractController implements AuthenticatedInterfac
             $json = '{ "metadata" : '. json_encode($json) .'}';
             $status = User::update($id, $json);
 
-            return new Response("Setting parameter sent to the API.", $status);
+            return new Response($status);
+
         } catch (Exception $e) {
             return new Response($e->getMessage(), 404);
         }
