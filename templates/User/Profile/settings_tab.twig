@@ -9,12 +9,10 @@
     $(function () {
         let settingsLoaded = false;
 
-
-
-        $('#notifications').on('click', () => {
-            const key = $(this).attr('id');
-            const value = !$(this).checkbox('is checked'); // It gives the previous state
-
+        $('.checkbox').on('click', (element) => {
+            let $this = element.currentTarget;
+            const key =  $this.id;
+            const value = !$( $this).checkbox('is checked'); // It gives the previous state
             $.ajax({
                 url: "{{ path('edit_settings') }}",
                 type: 'POST',
@@ -46,7 +44,7 @@
                     let settings = response;
                     settings.forEach( (setting) => {
                         let k = setting[0];
-                        let v = setting[1] ? "checked" : "unchecked";
+                        let v = setting[1] === "true" ? "checked" : "unchecked";
                         $('#' + k).checkbox("set " + v);
                     });
                     $('#my-settings').removeClass('loading');
