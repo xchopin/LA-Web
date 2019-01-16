@@ -1,0 +1,62 @@
+<h2 align="center">{{ i18n.settings_tab.name }}</h2>
+
+<div id="settings-notifications" class="ui toggle checkbox">
+    <input type="checkbox" name="notifications" title="Notifications">
+    <label>{{ i18n.settings_tab.notifications }}</label>
+</div>
+
+<script>
+    $(function () {
+        let settingsLoaded = false;
+
+
+
+        $('#notifications').on('click', () => {
+            const key = $(this).attr('id');
+            const value = !$(this).checkbox('is checked'); // It gives the previous state
+
+            $.ajax({
+                url: "{{ path('edit_settings') }}",
+                type: 'POST',
+                data: {'key': key, 'value': value},
+                success: function (response) {
+                    // ToDo something console.log(response)
+                },
+                error: function () {},
+                fail: function (response) {
+                    console.log('AJAX Call error')
+                }
+            })
+        });
+
+        $('#settings').on('click', () => {
+            if (!settingsLoaded) {
+                $('#my-settings').addClass('loading');
+                loadSettings();
+                settingsLoaded = true;
+            }
+        });
+
+
+        function loadSettings() {
+            $.ajax({
+                url: "{{ path('get_settings') }}",
+                type: 'GET',
+                success: function (response) {
+                    let settings = response;
+                    settings.forEach( (setting) => {
+                        let k = setting[0];
+                        let v = setting[1] ? "checked" : "unchecked";
+                        $('#' + k).checkbox("set " + v);
+                    });
+                    $('#my-settings').removeClass('loading');
+                },
+                error: function () {},
+                fail: function (response) {
+                    console.log('AJAX Call error')
+                }
+            })
+        }
+
+    })
+</script>
