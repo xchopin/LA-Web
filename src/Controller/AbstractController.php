@@ -34,13 +34,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
     public function __construct(ContainerInterface $container)
     {
         self::$http = new Client(['base_uri' => env('API_URI')]);
-        self::$ldap = ldap_connect(env('LDAP_HOST'), env('LDAP_PORT'));
-        self::$baseDN = env('LDAP_BASE_DN');
-        ldap_set_option(self::$ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option(self::$ldap, LDAP_OPT_REFERRALS, 0);
+        self::$ldap = $container->get('ldap');
+        self::$baseDN = $container->get('ldap_basedn');
 
         $container->set('http', self::$http);
-        $container->set('ldap', /** @scrutinizer ignore-type */ self::$ldap);
     }
 
      /**
@@ -61,7 +58,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
           ->getContents())->token;
 
         return $_SESSION['JWT'];
-
     }
 
 
