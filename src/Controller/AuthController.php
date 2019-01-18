@@ -36,7 +36,7 @@ class AuthController extends AbstractController
             $_SESSION['name'] = $result['displayname'][0];
             $_SESSION['email'] = $result['mail'][0];
             if (env('APP_ENV') == 'dev') {
-                $isAdmin = (in_array($username, explode(',', env('ADMINISTRATORS'))));
+                $isAdmin = (in_array($username, explode(',', env('ADMIN_USERS'))));
                 if (!$isAdmin) {
                     session_destroy();
                     $this->addFlash('error', 'You are not allowed to log in.');
