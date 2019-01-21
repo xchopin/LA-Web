@@ -1,7 +1,7 @@
 # OpenDashboard Advanced
 
 <p align="center">  
-  <img width='45%' src='/.github/logo.png'>
+  <img width='45%' src='/.resources/logo.png'>
 </p>
 
 
