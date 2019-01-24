@@ -45,8 +45,7 @@ class AdminSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Check if the logged user is Administrator
-     * It either checks if its id is in the .env list or it does an LDAP query to check if it is in the group
+     * Protect controllers from non administrator users
      *
      * @param FilterControllerEvent $event
      */
@@ -64,21 +63,7 @@ class AdminSubscriber implements EventSubscriberInterface
         }
 
         if ($controller[0] instanceof AdminAuthenticatedInterface) {
-            $isAdmin = false;
-            if (isset($_SESSION['phpCAS']['user'])) {
-                $userId = $_SESSION['phpCAS']['user'];
-                if ($this->mode === self::USERS_MODE) {
-                    if (in_array($userId, $this->administrators))
-                        $isAdmin = true;
-                } else {
-                    $result =  ldap_get_entries(
-                        $this->ldap,
-                        ldap_search($this->ldap, $this->baseDN, "(&(udlGroup=$this->administrators)(uid=$userId))")
-                    );
-                    $result['count'] > 0 ? $isAdmin = true : false;
-                }
-            }
-            if (!$isAdmin) throw new AccessDeniedHttpException('Access forbidden.');
+            if ($this->isAdmin() === false ) throw new AccessDeniedHttpException('Access forbidden.');
         }
     }
 
@@ -91,5 +76,29 @@ class AdminSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [ KernelEvents::CONTROLLER => 'onKernelController' ];
+    }
+
+    /**
+     * Check if the logged user has the admin role
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        $isAdmin = false;
+        if (isset($_SESSION['phpCAS']['user'])) {
+            $userId = $_SESSION['phpCAS']['user'];
+            if ($this->mode === self::USERS_MODE) {
+                if (in_array($userId, $this->administrators))
+                    $isAdmin = true;
+            } else {
+                $result = ldap_get_entries(
+                    $this->ldap,
+                    ldap_search($this->ldap, $this->baseDN, "(&(udlGroup=$this->administrators)(uid=$userId))")
+                );
+                $result['count'] > 0 ? $isAdmin = true : false;
+            }
+        }
+        return $isAdmin;
     }
 }
