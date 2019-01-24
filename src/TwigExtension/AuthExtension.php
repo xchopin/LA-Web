@@ -9,6 +9,7 @@
 
 namespace App\TwigExtension;
 
+use App\Event\AdminSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
@@ -27,9 +28,9 @@ class AuthExtension extends Twig_Extension
     protected $baseDN;
 
     /**
-     * @var array List of the super admin written in app/config/parameters.yml
+     * @var bool 
      */
-    protected $administrators;
+    protected $isAdmin;
 
     /**
      * AuthExtension constructor.
@@ -38,7 +39,8 @@ class AuthExtension extends Twig_Extension
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->administrators = explode(',', env('ADMINISTRATORS'));
+        $adminSubscriber = new AdminSubscriber($container);
+        $this->isAdmin = $adminSubscriber->isAdmin();
     }
 
     public function getName()
@@ -63,7 +65,7 @@ class AuthExtension extends Twig_Extension
             $username = $_SESSION['phpCAS']['user'];
             $name = $_SESSION['name'];
             $email = $_SESSION['email'];
-            $isAdmin = (in_array($username, $this->administrators));
+            $isAdmin = $this->isAdmin;
 
             if (isset($_SESSION['username'])) {
                 $viewAsMode = true;

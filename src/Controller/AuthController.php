@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use App\Event\AdminSubscriber;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use phpCAS;
@@ -35,9 +36,11 @@ class AuthController extends AbstractController
             $result = $this->ldapFirst("uid=$username");
             $_SESSION['name'] = $result['displayname'][0];
             $_SESSION['email'] = $result['mail'][0];
+
+            $adminSubscriber = new AdminSubscriber($this->container);
+            
             if (env('APP_ENV') == 'dev') {
-                $isAdmin = (in_array($username, explode(',', env('ADMIN_USERS'))));
-                if (!$isAdmin) {
+                if (! $adminSubscriber->isAdmin()) {
                     session_destroy();
                     $this->addFlash('error', 'You are not allowed to log in.');
                     return $this->redirectToRoute('home');
