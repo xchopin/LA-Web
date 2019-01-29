@@ -99,6 +99,7 @@ class AdminSubscriber implements EventSubscriberInterface
                 $result['count'] > 0 ? $isAdmin = true : false;
             }
         }
+        $_SESSION['isAdmin'] = $isAdmin;
         return $isAdmin;
     }
 }
