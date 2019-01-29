@@ -98,7 +98,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         if ($enrollments != null) {
             foreach ($enrollments as $enrollment) {
                 $class = Klass::find($enrollment->class->sourcedId);
-                if (isset($class->title) ) {
+                if (isset($class->title) and $class->status === 'active' ) {
                     $enrollment->title = $class->title;
                     array_push($classes, $enrollment);
                 }
