@@ -36,10 +36,10 @@ class AuthController extends AbstractController
             $result = $this->ldapFirst("uid=$username");
             $_SESSION['name'] = $result['displayname'][0];
             $_SESSION['email'] = $result['mail'][0];
-
-            $adminSubscriber = new AdminSubscriber($this->container);
+            $_SESSION['isAdmin'] = false; // initialize
             
-            if (env('APP_ENV') == 'dev') {
+            if (env('APP_ENV') == 'dev') { // If the app is in dev mode, only admin can log in
+                $adminSubscriber = new AdminSubscriber($this->container);
                 if (! $adminSubscriber->isAdmin()) {
                     session_destroy();
                     $this->addFlash('error', 'You are not allowed to log in.');
