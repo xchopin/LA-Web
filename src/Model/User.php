@@ -10,7 +10,7 @@
 namespace App\Model;
 
 
-class User extends ApiModel
+class User extends OneRoster
 {
 
 

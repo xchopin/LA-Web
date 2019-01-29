@@ -10,7 +10,7 @@
 namespace App\Model;
 
 
-class LineItem extends ApiModel
+class LineItem extends OneRoster
 {
 
     public static function find(String $id)

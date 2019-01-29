@@ -10,7 +10,7 @@
 namespace App\Model;
 
 
-class Klass extends ApiModel
+class Klass extends OneRoster
 {
 
     public static function find(String $id)
