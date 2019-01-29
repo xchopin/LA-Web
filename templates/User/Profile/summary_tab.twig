@@ -68,7 +68,9 @@
                             <div class="cbp_tmlabel_moodle">
                                 <h2>
                                     Visualisation d'une ressource
-                                    <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">{{ dictionary.profile.tab_one.check_class }}</a>
+                                    {% if event.object.name == 'Moodle' %}
+                                        <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">{{ dictionary.profile.tab_one.check_class }}</a>
+                                    {% endif %}
                                 </h2>
                                 <p>{{ event.object.name }}</p>
                             </div>
