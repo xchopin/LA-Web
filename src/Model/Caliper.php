@@ -74,8 +74,7 @@ class Caliper
                 "object": {
                     "@id": "' . $eventId . '",
                     "@type": "SoftwareApplication",
-                    "name": "OpenDashboard Advanced",
-                    "description": "' . $description . '",
+                    "name": "OpenDashboard Advanced"
                  },
                 "group": { 
                     "@id": "' . $groupId . '",
