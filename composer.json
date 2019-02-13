@@ -2,7 +2,7 @@
     "name": "LEARNING-ANALYTICS-WEB-APPLICATION",
     "license": "ECL",
     "type": "project",
-    "description": "Learning Analytics Web Application. Created by the University of Lorraine",
+    "description": "Learning Analytics Web Application. Created by University of Lorraine",
     "authors": [
         {
             "name": "Xavier Chopin",
@@ -11,29 +11,25 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
-        "doctrine/annotations": "^1.5.0",
-        "guzzlehttp/guzzle": "^6.3.0",
-        "illuminate/database": "^5.5",
-        "illuminate/events": "^5.5",
-        "illuminate/support": "^5.5",
-        "jasig/phpcas": "^1.3",
-        "jenssegers/mongodb": "^3.3.1",
-        "mongodb/mongodb": "1.0.0",
-        "jms/i18n-routing-bundle": "^3.0.2",
-        "symfony/asset": "^4.1.6",
-        "symfony/console": "^4.1.6",
-        "symfony/flex": "^1.1.1",
-        "sensio/framework-extra-bundle": "^5.2.1",
-        "symfony/profiler-pack": "^1.0.3",
-        "symfony/security-core": "^4.1.6",
-        "symfony/security-csrf": "^4.1.6",
-        "symfony/twig-bundle": "^4.1.6",
-        "symfony/validator": "^4.1.6",
-        "symfony/yaml": "^4.1.6"
+        "php":                           "^7.1.3",
+        "sensio/framework-extra-bundle": "^5.2.4",
+        "symfony/flex":                  "^1.1.1",
+        "symfony/profiler-pack":         "^1.0.4",
+        "doctrine/annotations":          "^1.6.0",
+        "symfony/translation":           "^4.2.3",
+        "symfony/asset":                 "^4.2.3",
+        "symfony/console":               "^4.2.3",
+        "symfony/security-core":         "^4.2.3",
+        "symfony/security-csrf":         "^4.2.3",
+        "symfony/twig-bundle":           "^4.2.3",
+        "symfony/validator":             "^4.2.3",
+        "symfony/yaml":                  "^4.2.3",
+        "jms/i18n-routing-bundle":       "^3.0.2",
+        "guzzlehttp/guzzle":             "^6.3.3",
+        "jasig/phpcas":                  "^1.3"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.1.6"
+        "symfony/dotenv": "^4.2.3"
     },
     "config": {
         "preferred-install": {
