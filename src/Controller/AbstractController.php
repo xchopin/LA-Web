@@ -13,8 +13,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Dotenv\Dotenv;
 
- abstract class AbstractController extends Controller
+abstract class AbstractController extends Controller
 {
 
     /**
@@ -28,16 +29,25 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
     static private $baseDN;
 
+
     /**
      * Constructor.
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
-        self::$http = new Client(['base_uri' => env('API_URI')]);
-        self::$ldap = $container->get('ldap');
-        self::$baseDN = $container->get('ldap_basedn');
+        self::$http = new Client(['base_uri' => getenv('API_URI')]);
 
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__.'../../../.env');
+
+        self::$ldap = ldap_connect(getenv('LDAP_HOST'), getenv('LDAP_PORT'));
+        self::$baseDN = getenv('LDAP_BASE_DN');
+
+        ldap_set_option(self::$ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option(self::$ldap, LDAP_OPT_REFERRALS, 0);
+
+        $container->set('ldap', /** @scrutinizer ignore-type */ self::$ldap);
         $container->set('http', self::$http);
     }
 
@@ -52,8 +62,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
         $_SESSION['JWT'] = json_decode( self::$http->request('POST', 'api/auth/login', [
             'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
             'json' => [
-                'username' => env('API_USERNAME'),
-                'password' => env('API_PASSWORD')
+                'username' => getenv('API_USERNAME'),
+                'password' => getenv('API_PASSWORD')
             ]
         ])->getBody()
           ->getContents())->token;

@@ -35,7 +35,7 @@ class Caliper
                 'headers' => [
                     'X-Requested-With' => 'XMLHttpRequest',
                     'Content-Type' => 'application/json',
-                    'Authorization' =>  env('API_USERNAME')
+                    'Authorization' =>  getenv('API_USERNAME')
                 ],
                 'body' => $json
             ])
@@ -52,7 +52,7 @@ class Caliper
      * @param $action
      * @param string $description
      * @param string $groupId
-     * @param string $groupType
+     *
      * @return string
      */
     public static function create($userId, $action, $description = "", $groupId =  "null")

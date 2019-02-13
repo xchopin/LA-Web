@@ -4,6 +4,7 @@ namespace App\Event;
 
 use App\Controller\AdminAuthenticatedInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -26,20 +27,20 @@ class AdminSubscriber implements EventSubscriberInterface
 
     public function __construct(ContainerInterface $container)
     {
-        $this->ldap = ldap_connect(env('LDAP_HOST'), env('LDAP_PORT'));
-        $this->baseDN = env('LDAP_BASE_DN');
+        $this->ldap = ldap_connect(getenv('LDAP_HOST'), getenv('LDAP_PORT'));
+        $this->baseDN = getenv('LDAP_BASE_DN');
         ldap_set_option($this->ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($this->ldap, LDAP_OPT_REFERRALS, 0);
         $container->set('ldap', /** @scrutinizer ignore-type */ $this->ldap);
         $container->set('ldap_basedn', /** @scrutinizer ignore-type */ $this->baseDN);
 
         $this->container = $container;
-        $this->mode = env('ADMIN_MODE');
+        $this->mode = getenv('ADMIN_MODE');
 
         if ($this->mode === self::GROUP_MODE)
-            $this->administrators = env(self::PREFIX . self::GROUP_MODE);
+            $this->administrators = getenv(self::PREFIX . self::GROUP_MODE);
         else if ($this->mode === self::USERS_MODE)
-            $this->administrators = explode(',', env(self::PREFIX . self::USERS_MODE));
+            $this->administrators = explode(',', getenv(self::PREFIX . self::USERS_MODE));
         else
             throw new InvalidParameterException("Administators mode has an undefined value, please refer to the documentation.");
     }

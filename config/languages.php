@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
+
 $path = $container->getParameter('kernel.root_dir') . '/../translations/*.json';
 $languages = [];
 $dictionaries = [];
@@ -15,8 +17,3 @@ foreach (glob($path) as $file) {
 $container->setParameter('languages', $languages);
 
 $container->setParameter('dictionaries', $dictionaries);
-
-$ldapInstance = ldap_connect(env('LDAP_HOST'), env('LDAP_PORT'));
-ldap_set_option($ldapInstance, LDAP_OPT_PROTOCOL_VERSION, 3);
-ldap_set_option($ldapInstance, LDAP_OPT_REFERRALS, 0);
-$container->set('ldap', /** @scrutinizer ignore-type */ $ldapInstance);
