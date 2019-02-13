@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -134,11 +135,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
       * Function to check if OpenLRW is up
       *
       * @return boolean
-      * @throws \GuzzleHttp\Exception\GuzzleException
       */
      public static function isUp()
      {
-         return self::$http->request('GET', '/info.json')->getStatusCode() == 200;
+         try {
+             return self::$http->request('GET', '/info.json')->getStatusCode() == 200;
+         } catch (GuzzleException $e) {
+             return false;
+         }
+
      }
 
      /**
