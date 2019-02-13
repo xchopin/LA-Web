@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use App\Model\Caliper;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
