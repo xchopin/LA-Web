@@ -30,20 +30,16 @@
 - Multilingual
 - Responsive-Design
 - Dynamic Charts
-- ODM for MongoDB
 
 ## 2. Requirements
 - Apache or Nginx
-- MongoDB ⩾ 3.0
 - [OpenLRW](https://github.com/Apereo-Learning-Analytics-Initiative/OpenLRW)
 - PHP ⩾ 7.1
 - PHP modules: 
     - LDAP module
-    - MongoDB driver
 
 ## 3. Technology Used
-- [Symfony Framework (v4.1.6)](https://symfony.com/doc/4.1.6/index.html)
-- [Eloquent ORM for MongoDB](https://github.com/jenssegers/laravel-mongodb) ([since Doctrine does not support PHP⩾7.0 yet](http://www.doctrine-project.org/2016/02/16/doctrine-mongodb-odm-release-1.0.5.html))
+- [Symfony Framework (v4.2.3)](https://symfony.com/doc/4.2.3/index.html)
 - [Guzzle](http://docs.guzzlephp.org)
 >>
 - [Chart.js](http://www.chartjs.org/docs/latest/)
@@ -70,8 +66,10 @@ $ composer install
 
 ## 4. Setup permissions
 You will have to give write permissions to the `var/cache/` and `var/logs/` folders
+
+Example given
 ``` bash
-$ chmod 777 var/cache var/logs
+$ chown -R someuser:somegroup  var/cache var/logs
 ```
 
 ## 5. Fill the settings file
@@ -154,12 +152,3 @@ server {
     access_log /var/log/nginx/project_access.log;
 }
 ``` 
-
-# Documentation
-## Key files
-// ToDo
-
-## Known Issues
-- Composer cannot detect the MongoDB PHP Driver
-
-`composer require jenssegers/mongodb --ignore-platform-reqs`
