@@ -149,7 +149,7 @@ abstract class AbstractController extends Controller
      public static function isUp()
      {
          try {
-             return self::$http->request('GET', '/info.json')->getStatusCode() == 200;
+             return self::$http->request('GET', '/actuator/health')->getStatusCode() == 200;
          } catch (GuzzleException $e) {
              return false;
          }
