@@ -39,7 +39,7 @@ abstract class AbstractController extends Controller
         self::$http = new Client(['base_uri' => getenv('API_URI')]);
 
         $dotenv = new Dotenv();
-        $dotenv->load(__DIR__.'../../../.env');
+        $dotenv->load(__DIR__.'/../../.env');
 
         self::$ldap = ldap_connect(getenv('LDAP_HOST'), getenv('LDAP_PORT'));
         self::$baseDN = getenv('LDAP_BASE_DN');
