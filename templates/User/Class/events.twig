@@ -1,0 +1,76 @@
+<br> <br>
+<div id='results' class="ui middle aligned divided list"></div>
+<ul class="cbp_tmtimeline">
+    {% for event in events %}
+        <li>
+            <p class="cbp_tmtime">
+                <span>{{ event.eventTime|date(dictionary.date.year_month_day) }}</span>
+                <span>{{ event.eventTime|date("H:i") }}</span>
+            </p>
+            {% if event.action == 'Viewed' %}
+            <div class="cbp_tmicon"> <i class="eye icon"></i></div>
+            <div class="cbp_tmlabel">
+                <h2>Ouverture d'une ressource</h2>
+                {% elseif event.action == 'Submitted' %}
+                <div class="cbp_tmicon"> <i class="file alternate icon"></i></div>
+                <div class="cbp_tmlabel">
+                    <h2>Dépôt d'un devoir</h2>
+                    {% else %}
+                    <div class="cbp_tmicon"> <i class="file icon"></i></div>
+                    <div class="cbp_tmlabel">
+                        <h2>{{ event.action }}</h2>
+                        {% endif %}
+                        <p>{{ event.object.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+
+<script>
+    $(function () {
+        let done = false;
+        $('#results-tab').on('click', function(e) {
+            if (!done) {
+                $('#results').empty(); // Errors create a message and does not set DONE variable true.
+                $('#my-results').addClass('loading');
+                $.ajax({
+                    url: "{{ path('class-results', {'id': class.sourcedId }) }}",
+                    type: 'GET',
+                    success: (response) => {
+                        $('#my-results').removeClass('loading');
+                        done = true;
+                        $.each(response, function (k, v) {
+                            $('#results').append(
+                                $('<div>').addClass('item').append(
+                                    $('<div>').addClass('right floated content').append(
+                                        $('<h4>').text(v.score),
+                                    ),
+                                    $('<i>').addClass('file outline icon'),
+                                    $('<div>').addClass('content').append(
+                                        $('<b>').text(v.title),
+                                    ),
+                                )
+                            ).transition('fade in')
+                        });
+
+                    },
+                    fail: (response) => {
+                        console.log('AJAX Call error')
+                    },
+                    error: (xhr) => {
+                        if(xhr.status === 404) {
+                            $('#my-results').removeClass('loading');
+                            $('#results').append(
+                                $('<h2>').addClass('item').text("{{ i18n.tab_two.no_result }}")
+                            ).transition('fade in');
+                        }
+                    }
+                })
+            }
+        });
+
+    });
+</script>
