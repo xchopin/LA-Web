@@ -18,7 +18,7 @@
   },
   "profile": {
     "summary_tab" : {
-      "name": "My last events",
+      "name": "Overview",
       "no_result": "There is no event for this period.",
       "see_more": "See more",
       "hide_more": "Hide",

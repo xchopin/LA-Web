@@ -18,7 +18,7 @@
   },
   "profile": {
     "summary_tab" : {
-      "name": "Mes derniers évenements",
+      "name": "Vue générale",
       "no_result": "Aucun évenement disponible.",
       "see_more": "Voir plus",
       "hide_more": "Masquer les détails",
@@ -27,9 +27,6 @@
       "cas_description": "connexion(s)",
       "moodle_description": "action(s) sur Arche",
       "check_class": "Voir le cours"
-    },
-    "score_tab" : {
-      "name": "Mon score"
     },
     "enrollments_tab" : {
       "name": "Mes cours",
@@ -43,12 +40,12 @@
   "class": {
     "title": "Vue d'ensemble sur",
     "tab_one" : {
-      "name": "Mes évenements",
-      "no_result": "Aucun évenement disponible."
+      "name": "Vue d'ensemble",
+      "no_result": "Données indisponibles."
     },
     "tab_two": {
-      "name": "Mes notes",
-      "no_result": "Aucune note disponible."
+      "name": "Événements",
+      "no_result": "Aucun événement à afficher."
     }
   },
   "admin_tools": {
