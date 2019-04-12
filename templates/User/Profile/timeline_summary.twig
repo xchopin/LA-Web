@@ -1,0 +1,93 @@
+{% if events.all is not null %}
+    <div class="ui grid">
+        <div class="three wide column tablet or lower hidden">
+            <div style="margin-top: 6.3em; font-weight: bold;">{{ i18n.summary_tab.cas_title }}</div>
+            <div style="margin-top: 6em; font-weight: bold;">{{ i18n.summary_tab.moodle_title }}</div>
+        </div>
+        <div class="thirteen wide computer column sixteen wide mobile column">
+            <div class="events-timeline">
+                {% for key, value in events.cas  %}
+                    <div class="dot-event">
+                        <p class="date">{{ key | date(dictionary.date.month_day) }}</p>
+                        {% if value|length > 0  %}
+                            {% if value|length < 6 %}
+                                {% set class = "small-point" %}
+                            {% elseif value|length < 14 %}
+                                {% set class = "medium-point" %}
+                            {% else %}
+                                {% set class = "large-point" %}
+                            {% endif %}
+                            <span class="cas {{ class }}"></span>
+                            <p class="description">
+                                {{ value|length }} {{ i18n.summary_tab.cas_description }}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="events-timeline">
+                {% for key, value in events.moodle  %}
+                    <div class="dot-event">
+                        {% if value|length > 0  %}
+                            {% if value|length < 6 %}
+                                {% set class = "small-point" %}
+                            {% elseif value|length < 14 %}
+                                {% set class = "medium-point" %}
+                            {% else %}
+                                {% set class = "large-point" %}
+                            {% endif %}
+                            <span class="moodle {{ class }}"></span>
+                            <p class="description">
+                                {{ value|length }} {{ i18n.summary_tab.moodle_description }}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mobile only">
+            {{ i18n.summary_tab.cas_title }} <br>
+            {{ i18n.summary_tab.moodle_title }}
+        </div>
+    </div>
+
+
+    <p class="more" align="center">
+        <button id="see-more" class="ui primary basic icon button">{{ i18n.summary_tab.see_more }} <i class="icon caret down"></i></button>
+        <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ i18n.summary_tab.hide_more }} <i class="icon caret up"></i></button>
+    </p>
+    <div id="more-events" style="display:none;">
+        <div class="profile-timeline">
+            <ul class="cbp_tmtimeline">
+                {% for event in events.all %}
+                    <li>
+                        <p class="cbp_tmtime"><span>{{ event.eventTime|date(dictionary.date.year_month_day) }}</span> <span>{{ event.eventTime|date("H:i") }}</span></p>
+                        {% if event.action == 'Viewed' %}
+                            <div class="cbp_tmicon grey-icon"> <i class="eye icon"></i></div>
+                            <div class="cbp_tmlabel_moodle">
+                                <h2>
+                                    Visualisation d'une ressource
+                                    {% if event.object.name == 'Moodle' %}
+                                        <a href="{{ path('class', {'id': attribute(event.group, '@id') })  }}" class="check-class">{{ dictionary.profile.tab_one.check_class }}</a>
+                                    {% endif %}
+                                </h2>
+                                <p>{{ event.object.name }}</p>
+                            </div>
+                        {% else %}
+                            <div class="cbp_tmicon">
+                                <i class="sign in icon"></i>
+                            </div>
+                            <div class="cbp_tmlabel_cas">
+                                <h2>Connexion à un service</h2>
+                                <p>{{ event.object.name }}</p>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% else %}
+    <h2>{{ i18n.summary_tab.no_result }}</h2>
+{% endif %}
