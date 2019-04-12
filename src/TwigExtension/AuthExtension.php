@@ -28,7 +28,7 @@ class AuthExtension extends Twig_Extension
     protected $baseDN;
 
     /**
-     * @var bool 
+     * @var bool
      */
     protected $isAdmin;
 

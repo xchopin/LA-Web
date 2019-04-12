@@ -9,9 +9,9 @@
 
 namespace App\TwigExtension;
 
+use OpenLRW\Model\Event;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use App\Model\Caliper;
 
 class CaliperExtension extends Twig_Extension
 {
@@ -34,14 +34,14 @@ class CaliperExtension extends Twig_Extension
      * @param string $uri
      * @return bool
      */
-    public function visitPage($uri = "")
+    public function visitPage($uri = '')
     {
         if (isset($_SESSION['phpCAS']['user'])) {
              //if ( $_SESSION['isAdmin'] || isset($_SESSION['username']))
              //   return false;  // Check if it's an admin (even in as view mode)
 
             $userId = $_SESSION['phpCAS']['user'];
-            Caliper::create($userId, "Viewed", "Viewed page $uri", $uri);
+            Event::caliperFactory($userId, 'Viewed', '', $uri);
         }
     }
 }

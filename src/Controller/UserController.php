@@ -9,9 +9,11 @@
 
 namespace App\Controller;
 
-use App\Model\Klass;
-use App\Model\User;
+
 use Exception;
+use OpenLRW\Model\Klass;
+use OpenLRW\Model\User;
+use OpenLRW\OpenLRW;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +42,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
                 return $this->redirectToRoute('home');
             }
 
-            $events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime("-1 week")));
+            $events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime('-1 week')));
             $events['cas'] = null;
             $events['moodle'] = null;
 
@@ -56,7 +58,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
 
                 foreach ($events['all'] as $event) {
                     $date = date('Y-m-d', strtotime($event->eventTime));
-                    if ($event->object->{'@type'} == 'SoftwareApplication') {
+                    if ($event->object->{'@type'} === 'SoftwareApplication') {
                         if (array_key_exists($date, $cas_events))
                             array_push($cas_events[$date], $event);
                     } else {
@@ -86,7 +88,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      *
      * @Route("/me/enrollments", name="enrollments")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|Response
      */
     public function enrollments(Request $request)
     {
@@ -95,19 +97,20 @@ class UserController extends AbstractController implements AuthenticatedInterfac
 
         $enrollments = User::enrollments($id);
 
-        if ($enrollments != null) {
+        if ($enrollments !== null) {
             foreach ($enrollments as $enrollment) {
                 $class = Klass::find($enrollment->class->sourcedId);
-                if (isset($class->title) and $class->status === 'active' ) {
+                if ($class->title !== null && $class->status === 'active' ) {
                     $enrollment->title = $class->title;
-                    array_push($classes, $enrollment);
+                    $classes[] = $enrollment;
                 }
             }
         } else {
             return new Response('Enrollments not found.', 404);
         }
 
-        usort($classes, function($a, $b) { // ASC Sort
+
+        usort($classes, static function($a, $b) { // ASC Sort
             return strtolower($a->title) > strtolower($b->title);
         });
 
@@ -128,7 +131,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     {
         $class = Klass::find($id);
 
-        if ($class == null) {
+        if ($class === null) {
             $this->addFlash('error', 'Class does not exist');
             return $this->redirectToRoute('home');
         }
@@ -163,7 +166,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
                 $res[$i]['date'] = $result->date;
                 $res[$i]['score'] = $result->score;
                 foreach ($lineItems as $lineItem) {
-                    if ($lineItem->sourcedId == $result->lineitem->sourcedId)
+                    if ($lineItem->sourcedId === $result->lineitem->sourcedId)
                         $res[$i]['title'] = $lineItem->title;
                 } $i++;
             }

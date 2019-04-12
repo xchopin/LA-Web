@@ -9,7 +9,7 @@
 
 namespace App\Controller;
 
-use App\Model\Caliper;
+use OpenLRW\OpenLRW;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,10 +26,12 @@ class HomeController extends AbstractController
      */
     public function index(Request $request)
     {
-        if (self::isUp())
+        if (OpenLRW::isUp()) {
             return $this->render('home.twig');
-        else
-            return $this->render('Error/unavailable.twig');
+        }
+
+
+        return $this->render('Error/unavailable.twig');
     }
 
     /**

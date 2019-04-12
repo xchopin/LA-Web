@@ -9,7 +9,7 @@
 
 namespace App\Controller;
 
-use App\Model\User;
+
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
