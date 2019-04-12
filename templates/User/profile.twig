@@ -23,20 +23,17 @@
 
         <div class="ui pointing secondary menu">
             <a class="item active" id='summary' data-tab="first">{{ i18n.summary_tab.name }}</a>
-            <a class="item" id='score' data-tab="second">{{ i18n.score_tab.name }}</a>
-            <a class="item" id='courses-tab' data-tab="third">{{ i18n.enrollments_tab.name }}</a>
-            <a class="item" id='settings' data-tab="fourth">{{ i18n.settings_tab.name }}</a>
+            <a class="item" id='courses-tab' data-tab="second">{{ i18n.enrollments_tab.name }}</a>
+            <a class="item" id='settings' data-tab="third">{{ i18n.settings_tab.name }}</a>
         </div>
+
         <div class="ui active tab" data-tab="first">
             {% include 'User/Profile/summary_tab.twig'  %}
         </div>
-        <div class="ui tab" data-tab="second">
-            {% include 'User/Profile/score_tab.twig'  %}
-        </div>
-        <div id='my-classes' class="ui tab" data-tab="third">
+        <div id='my-classes' class="ui tab" data-tab="second">
             {% include 'User/Profile/enrollments_tab.twig'  %}
         </div>
-        <div id='my-settings' class="ui tab" data-tab="fourth">
+        <div id='my-settings' class="ui tab" data-tab="third">
             {% include 'User/Profile/settings_tab.twig'  %}
         </div>
     </div>
@@ -54,8 +51,6 @@
                onComplete : function() {}
             });
         }
-
-
 
         $(function () {
             $('.menu .item').tab({context: $('#summary')});
