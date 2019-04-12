@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use OpenLRW\OpenLRW;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Dotenv\Dotenv;
@@ -18,83 +19,45 @@ use Symfony\Component\Dotenv\Dotenv;
 abstract class AbstractController extends Controller
 {
 
-    /**
-     * Guzzle HTTP client instance linked to the OpenLRW API
-     *
-     * @var Client
-     */
-    static public $http;
-
-    static private $ldap;
-
-    static private $baseDN;
+    protected $openLRW;
+    protected $ldap;
+    protected $baseDN;
 
 
     /**
      * Constructor.
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
-        self::$http = new Client(['base_uri' => getenv('API_URI')]);
-
         $dotenv = new Dotenv();
-        $dotenv->load(__DIR__.'/../../.env');
+        $dotenv->load(__DIR__.'/../../.env'); // For Linux Servers
 
-        self::$ldap = ldap_connect(getenv('LDAP_HOST'), getenv('LDAP_PORT'));
-        self::$baseDN = getenv('LDAP_BASE_DN');
+        $this->openLRW = new OpenLRW(getenv('API_URI'), getenv('API_USERNAME'), getenv('API_PASSWORD'));
+        $this->ldap = ldap_connect(getenv('LDAP_HOST'), getenv('LDAP_PORT'));
+        $this->baseDN = getenv('LDAP_BASE_DN');
 
-        ldap_set_option(self::$ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option(self::$ldap, LDAP_OPT_REFERRALS, 0);
+        ldap_set_option($this->ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($this->ldap, LDAP_OPT_REFERRALS, 0);
 
-        $container->set('ldap', /** @scrutinizer ignore-type */ self::$ldap);
-        $container->set('http', self::$http);
+        $container->set('ldap', (object) $this->ldap);
     }
 
-     /**
-      * Creates and return a JSON Web Token through the OpenLRW API by using credentials filled in .env
-      *
-      * @return mixed|\Psr\Http\Message\ResponseInterface
-      * @throws \GuzzleHttp\Exception\GuzzleException
-      */
-    public static function generateJwt()
-    {
-        $_SESSION['JWT'] = json_decode( self::$http->request('POST', 'api/auth/login', [
-            'headers' => [ 'X-Requested-With' => 'XMLHttpRequest' ],
-            'json' => [
-                'username' => getenv('API_USERNAME'),
-                'password' => getenv('API_PASSWORD')
-            ]
-        ])->getBody()
-          ->getContents())->token;
-
-        return $_SESSION['JWT'];
-    }
-
-
-    protected static function getJwt()
-    {
-        return $_SESSION['JWT'];
-    }
-
-    static function makeJwt()
-    {
-        return isset($_SESSION['JWT']) ? self::getJwt() : self::generateJwt();
-    }
 
     /**
-     * Stops the script and prints info about a variable
+     * Stop the script and print info about a variable given.
      *
      * @param mixed $variable
      */
-    static protected function debug($variable)
+    protected function debug($variable)
     {
         die('<pre>' . print_r($variable, true) . '</pre>');
     }
 
 
     /**
-     * Gets a service from the container.
+     * Get a service from the container.
      *
      * @param string $service
      *
@@ -106,7 +69,7 @@ abstract class AbstractController extends Controller
     }
 
     /**
-     * Executes a LDAP query
+     * Execute a LDAP query.
      *
      * @param $filter
      * @param array $arg
@@ -114,11 +77,11 @@ abstract class AbstractController extends Controller
      */
     protected function searchLDAP($filter, $arg = [])
     {
-        return ldap_search(self::$ldap, self::$baseDN, $filter, $arg);
+        return ldap_search($this->ldap, $this->baseDN, $filter, $arg);
     }
 
     /**
-     * Returns data from a LDAP query
+     * Return data from a LDAP query.
      *
      * @param $filter
      * @param array $arg
@@ -126,11 +89,11 @@ abstract class AbstractController extends Controller
      */
     protected function ldap($filter, $arg = [])
     {
-        return ldap_get_entries(self::$ldap, $this->searchLDAP($filter, $arg));
+        return ldap_get_entries($this->ldap, $this->searchLDAP($filter, $arg));
     }
 
     /**
-     * Returns the first tuple from a LDAP query
+     * Return the first tuple from a LDAP query.
      *
      * @param $filter
      * @param array $arg
@@ -138,23 +101,8 @@ abstract class AbstractController extends Controller
      */
     protected function ldapFirst($filter, $arg = [])
     {
-        return ldap_get_entries($this->__get('ldap'), $this->searchLDAP($filter, $arg))[0];
+        return ldap_get_entries($this->ldap, $this->searchLDAP($filter, $arg))[0];
     }
-
-     /**
-      * Function to check if OpenLRW is up
-      *
-      * @return boolean
-      */
-     public static function isUp()
-     {
-         try {
-             return self::$http->request('GET', '/actuator/health')->getStatusCode() == 200;
-         } catch (GuzzleException $e) {
-             return false;
-         }
-
-     }
 
      /**
       * Get the logged username
@@ -165,6 +113,5 @@ abstract class AbstractController extends Controller
      {
          return $_SESSION['phpCAS']['user'];
      }
-
 
 }
