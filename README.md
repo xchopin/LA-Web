@@ -1,4 +1,4 @@
-# OpenDashboard Advanced
+# My Analytics Dashboard
 
 <p align="center">  
   <img width='45%' src='/.resources/logo.png'>
@@ -18,16 +18,17 @@
 
 
 # Introduction
-#### OpenDashboard Advanced is an alternative project of the [Apereo OpenDashboard](https://github.com/Apereo-Learning-Analytics-Initiative/OpenDashboard) application. It is made for University of Lorraine and the ESUP-Portail consortium. ODA is an efficient CASified application that provide visualizations and data for professors and students about their Learning Analytics.
+**My Analytics Dashboard is an alternative project of the [Apereo OpenDashboard](https://github.com/Apereo-Learning-Analytics-Initiative/OpenDashboard) application. It is made for University of Lorraine and the ESUP-Portail consortium.** <br>
+**MAD is an efficient CASified application that provide visualizations and data for professors and students about their Learning Analytics.**
 
 
 ## 1. Features
 - CAS Authentication
 - LDAP Access
-- Roles (Admins and users)
-- Modern Design
+- Roles (Admins and students)
 - Admin tools
 - Multilingual
+- Modern Design
 - Responsive-Design
 - Dynamic Charts
 
@@ -39,27 +40,28 @@
     - LDAP module
 
 ## 3. Technology Used
-- [Symfony Framework (v4.2.3)](https://symfony.com/doc/4.2.3/index.html)
-- [Guzzle](http://docs.guzzlephp.org)
->>
-- [Chart.js](http://www.chartjs.org/docs/latest/)
-- [Semantic UI](https://semantic-ui.com/introduction/getting-started.html)
-- [jQuery](https://api.jquery.com/)
+- **Back-End:**
+    - [Symfony Framework (v4.2.5)](https://symfony.com/doc/4.2.5/index.html)
+    - [OpenLRW PHP Client](https://github.com/Apereo-Learning-Analytics-Initiative/OpenLRW-php-api-client)
+- **Front-End:**
+    - [Chart.js](http://www.chartjs.org/docs/latest/)
+    - [Semantic UI](https://semantic-ui.com/introduction/getting-started.html)
+    - [jQuery](https://api.jquery.com/)
 
 
 # Installation
 ## 1. Clone the repository
 ``` bash
-$ git clone https://gitlab.univ-lorraine.fr/dn-infra-mauve/la-web.git
+$ git clone https://github.com/xchopin/my-analytics-dashboard
 ```
 
-## 2. Install front-end dependencies
+## 2. Install the front-end dependencies
 ``` bash
 $ bower install
 ```
 It will create `lib/` in the `public/` directory for jQuery and Semantic UI dependencies.
 
-## 3. Install PHP dependencies
+## 3. Install the PHP dependencies
 ``` bash
 $ composer install
 ```
