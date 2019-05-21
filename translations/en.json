@@ -17,9 +17,9 @@
     "legal_notice": "Legal notice"
   },
   "profile": {
-    "summary_tab" : {
+    "overview_tab" : {
       "name": "Overview",
-      "no_result": "There is no event for this period.",
+      "no_result": "Data unavailable",
       "see_more": "See more",
       "hide_more": "Hide",
       "cas_title": "CAS services activity",

@@ -1,3 +1,5 @@
+{% set i18n = dictionary.profile.enrollments_tab %}
+
 <div class="ui search">
     <div class="ui fluid icon input">
         <input id="filter" class="prompt" type="text" placeholder="Filtrer">
@@ -35,7 +37,7 @@
                     },
                     error: function () {
                         $('#my-classes').removeClass('loading');
-                        $('#enrollments').append($('<h2>').addClass('item').text("{{ i18n.summary_tab.no_result }}")).transition('fade in');
+                        $('#enrollments').append($('<h2>').addClass('item').text("{{ i18n.no_result }}")).transition('fade in');
                     },
                     fail: function (response) {
                         console.log('AJAX Call error')

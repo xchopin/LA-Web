@@ -1,8 +1,10 @@
+{% set i18n = dictionary.profile.overview_tab %}
+
 {% if events.all is not null %}
     <div class="ui grid">
         <div class="three wide column tablet or lower hidden">
-            <div style="margin-top: 6.3em; font-weight: bold;">{{ i18n.summary_tab.cas_title }}</div>
-            <div style="margin-top: 6em; font-weight: bold;">{{ i18n.summary_tab.moodle_title }}</div>
+            <div style="margin-top: 6.3em; font-weight: bold;">{{ i18n.cas_title }}</div>
+            <div style="margin-top: 6em; font-weight: bold;">{{ i18n.moodle_title }}</div>
         </div>
         <div class="thirteen wide computer column sixteen wide mobile column">
             <div class="events-timeline">
@@ -19,7 +21,7 @@
                             {% endif %}
                             <span class="cas {{ class }}"></span>
                             <p class="description">
-                                {{ value|length }} {{ i18n.summary_tab.cas_description }}
+                                {{ value|length }} {{ i18n.cas_description }}
                             </p>
                         {% endif %}
                     </div>
@@ -39,7 +41,7 @@
                             {% endif %}
                             <span class="moodle {{ class }}"></span>
                             <p class="description">
-                                {{ value|length }} {{ i18n.summary_tab.moodle_description }}
+                                {{ value|length }} {{ i18n.moodle_description }}
                             </p>
                         {% endif %}
                     </div>
@@ -47,15 +49,15 @@
             </div>
         </div>
         <div class="mobile only">
-            {{ i18n.summary_tab.cas_title }} <br>
-            {{ i18n.summary_tab.moodle_title }}
+            {{ i18n.cas_title }} <br>
+            {{ i18n.moodle_title }}
         </div>
     </div>
 
 
     <p class="more" align="center">
-        <button id="see-more" class="ui primary basic icon button">{{ i18n.summary_tab.see_more }} <i class="icon caret down"></i></button>
-        <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ i18n.summary_tab.hide_more }} <i class="icon caret up"></i></button>
+        <button id="see-more" class="ui primary basic icon button">{{ i18n.see_more }} <i class="icon caret down"></i></button>
+        <button style="display: none;" id="hide-more" class="ui red basic icon button">{{ i18n.hide_more }} <i class="icon caret up"></i></button>
     </p>
     <div id="more-events" style="display:none;">
         <div class="profile-timeline">
@@ -89,5 +91,5 @@
         </div>
     </div>
 {% else %}
-    <h2>{{ i18n.summary_tab.no_result }}</h2>
+    <h2>{{ i18n.no_result }}</h2>
 {% endif %}

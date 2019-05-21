@@ -17,9 +17,9 @@
     "legal_notice": "Mention Légale"
   },
   "profile": {
-    "summary_tab" : {
+    "overview_tab" : {
       "name": "Vue générale",
-      "no_result": "Aucun évenement disponible.",
+      "no_result": "Donnée indisponible",
       "see_more": "Voir plus",
       "hide_more": "Masquer les détails",
       "cas_title": "Connexion aux services",
