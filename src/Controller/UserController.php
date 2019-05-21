@@ -13,7 +13,6 @@ namespace App\Controller;
 use Exception;
 use OpenLRW\Model\Klass;
 use OpenLRW\Model\User;
-use OpenLRW\OpenLRW;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -130,22 +129,31 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     public function class(Request $request, String $id = '')
     {
         $class = Klass::find($id);
-
         if ($class === null) {
             $this->addFlash('error', 'Class does not exist');
             return $this->redirectToRoute('home');
         }
 
-        $events = Klass::eventsForUser($id, self::loggedUser());
+        $userId = $_SESSION['phpCAS']['user'];
+        $enrollments = User::enrollments($userId);
 
-        if ($events != null)
-            usort($events, function($a, $b) {return $a->eventTime < $b->eventTime;});
+        // Check if the user is enrolled to the class
+        foreach ($enrollments as $enrollment){
+            if ($class->sourcedId === $enrollment->class->sourcedId) {
+                $events = Klass::eventsForUser($id, self::loggedUser());
 
-        return $this->render('User/class.twig', [
-            'class' => $class,
-            'events' => $events
-        ]);
+                if ($events !== null)
+                    usort($events, function($a, $b) {return $a->eventTime < $b->eventTime;});
 
+                return $this->render('User/class.twig', [
+                    'class' => $class,
+                    'events' => $events
+                ]);
+            }
+        }
+
+        $this->addFlash('error', 'You are not enrolled in this class.');
+        return $this->redirectToRoute('home');
     }
 
     /**
@@ -156,7 +164,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function classResults(Request $request, String $id = '')
+    public function classResults(Request $request, String $id = ''): ?Response
     {
         try {
             $results = Klass::resultsForUser($id, self::loggedUser());
@@ -185,7 +193,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function userSettings(Request $request)
+    public function userSettings(Request $request): Response
     {
 
         $id = $_SESSION['phpCAS']['user'];
@@ -193,8 +201,9 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         $metadata = $user->metadata;
         $settings = [];
         foreach ($metadata as $key => $value) {
-            if (substr( $key, 0, 8 ) === "settings")
-                array_push($settings, array($key, $value));
+            if (substr( $key, 0, 8 ) === "settings") {
+                $settings[] = array($key, $value);
+            }
         }
 
         return $this->json($settings);
