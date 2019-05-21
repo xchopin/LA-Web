@@ -17,6 +17,7 @@
         "symfony/flex":                  "^1.2.1",
         "symfony/profiler-pack":         "^1.0.4",
         "doctrine/annotations":          "^1.6.0",
+        "symfony/monolog-bundle":        "^3.3.1",
         "symfony/translation":           "^4.2.5",
         "symfony/asset":                 "^4.2.5",
         "symfony/console":               "^4.2.5",
