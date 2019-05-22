@@ -23,14 +23,17 @@
                     success: function (response) {
                         $('#my-classes').removeClass('loading');
                         done = true;
+                        let label = '';
+                        let professorLabel = '<span class="ui blue tiny basic label professor-label">{{ i18n.professor }}</span>';
                         $.each(response, function (k, v) {
+                            label = v.role === 'teacher' ? professorLabel : ''; // if user is a professor, display a badge
                             let url = '{{ path('class', {'id': 'classId'}) }}';
                             url = url.replace("classId", v.class.sourcedId);
                             $('#enrollments').append(
                                 $('<a>').addClass('item').prop('href', url).append(
                                     $('<i>').addClass('folder outline icon'),
                                     $('<div>').addClass('content').append(
-                                        $('<div>').addClass('header').text(v.title)
+                                        $('<div>').addClass('header').text(v.title).append(label)
                                     )
                                 )).transition('fade in');
                         });
