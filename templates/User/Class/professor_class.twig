@@ -1,0 +1,32 @@
+{% extends 'Utility/layout.twig' %}
+
+{% block body %}
+
+{% set i18n = dictionary.class %}
+
+    <div class="ui grid">
+    <div class="one wide column"></div>
+    <div class="fourteen wide column">
+        <span class="profile-name"> Gestion du cours {{ class.title }}</span>
+        <div class="page-description">Description du cours: "{{ class.metadata.summary|striptags }}" -  <a target='_blank' href="https://arche.univ-lorraine.fr/course/view.php?id={{ class.sourcedId }}">Accès au cours Arche </a> </div>
+        <div class="ui pointing secondary menu">
+            <a style="text-align:center;" class="item active" id='summary' data-tab="first">Mapper le cours à Apogée</a>
+        </div>
+
+        <div class="ui active tab" data-tab="first">
+
+            <div class="ui category search">
+                <div class="ui search">
+                    <div class="ui fluid icon input">
+                        <input id="filter" class="prompt" type="text" placeholder="Rechercher un cours">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results">test</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
