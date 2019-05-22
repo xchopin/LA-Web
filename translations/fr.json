@@ -30,6 +30,7 @@
     },
     "enrollments_tab" : {
       "name": "Mes cours",
+      "professor": "Enseignant",
       "no_result": "Vous n'êtes inscrit à aucun cours."
     },
     "settings_tab" : {

@@ -33,6 +33,7 @@
     },
     "enrollments_tab" : {
       "name": "My classes",
+      "professor": "Professor",
       "no_result": "You are not enrolled to any classes."
     },
     "settings_tab" : {
