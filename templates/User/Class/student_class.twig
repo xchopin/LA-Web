@@ -1,5 +1,4 @@
 {% extends 'Utility/layout.twig' %}
-{% set icons = {'Viewed' : 'eye'} %}
 
 {% block body %}
 
@@ -18,11 +17,11 @@
 
 
         <div class="ui active tab" data-tab="first">
-            {% include 'User/Class/score.twig'  %}
+            {% include 'User/Class/Student/score.twig'  %}
         </div>
 
         <div id='my-results' class="ui tab" data-tab="second">
-            {% include 'User/Class/events.twig'  %}
+            {% include 'User/Class/Student/events.twig'  %}
         </div>
         <div class="one wide column"></div>
     </div>
