@@ -31,7 +31,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function profile(Request $request)
+    public function profile(Request $request): ?Response
     {
         try {
             $user = User::find(self::loggedUser());
@@ -45,8 +45,8 @@ class UserController extends AbstractController implements AuthenticatedInterfac
             $events['cas'] = null;
             $events['moodle'] = null;
 
-            if ($events['all'] != null) {
-                usort($events['all'], function ($a, $b) {
+            if ($events['all'] !== null) {
+                usort($events['all'], static function ($a, $b) {
                     return $a->eventTime < $b->eventTime;
                 });
 
@@ -59,10 +59,10 @@ class UserController extends AbstractController implements AuthenticatedInterfac
                     $date = date('Y-m-d', strtotime($event->eventTime));
                     if ($event->object->{'@type'} === 'SoftwareApplication') {
                         if (array_key_exists($date, $cas_events))
-                            array_push($cas_events[$date], $event);
+                            $cas_events[$date][] = $event;
                     } else {
                         if (array_key_exists($date, $moodle_events))
-                            array_push($moodle_events[$date], $event);
+                            $moodle_events[$date][] = $event;
                     }
                 }
 
@@ -91,9 +91,8 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      */
     public function enrollments(Request $request)
     {
-        $id = $_SESSION['phpCAS']['user'];
+        $id = self::loggedUser();
         $classes = [];
-
         $enrollments = User::enrollments($id);
 
         if ($enrollments !== null) {
@@ -118,73 +117,6 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     }
 
 
-    /**
-     * Show events for a class and a user given.
-     *
-     * @Route("/classes/{id}", name="class")
-     * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function class(Request $request, String $id = '')
-    {
-        $class = Klass::find($id);
-        if ($class === null) {
-            $this->addFlash('error', 'Class does not exist');
-            return $this->redirectToRoute('home');
-        }
-
-        $userId = $_SESSION['phpCAS']['user'];
-        $enrollments = User::enrollments($userId);
-
-        // Check if the user is enrolled to the class
-        foreach ($enrollments as $enrollment){
-            if ($class->sourcedId === $enrollment->class->sourcedId) {
-                $events = Klass::eventsForUser($id, self::loggedUser());
-
-                if ($events !== null)
-                    usort($events, function($a, $b) {return $a->eventTime < $b->eventTime;});
-
-                return $this->render('User/class.twig', [
-                    'class' => $class,
-                    'events' => $events
-                ]);
-            }
-        }
-
-        $this->addFlash('error', 'You are not enrolled in this class.');
-        return $this->redirectToRoute('home');
-    }
-
-    /**
-     * Return results for a class and a user given.
-     *
-     * @Route("/classes/{id}/results", name="class-results")
-     * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function classResults(Request $request, String $id = ''): ?Response
-    {
-        try {
-            $results = Klass::resultsForUser($id, self::loggedUser());
-            $lineItems = Klass::lineItems($id);
-            $res = []; $i = 0;
-            foreach ($results as $result) {
-                $res[$i]['date'] = $result->date;
-                $res[$i]['score'] = $result->score;
-                foreach ($lineItems as $lineItem) {
-                    if ($lineItem->sourcedId === $result->lineitem->sourcedId)
-                        $res[$i]['title'] = $lineItem->title;
-                } $i++;
-            }
-
-            return $this->json($res);
-        }catch (Exception $e) {
-            return new Response($e->getMessage(), 404);
-        }
-
-    }
 
     /**
      * Return the settings of a user.
@@ -196,12 +128,13 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     public function userSettings(Request $request): Response
     {
 
-        $id = $_SESSION['phpCAS']['user'];
+        $id = self::loggedUser();
         $user = User::find($id);
         $metadata = $user->metadata;
         $settings = [];
+
         foreach ($metadata as $key => $value) {
-            if (substr( $key, 0, 8 ) === "settings") {
+            if (strpos($key, 'settings') === 0) {
                 $settings[] = array($key, $value);
             }
         }
@@ -220,13 +153,13 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     {
         try {
 
-            $key = $request->request->get('key');
+            $key   = $request->request->get('key');
             $value = $request->request->get('value');
-            $id = $_SESSION['phpCAS']['user'];
-            $user = User::find($id);
-            $json = $user->metadata;
+            $id    = $_SESSION['phpCAS']['user'];
+            $user  = User::find($id);
+            $json  = $user->metadata;
             $json->{$key} = $value;
-            $json = '{ "metadata" : '. json_encode($json) .'}';
+            $json   = '{ "metadata" : '. json_encode($json) .'}';
             $status = User::update($id, $json);
 
             return new Response($status);
