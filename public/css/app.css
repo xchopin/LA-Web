@@ -735,3 +735,9 @@ a.check-class:hover {
     font-size: 16px;
 }
 
+.professor-label {
+    position: absolute;
+    right: 14px;
+    bottom: 27px;
+}
+
