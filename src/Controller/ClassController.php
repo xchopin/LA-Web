@@ -42,22 +42,33 @@ class ClassController extends AbstractController
         $enrollments = User::enrollments($userId);
 
         foreach ($enrollments as $enrollment){
-                if ($class->sourcedId === $enrollment->class->sourcedId) { // Check if the user is enrolled to this class
-                    if ($enrollment->role === 'student') {
-                        $events = Klass::eventsForUser($id, self::loggedUser());
-                        if ($events !== null)
-                            usort($events, static function($a, $b) {return $a->eventTime < $b->eventTime;});
 
-                        return $this->render('User/Class/student_class.twig', [
-                            'class' => $class,
-                            'events' => $events
-                        ]);
+            if (self::isProfessorModeEnabled()) {
+                return $this->render('User/Class/professor_class.twig', [
+                    'class' => $class
+                ]);
+            }
+
+
+            if ($class->sourcedId === $enrollment->class->sourcedId) { // Check if the user is enrolled to this class
+                if ($enrollment->role === 'student') {
+                    $events = Klass::eventsForUser($id, self::loggedUser());
+                    if ($events !== null) {
+                        usort($events, static function ($a, $b) {
+                            return $a->eventTime < $b->eventTime;
+                        });
                     }
 
-                    return $this->render('User/Class/professor_class.twig', [
-                        'class' => $class
+                    return $this->render('User/Class/student_class.twig', [
+                        'class' => $class,
+                        'events' => $events
                     ]);
                 }
+
+                return $this->render('User/Class/professor_class.twig', [
+                    'class' => $class
+                ]);
+            }
         }
 
         $this->addFlash('error', 'You are not enrolled in this class.');
