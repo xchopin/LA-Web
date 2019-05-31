@@ -59,6 +59,10 @@
       "message_navbar": "L'application ressemble à ça pour: ",
       "view_as_someone": "Aperçu en tant qu'une personne particulière",
       "leave": "Quitter voir en tant que..."
+    },
+    "professor_mode": {
+      "self_name": "Vue Enseignant",
+      "leave": "Quitter la vue enseignant"
     }
   },
   "date": {

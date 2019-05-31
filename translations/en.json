@@ -62,6 +62,10 @@
       "message_navbar": "This application looks like this for: ",
       "view_as_someone": "View as another person",
       "leave": "Leave `View As` mode..."
+    },
+    "professor_mode": {
+      "self_name": "Professor View",
+      "leave": "Leave this view"
     }
   },
   "date": {
