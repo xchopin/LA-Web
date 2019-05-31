@@ -736,8 +736,14 @@ a.check-class:hover {
 }
 
 .professor-label {
-    position: absolute;
-    right: 14px;
-    bottom: 27px;
+    float: right;
+    margin-top: -14px !important;
 }
+
+.professor-mode {
+    position: absolute;
+    left: 7px;
+    top: 7px;
+}
+
 
