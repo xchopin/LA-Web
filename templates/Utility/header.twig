@@ -1,0 +1,32 @@
+{% set i18n = dictionary.admin_tools %}
+
+{%
+set adminTools = [
+    {'route': 'view-as',        'icon': 'eye',            'name': i18n.view_as.self_name },
+    {'route': 'professor-view', 'icon': 'graduation cap', 'name': i18n.professor_mode.self_name },
+]
+%}
+
+{% include 'Utility/Header/mobile_menu.twig'  %}
+
+{% include 'Utility/Header/navbar.twig'  %}
+
+
+
+{% if auth().viewAsMode %}
+<nav id="view-as" class="ui borderless top inverted fixed menu">
+    <p class="message-view">
+        <a id='leave-view' href="{{ path('leave-view-as') }}" data-content="{{ dictionary.admin_tools.view_as.leave }}" data-position="bottom center" >
+            <i class="times circle icon" ></i>
+        </a>
+        {{ dictionary.admin_tools.view_as.message_navbar }} &nbsp; <i class="small user icon"></i> {{ auth().name }}</p>
+    <a href="{{ path('new-view-as') }}" id="change-view"> {{ dictionary.admin_tools.view_as.view_as_someone }}</a>
+</nav>
+<div id="leave-popup"></div>
+{% endif %}
+
+
+
+<div id='loader' class="ui dimmer">
+    <div class="ui text loader">{{ dictionary.loading }}</div>
+</div>

@@ -1,0 +1,34 @@
+<div class="ui vertical inverted very sidebar menu left uncover">
+    <div id="brand" class="item">
+        <a class="ui logo icon image" href="{{ path('home') }}">
+            <img src="{{ asset('img/logo.png') }}" alt="logo">
+        </a>
+        &nbsp; | <span>Analytics</span>
+    </div>
+
+    <a class="item" href="{{ path('home') }}">
+        <h3><i class="home icon"></i> {{ dictionary.tabs.home }}</h3>
+    </a>
+    <div class="item">
+        <h3><i class="world icon"></i> {{ dictionary.tabs.languages }}  <i class="small down caret icon"></i></h3>
+        <div class="collapsible menu">
+            {% for language, id in languages() %}
+                <a class="item" href="{{ path('home', {'_locale': id}) }}">
+                    <span class="hamburger-item">{{ language }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% if auth().isAdmin %}
+        <div class="item">
+            <h3> <i class="archive icon"></i> {{ dictionary.admin_tools.self_name }} <i class="small down caret icon"></i></h3>
+            <div class="collapsible menu">
+                {% for tool in adminTools %}
+                    <a class="item" href={{ path(tool.route) }}>
+                        <span class="hamburger-item"> <i class="{{ tool.icon }} icon"></i>{{ tool.name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>

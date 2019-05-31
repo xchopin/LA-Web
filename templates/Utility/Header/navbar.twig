@@ -1,47 +1,3 @@
-{%
-set adminTools = [
-    {'route': 'view-as', 'icon': 'eye', 'name': dictionary.admin_tools.view_as.self_name },
-]
-%}
-
-<div class="ui vertical inverted very sidebar menu left uncover">
-    <div id="brand" class="item">
-        <a class="ui logo icon image" href="{{ path('home') }}">
-            <img src="{{ asset('img/logo.png') }}" alt="logo">
-        </a>
-        &nbsp; | <span>Analytics</span>
-    </div>
-
-    <a class="item" href="{{ path('home') }}">
-        <h3><i class="home icon"></i> {{ dictionary.tabs.home }}</h3>
-    </a>
-    <div class="item">
-        <h3><i class="world icon"></i> {{ dictionary.tabs.languages }}  <i class="small down caret icon"></i></h3>
-        <div class="collapsible menu">
-            {% for language, id in languages() %}
-                <a class="item" href="{{ path('home', {'_locale': id}) }}">
-                    <span class="hamburger-item">{{ language }}</span>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-    {% if auth().isAdmin %}
-        <div class="item">
-            <h3> <i class="archive icon"></i> {{ dictionary.admin_tools.self_name }} <i class="small down caret icon"></i></h3>
-            <div class="collapsible menu">
-                {% for tool in adminTools %}
-                    <a class="item" href={{ path(tool.route) }}>
-                        <span class="hamburger-item"> <i class="{{ tool.icon }} icon"></i>{{ tool.name }}</span>
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-</div>
-
-
-
-
 <nav id='navbar' class="ui borderless top inverted fixed menu">
     <a id='open-menu' class="toc item mobile only tablet only">
         <span id="menu">{{ dictionary.tabs.menu }}</span>
@@ -72,14 +28,28 @@ set adminTools = [
             <div class="ui pointing dropdown link item mobile hidden tablet hidden">
                 <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
                 <i class="dropdown icon"></i>
-                {% for tool in adminTools %}
-                    <div class="ui inverted menu">
+                <div class="ui inverted menu">
+                    {% for tool in adminTools %}
                         <a class="item" href="{{ path(tool.route) }}">
-                            <span class="text"> <i class="{{ tool.icon }} icon"></i> {{ tool.name }}</span>
+                            <span class="text">
+                                <i class="{{ tool.icon }} icon"></i> {{ tool.name }}
+                            </span>
                         </a>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
+
+            {% if auth().professorMode %}
+                <a href="{{ path('leave-professor-view') }}">
+                    <div class="ui blue basic label professor-mode">
+                        <span id="professor-mode" style="color:#B51C15">
+                            <i class="close icon"></i>
+                            {{ dictionary.admin_tools.professor_mode.self_name }}
+                        </span>
+                    </div>
+                </a>
+            {% endif %}
+
         {% endif %}
         <div class="right menu">
             {% if not auth().isLogged %}
@@ -105,18 +75,3 @@ set adminTools = [
         </div>
     </div>
 </nav>
-{% if auth().viewAsMode %}
-<nav id="view-as" class="ui borderless top inverted fixed menu">
-    <p class="message-view">
-        <a id='leave-view' href="{{ path('leave-view-as') }}" data-content="{{ dictionary.admin_tools.view_as.leave }}" data-position="bottom center" >
-            <i class="times circle icon" ></i>
-        </a>
-        {{ dictionary.admin_tools.view_as.message_navbar }} &nbsp; <i class="small user icon"></i> {{ auth().name }}</p>
-    <a href="{{ path('new-view-as') }}" id="change-view"> {{ dictionary.admin_tools.view_as.view_as_someone }}</a>
-</nav>
-<div id="leave-popup"></div>
-{% endif %}
-
-<div id='loader' class="ui dimmer">
-    <div class="ui text loader">{{ dictionary.loading }}</div>
-</div>
