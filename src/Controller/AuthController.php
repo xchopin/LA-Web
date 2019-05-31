@@ -27,7 +27,7 @@ class AuthController extends AbstractController
     public function login(Request $request)
     {
 
-            phpCAS::client(CAS_VERSION_2_0, getenv('CAS_HOST'), intval(getenv('CAS_PORT')), '');
+            phpCAS::client(CAS_VERSION_2_0, getenv('CAS_HOST'), (int)getenv('CAS_PORT'), '');
             phpCAS::setNoCasServerValidation();
             phpCAS::forceAuthentication();
             phpCAS::getUser();
@@ -38,7 +38,7 @@ class AuthController extends AbstractController
             $_SESSION['email'] = $result['mail'][0];
             $_SESSION['isAdmin'] = false; // initialize
             
-            if (getenv('APP_ENV') == 'dev') { // If the app is in dev mode, only admin can log in
+            if (getenv('APP_ENV') === 'dev') { // If the app is in dev mode, only admin can log in
                 $adminSubscriber = new AdminSubscriber($this->container);
                 if (! $adminSubscriber->isAdmin()) {
                     session_destroy();
@@ -48,7 +48,7 @@ class AuthController extends AbstractController
             }
 
             if (isset($_GET['redirect']))
-                return $this->redirect($_GET['redirect']);
+                return $this->redirectToRoute($_GET['redirect']);
             else
                 return $this->redirectToRoute('home');
 
@@ -62,7 +62,8 @@ class AuthController extends AbstractController
      */
     public function logout(Request $request)
     {
-        phpCAS::client(CAS_VERSION_2_0, getenv('CAS_HOST'), intval(getenv('CAS_PORT')), '');
+        session_destroy();
+        phpCAS::client(CAS_VERSION_2_0, getenv('CAS_HOST'), (int)getenv('CAS_PORT'), '');
         phpCAS::logout();
     }
 }
