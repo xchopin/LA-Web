@@ -84,13 +84,19 @@ class AdminSubscriber implements EventSubscriberInterface
      *
      * @return bool
      */
-    public function isAdmin()
+    public function isAdmin() : bool
     {
         $isAdmin = false;
+        $isLogged = false;
+
         if (isset($_SESSION['phpCAS']['user'])) {
             $userId = $_SESSION['phpCAS']['user'];
+            $isLogged = true;
+        }
+
+        if ($isLogged) {
             if ($this->mode === self::USERS_MODE) {
-                if (in_array($userId, $this->administrators))
+                if (in_array($userId, $this->administrators, true))
                     $isAdmin = true;
             } else {
                 $result = ldap_get_entries(
@@ -98,9 +104,16 @@ class AdminSubscriber implements EventSubscriberInterface
                     ldap_search($this->ldap, $this->baseDN, "(&(udlGroup=$this->administrators)(uid=$userId))")
                 );
                 $result['count'] > 0 ? $isAdmin = true : false;
+
             }
         }
+
         $_SESSION['isAdmin'] = $isAdmin;
+
+        if (isset($_SESSION['originalUsername'])) { // Mode View As
+            return true;
+        }
+
         return $isAdmin;
     }
 }

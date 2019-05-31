@@ -11,6 +11,7 @@ namespace App\TwigExtension;
 
 use App\Event\AdminSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -48,6 +49,7 @@ class AuthExtension extends Twig_Extension
         return 'auth';
     }
 
+
     public function getFunctions()
     {
         return [
@@ -57,31 +59,35 @@ class AuthExtension extends Twig_Extension
 
     public function auth()
     {
-        $name = null; $logged = false; $isAdmin = false; $username = null; $email = null; $viewAsMode = false;
-        $originalUsername = null;
+
+        $logged = false;
+        $isAdmin = false;
+        $viewAsMode = false;
+        $professorMode = false;
+        $username = null;
+        $email = null;
+        $name = null;
+
 
         if (isset($_SESSION['phpCAS']['user'])) {
             $logged = true;
             $username = $_SESSION['phpCAS']['user'];
             $name = $_SESSION['name'];
             $email = $_SESSION['email'];
-            $isAdmin = $this->isAdmin;
-
-            if (isset($_SESSION['username'])) {
-                $viewAsMode = true;
-                $originalUsername = $_SESSION['username'];
-            }
+            $isAdmin = $_SESSION['isAdmin'];
+            $viewAsMode = isset($_SESSION['originalUsername']); // if this variable exists, it's in view as mode
+            $professorMode = isset($_SESSION['professorMode']);
         }
 
         return (object)
         [
             'isLogged' => $logged,
-            'isAdmin' =>  $isAdmin,
+            'isAdmin' => $isAdmin,
             'username' => $username,
             'email' => $email,
             'name' => $name,
             'viewAsMode' => $viewAsMode,
-            'originalUsername' => $originalUsername
+            'professorMode' => $professorMode
         ];
     }
 }
