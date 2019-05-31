@@ -114,4 +114,14 @@ abstract class AbstractController extends Controller
          return $_SESSION['phpCAS']['user'];
      }
 
+    /**
+     * Helper for knowing if professor mode is enabled
+     *
+     * @return bool
+     */
+     public static function isProfessorModeEnabled(): bool
+     {
+         return isset($_SESSION['professorMode']);
+     }
+
 }
