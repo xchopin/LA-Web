@@ -20,23 +20,23 @@ use \Symfony\Component\HttpFoundation\JsonResponse;
 class AdminController extends AbstractController implements AdminAuthenticatedInterface
 {
     /**
-     * GET: Renders a form page to find a student
+     * GET: Renders a form page to find a person
      * POST: Returns JSON data for a name given
      *
      * @Route("/view-as", name="view-as")
      * @param Request $request
      * @return JsonResponse | Response
      */
-    public function findStudent(Request $request)
+    public function findPerson(Request $request)
     {
         if ($request->isMethod('POST')) {
             $keyword = $request->get('name');
-            $filter = '(&(businesscategory=E*)(displayname=*' . $keyword . '*))';
+            $filter = '(&(displayname=*' . $keyword . '*))';
             $students = $this->ldap($filter, ['displayname', 'uid']);
             $res = [];
 
             foreach($students as $student) {
-                if ($student['uid'][0] != null)
+                if ($student['uid'][0] !== null)
                     $res += [ $student['uid'][0] => $student['displayname'][0] ];
             }
 
