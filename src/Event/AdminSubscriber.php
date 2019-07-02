@@ -101,7 +101,7 @@ class AdminSubscriber implements EventSubscriberInterface
             } else {
                 $result = ldap_get_entries(
                     $this->ldap,
-                    ldap_search($this->ldap, $this->baseDN, "(&(udlGroup=$this->administrators)(uid=$userId))")
+                    ldap_search($this->ldap, $this->baseDN, "(&(memberOf=$this->administrators)(uid=$userId))")
                 );
                 $result['count'] > 0 ? $isAdmin = true : false;
 
