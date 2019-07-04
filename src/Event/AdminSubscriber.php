@@ -33,7 +33,7 @@ class AdminSubscriber implements EventSubscriberInterface
         ldap_set_option($this->ldap, LDAP_OPT_REFERRALS, 0);
         $container->set('ldap', /** @scrutinizer ignore-type */ $this->ldap);
         $container->set('ldap_basedn', /** @scrutinizer ignore-type */ $this->baseDN);
-
+        ldap_bind($this->ldap, getenv('LDAP_USERNAME'), getenv('LDAP_PASSWORD'));
         $this->container = $container;
         $this->mode = getenv('ADMIN_MODE');
 
