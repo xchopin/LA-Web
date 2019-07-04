@@ -40,6 +40,8 @@ abstract class AbstractController extends Controller
 
         ldap_set_option($this->ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($this->ldap, LDAP_OPT_REFERRALS, 0);
+        
+        ldap_bind($this->ldap, getenv('LDAP_USERNAME'), getenv('LDAP_PASSWORD'));
 
         $container->set('ldap', (object) $this->ldap);
     }
