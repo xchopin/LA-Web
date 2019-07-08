@@ -42,7 +42,29 @@
     "title": "Vue d'ensemble sur",
     "tab_one" : {
       "name": "Vue d'ensemble",
-      "no_result": "Données indisponibles."
+      "no_result": "Données indisponibles.",
+      "chart_one": {
+        "name": "Mon activité",
+        "since_last_week": "Depuis 1 semaine",
+        "personal_objective": "Mon objectif personnel",
+        "dispute_score": "Contester un score",
+        "set_objective": "Choisir un objectif",
+        "legend": {
+          "category_one": {
+            "name": "Activité",
+            "labels": ["Devoir rendus", "Score aux activités", "Ressources consultées", "Nombre de clicks sur le cours"]
+          },
+          "category_two" : {
+            "name": "Engagement",
+            "labels": ["Régularité hebdomadaire", "Régularité quotidienne", "Conseils terminés"]
+          },
+          "category_three" : {
+            "name": "Participation et aide",
+            "labels": ["Sujets créés sur le forum", "Réponses données forum", "Demandes d'aide émises et réponses données"]
+          }
+        }
+
+      }
     },
     "tab_two": {
       "name": "Événements",
