@@ -2,7 +2,7 @@
 <div class="ui stackable two column grid">
     <div class="row">
         <div class="column">
-            <h3 class="ui top attached header">Mon activité</h3>
+            <h3 class="ui top attached header">{{ dictionary.class.tab_one.chart_one.name}}</h3>
             <div class="row">
                 <div id="left-toggle" class="ui right floated toggle checkbox">
                     <input type="checkbox" name="notifications" title="Notifications">
@@ -24,8 +24,7 @@
 
     <script>
         $(function () {
-            let settingsLoaded = false;
-            $('#left-toggle').on('click', (element) => {
+            $('#left-toggle').on('click', () => {
                 $('#chart_one').toggle();
             });
         });
