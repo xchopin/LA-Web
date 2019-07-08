@@ -3,8 +3,6 @@
 namespace App\Event;
 
 use App\Controller\AdminAuthenticatedInterface;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -21,9 +19,9 @@ class AdminSubscriber implements EventSubscriberInterface
     private $container;
     private $ldap;
     private $baseDN;
-    const PREFIX = 'ADMIN_';
-    const GROUP_MODE = 'GROUP';
-    const USERS_MODE = 'USERS';
+    protected const PREFIX = 'ADMIN_';
+    protected const GROUP_MODE = 'GROUP';
+    protected const USERS_MODE = 'USERS';
 
     public function __construct(ContainerInterface $container)
     {
@@ -42,7 +40,7 @@ class AdminSubscriber implements EventSubscriberInterface
         else if ($this->mode === self::USERS_MODE)
             $this->administrators = explode(',', getenv(self::PREFIX . self::USERS_MODE));
         else
-            throw new InvalidParameterException("Administators mode has an undefined value, please refer to the documentation.");
+            throw new InvalidParameterException("Administrator mode has an undefined value, please refer to the documentation.");
     }
 
     /**
@@ -70,11 +68,11 @@ class AdminSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (HttpKernel::MASTER_REQUEST != $event->getRequestType())
+        if (HttpKernel::MASTER_REQUEST !== $event->getRequestType())
             return;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [ KernelEvents::CONTROLLER => 'onKernelController' ];
     }
