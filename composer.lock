@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "babd0db0c83c118a2bf86bdef88a3f11",
+    "content-hash": "6804b861d0e35d9412ddc973f67e065f",
     "packages": [
         {
             "name": "doctrine/annotations",
-            "version": "v1.6.1",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "53120e0eb10355388d6ccbe462f1fea34ddadb24"
+                "reference": "c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/53120e0eb10355388d6ccbe462f1fea34ddadb24",
-                "reference": "53120e0eb10355388d6ccbe462f1fea34ddadb24",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5",
+                "reference": "c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2019-03-25T19:12:02+00:00"
+            "time": "2017-12-06T07:11:42+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -1928,16 +1928,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.4.1",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "a388cacccf6e3c5e5a395e020c5aa05849ea4ccc"
+                "reference": "305a6cd75a54992f47f46eb655245b6c9a06997a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/a388cacccf6e3c5e5a395e020c5aa05849ea4ccc",
-                "reference": "a388cacccf6e3c5e5a395e020c5aa05849ea4ccc",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/305a6cd75a54992f47f46eb655245b6c9a06997a",
+                "reference": "305a6cd75a54992f47f46eb655245b6c9a06997a",
                 "shasum": ""
             },
             "require": {
@@ -1953,7 +1953,7 @@
             "type": "composer-plugin",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.2-dev"
                 },
                 "class": "Symfony\\Flex\\Flex"
             },
@@ -1973,7 +1973,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2019-06-28T18:01:09+00:00"
+            "time": "2019-04-03T17:16:03+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -2245,6 +2245,64 @@
             "time": "2019-06-26T14:26:16+00:00"
         },
         {
+            "name": "symfony/inflector",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/inflector.git",
+                "reference": "889dc28cb6350ddb302fe9b8c796e4e6eb836856"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/inflector/zipball/889dc28cb6350ddb302fe9b8c796e4e6eb836856",
+                "reference": "889dc28cb6350ddb302fe9b8c796e4e6eb836856",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Inflector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Inflector Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "inflection",
+                "pluralize",
+                "singularize",
+                "string",
+                "symfony",
+                "words"
+            ],
+            "time": "2019-05-30T09:28:08+00:00"
+        },
+        {
             "name": "symfony/mime",
             "version": "v4.3.2",
             "source": {
@@ -2371,30 +2429,30 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v3.4.0",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "7fbecb371c1c614642c93c6b2cbcdf723ae8809d"
+                "reference": "572e143afc03419a75ab002c80a2fd99299195ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/7fbecb371c1c614642c93c6b2cbcdf723ae8809d",
-                "reference": "7fbecb371c1c614642c93c6b2cbcdf723ae8809d",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/572e143afc03419a75ab002c80a2fd99299195ff",
+                "reference": "572e143afc03419a75ab002c80a2fd99299195ff",
                 "shasum": ""
             },
             "require": {
                 "monolog/monolog": "~1.22",
                 "php": ">=5.6",
-                "symfony/config": "~3.4|~4.0",
-                "symfony/dependency-injection": "~3.4.10|^4.0.10",
-                "symfony/http-kernel": "~3.4|~4.0",
-                "symfony/monolog-bridge": "~3.4|~4.0"
+                "symfony/config": "~2.7|~3.3|~4.0",
+                "symfony/dependency-injection": "~2.7|~3.4.10|^4.0.10",
+                "symfony/http-kernel": "~2.7|~3.3|~4.0",
+                "symfony/monolog-bridge": "~2.7|~3.3|~4.0"
             },
             "require-dev": {
-                "symfony/console": "~3.4|~4.0",
-                "symfony/phpunit-bridge": "^3.4.19|^4.0",
-                "symfony/yaml": "~3.4|~4.0"
+                "symfony/console": "~2.7|~3.3|~4.0",
+                "symfony/phpunit-bridge": "^3.3|^4.0",
+                "symfony/yaml": "~2.7|~3.3|~4.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2430,65 +2488,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2019-06-20T12:18:19+00:00"
-        },
-        {
-            "name": "symfony/polyfill-ctype",
-            "version": "v1.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "82ebae02209c21113908c229e9883c419720738a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/82ebae02209c21113908c229e9883c419720738a",
-                "reference": "82ebae02209c21113908c229e9883c419720738a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "suggest": {
-                "ext-ctype": "For best performance"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.11-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                },
-                {
-                    "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
-                }
-            ],
-            "description": "Symfony polyfill for ctype functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "ctype",
-                "polyfill",
-                "portable"
-            ],
-            "time": "2019-02-06T07:57:58+00:00"
+            "time": "2018-11-04T09:58:13+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -2753,6 +2753,73 @@
             "time": "2018-12-10T12:11:44+00:00"
         },
         {
+            "name": "symfony/property-access",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/property-access.git",
+                "reference": "18ea48862a39e364927e71b9e4942af3c1a1cb8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/18ea48862a39e364927e71b9e4942af3c1a1cb8c",
+                "reference": "18ea48862a39e364927e71b9e4942af3c1a1cb8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/inflector": "~3.4|~4.0"
+            },
+            "require-dev": {
+                "symfony/cache": "~3.4|~4.0"
+            },
+            "suggest": {
+                "psr/cache-implementation": "To cache access methods."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony PropertyAccess Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property path",
+                "reflection"
+            ],
+            "time": "2019-06-06T10:05:02+00:00"
+        },
+        {
             "name": "symfony/routing",
             "version": "v4.3.2",
             "source": {
@@ -2827,6 +2894,90 @@
                 "url"
             ],
             "time": "2019-06-26T13:54:39+00:00"
+        },
+        {
+            "name": "symfony/security-bundle",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/security-bundle.git",
+                "reference": "fa545860b2f72fc3c9045d8700bfcca10a4518d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/fa545860b2f72fc3c9045d8700bfcca10a4518d4",
+                "reference": "fa545860b2f72fc3c9045d8700bfcca10a4518d4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "php": "^7.1.3",
+                "symfony/config": "^4.2",
+                "symfony/dependency-injection": "^4.2",
+                "symfony/http-kernel": "^4.3",
+                "symfony/security-core": "~4.3",
+                "symfony/security-csrf": "~4.2",
+                "symfony/security-guard": "~4.2",
+                "symfony/security-http": "^4.3"
+            },
+            "conflict": {
+                "symfony/browser-kit": "<4.2",
+                "symfony/console": "<3.4",
+                "symfony/framework-bundle": "<4.2",
+                "symfony/twig-bundle": "<4.2",
+                "symfony/var-dumper": "<3.4"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.5",
+                "symfony/asset": "~3.4|~4.0",
+                "symfony/browser-kit": "~4.2",
+                "symfony/console": "~3.4|~4.0",
+                "symfony/css-selector": "~3.4|~4.0",
+                "symfony/dom-crawler": "~3.4|~4.0",
+                "symfony/expression-language": "~3.4|~4.0",
+                "symfony/form": "~3.4|~4.0",
+                "symfony/framework-bundle": "~4.2",
+                "symfony/http-foundation": "~3.4|~4.0",
+                "symfony/process": "~3.4|~4.0",
+                "symfony/translation": "~3.4|~4.0",
+                "symfony/twig-bridge": "~3.4|~4.0",
+                "symfony/twig-bundle": "~4.2",
+                "symfony/validator": "~3.4|~4.0",
+                "symfony/var-dumper": "~3.4|~4.0",
+                "symfony/yaml": "~3.4|~4.0",
+                "twig/twig": "~1.34|~2.4"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bundle\\SecurityBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony SecurityBundle",
+            "homepage": "https://symfony.com",
+            "time": "2019-06-20T10:11:09+00:00"
         },
         {
             "name": "symfony/security-core",
@@ -2958,6 +3109,125 @@
             "description": "Symfony Security Component - CSRF Library",
             "homepage": "https://symfony.com",
             "time": "2019-05-30T16:10:05+00:00"
+        },
+        {
+            "name": "symfony/security-guard",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/security-guard.git",
+                "reference": "2177390e39f49e5ae0ac5765982fa32a4aeb536f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/security-guard/zipball/2177390e39f49e5ae0ac5765982fa32a4aeb536f",
+                "reference": "2177390e39f49e5ae0ac5765982fa32a4aeb536f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/security-core": "~3.4.22|^4.2.3",
+                "symfony/security-http": "^4.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Security\\Guard\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Security Component - Guard",
+            "homepage": "https://symfony.com",
+            "time": "2019-05-30T16:10:05+00:00"
+        },
+        {
+            "name": "symfony/security-http",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/security-http.git",
+                "reference": "8a93196dec0a136f817063c99eee20cd44e3615a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/security-http/zipball/8a93196dec0a136f817063c99eee20cd44e3615a",
+                "reference": "8a93196dec0a136f817063c99eee20cd44e3615a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/http-foundation": "~3.4|~4.0",
+                "symfony/http-kernel": "^4.3",
+                "symfony/property-access": "~3.4|~4.0",
+                "symfony/security-core": "^4.3"
+            },
+            "conflict": {
+                "symfony/security-csrf": "<3.4.11|~4.0,<4.0.11"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/routing": "~3.4|~4.0",
+                "symfony/security-csrf": "^3.4.11|^4.0.11"
+            },
+            "suggest": {
+                "symfony/routing": "For using the HttpUtils class to create sub-requests, redirect the user, and match URLs",
+                "symfony/security-csrf": "For using tokens to protect authentication/logout attempts"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Security\\Http\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Security Component - HTTP Integration",
+            "homepage": "https://symfony.com",
+            "time": "2019-06-13T11:01:17+00:00"
         },
         {
             "name": "symfony/service-contracts",
