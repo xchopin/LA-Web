@@ -10,6 +10,8 @@
 namespace App\Controller;
 
 
+use OpenLRW\Model\Klass;
+use OpenLRW\Model\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Component\HttpFoundation\Response;
@@ -161,6 +163,36 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
     {
         $this->cleanAdminModes();
         return $this->redirectToRoute('home');
+    }
+
+
+    /**
+     * Enable or Disable a class
+     *
+     * @Route("/class-management", name="class-management")
+     * @param Request $request
+     * @return JsonResponse | Response
+     */
+    public function classManagement(Request $request)
+    {
+
+        //if ($request->isMethod('POST')) {
+            $keyword = $request->get('title');
+            $classes = Klass::all();
+            $res = [];
+
+            foreach($classes as $class) {
+                $this->debug($classes);
+
+                if ($class->title === $keyword) {
+                    $res += [$class->sourcedId => $class->title];
+                }
+            }
+
+            return $this->json($res);
+        //}
+
+        //return $this->render('Admin/find-student.twig');
     }
 }
 
