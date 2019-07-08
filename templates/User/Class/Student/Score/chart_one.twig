@@ -1,0 +1,155 @@
+{% set i18n = dictionary.class.tab_one.chart_one %}
+{% set label_colors = ["#3d2aa2","#1976d2","#03a9f4","#4dd0e1","#e53935","#ec407a","#e040fb","#66bb6a","#7cb342","#558b2f"] %}
+<div class="row">
+    <div id='chart_one'>
+        <div class="score-chart-padding">
+            <div style="width: 100%" class="ui grid">
+                    <div class="eleven wide column">
+                        <div class="chart-container">
+                            <canvas id="activity_chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="five wide column">
+                        {% set labels = [] %}
+                        {% set index = 0 %}
+                        {% for legend in i18n.legend %}
+                            {% set labels = labels|merge(legend.labels) %}
+                            <br> <strong>{{ legend.name }} </strong>  <br><br>
+                            {% for label in legend.labels %}
+                               <span style="background-color: {{ label_colors[ index ] }};" class="dot"></span>
+                                {% set index = index + 1%}
+                                {{ label }}
+                                <br>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="ui stackable grid">
+                <div class="four wide column">
+                    <div class="row">
+                        <div id='last-week-progression' class="ui statistic">
+                            <div class="value">
+                                <i class="green caret up icon"></i> +2.8%
+                            </div>
+                            <div class="label">
+                                {{ i18n.since_last_week }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <div class="row"> {{ i18n.personal_objective }} <i class="ui teal info circle icon"></i></div>
+                    <div class="row">
+                        <br>
+                        <div class="ui fluid selection dropdown">
+                            <input type="hidden" name="objective">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">{{ i18n.set_objective }}</div>
+                            <div class="menu">
+                                <div class="item" data-value="8">8</div>
+                                <div class="item" data-value="10">10</div>
+                                <div class="item" data-value="12">12</div>
+                                <div class="item" data-value="14">14</div>
+                                <div class="item" data-value="16">16</div>
+                                <div class="item" data-value="18">18</div>
+                                <div class="item" data-value="20">20</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="one wide column"></div>
+                <div class="five wide column">
+                    <div class="row"></div>
+                    <div class="row">
+                        <button class="teal ui button dispute-score">{{ i18n.dispute_score }}</button>
+                    </div>
+                </div>
+            </div>
+            <p class="score-legal-notice">
+                *** Les données à partir desquelles est calculé ce tableau de bord sont partielles.
+                Ce tableau de bord vous est fourni à titre indicatif. Vous pouvez modifier manuellement vos scores si vous estimez
+                qu'ils ne sont pas représentatifs de votre activité. Sauf décision contraire de votre part,
+                ces informations ne sont visibles que par vous.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready( () => {
+        let labels = {{ labels|json_encode|raw }};
+        let label_colors = {{ label_colors|json_encode|raw }};
+        let activityData = [68, 30, 90, 70, 69, 43, 14, 18, 39, 16];
+        let activityDataVelocity = [0.9, 0.6, 0.7 , 0.5, 0.8, 0.6, 0.6, 0.4, 0.6, 0.6]; // max value: 2π
+
+        // Chart
+        let ctx = $("#activity_chart");
+        let data = {
+            datasets: [{
+                data: activityData,
+                backgroundColor: label_colors
+            }],
+            labels: labels
+        };
+
+         new Chart(ctx, {
+            data: data,
+            type: 'polarArea',
+            options: {
+
+                elements: {
+                    arc: {
+                        angle: activityDataVelocity,
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 10,
+                        bottom: 0
+                    }
+                },
+                animation: {
+                    duration: 500
+                },
+                scale: {
+                    display: true,
+
+                    ticks: {
+                        display: false,
+                        min: 0,
+                        max: 100,
+                    },
+                    gridLines:{
+                        display: true,
+                        color: '#d4d2ca',
+
+                    },
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            let dataset = data.datasets[tooltipItem.datasetIndex];
+                            let currentValue = dataset.data[tooltipItem.index];
+                            return ' ' + currentValue + '%';
+                        },
+                        title: function(tooltipItem, data) {
+                            return data.labels[tooltipItem[0].index];
+                        }
+                    }
+                },
+            }
+        });
+    })
+</script>
