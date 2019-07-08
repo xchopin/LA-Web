@@ -41,7 +41,7 @@
 
 ## 3. Technology Used
 - **Back-End:**
-    - [Symfony Framework (v4.2.5)](https://symfony.com/doc/4.2.5/index.html)
+    - [Symfony Framework (v4.3.2)](https://symfony.com/doc/4.3.2/index.html)
     - [OpenLRW PHP Client](https://github.com/Apereo-Learning-Analytics-Initiative/OpenLRW-php-api-client)
 - **Front-End:**
     - [Chart.js](http://www.chartjs.org/docs/latest/)
