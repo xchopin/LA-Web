@@ -14,8 +14,8 @@
             <link rel="stylesheet" href="{{ asset('lib/semantic-ui/dist/semantic.css') }}">
             <link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-            <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
         {% endblock %}
+        <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
     </head>
 
      <body>
@@ -36,11 +36,10 @@
             {% endblock %}
         </div>
 
-        {% block javascript %}
+        {% block javascripts %}
             <script src="{{ asset('lib/semantic-ui/dist/semantic.js') }}"></script>
-            <script src="{{ asset('lib/chartjs/dist/Chart.js') }}"></script>
-            <script src="{{ asset('lib/gauge.js/dist/gauge.min.js') }}"></script>
             <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
+
     </body>
 </html>

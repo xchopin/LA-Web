@@ -1,3 +1,4 @@
+{% block body %}
 <div class="ui stackable two column grid">
     <div class="row">
         <div class="column">
@@ -16,13 +17,17 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+{% endblock %}
 
-<script>
-    $(function () {
-        let settingsLoaded = false;
-        $('#left-toggle').on('click', (element) => {
-            $('#chart_one').toggle();
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
+    <script>
+        $(function () {
+            let settingsLoaded = false;
+            $('#left-toggle').on('click', (element) => {
+                $('#chart_one').toggle();
+            });
         });
-    });
-</script>
+    </script>
+{% endblock %}

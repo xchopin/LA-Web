@@ -39,25 +39,25 @@
     </div>
     <div class="one wide column"></div>
 </div>
+    
+        <script>
+            function toggleMore() {
+                $('#see-more').toggle();
+                $('#hide-more').toggle();
+                $('#more-events').transition({
+                   animation  : 'fade up',
+                   duration   : '0.7s',
+                   onComplete : function() {}
+                });
+            }
 
+            $(function () {
+                $('.menu .item').tab({context: $('#summary')});
+                $('#see-more').on('click', () => { toggleMore(); });
+                $('#hide-more').on('click', () => { toggleMore(); });
 
-    <script>
-        function toggleMore() {
-            $('#see-more').toggle();
-            $('#hide-more').toggle();
-            $('#more-events').transition({
-               animation  : 'fade up',
-               duration   : '0.7s',
-               onComplete : function() {}
             });
-        }
 
-        $(function () {
-            $('.menu .item').tab({context: $('#summary')});
-            $('#see-more').on('click', () => { toggleMore(); });
-            $('#hide-more').on('click', () => { toggleMore(); });
+        </script>
 
-        });
-
-    </script>
 {% endblock %}

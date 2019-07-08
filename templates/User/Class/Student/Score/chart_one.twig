@@ -1,6 +1,7 @@
 {% set i18n = dictionary.class.tab_one.chart_one %}
 {% set label_colors = ["#3d2aa2","#1976d2","#03a9f4","#4dd0e1","#e53935","#ec407a","#e040fb","#66bb6a","#7cb342","#558b2f"] %}
-<div class="row">
+
+    <div class="row">
     <div id='chart_one'>
         <div class="score-chart-padding">
             <div style="width: 100%" class="ui grid">
@@ -80,6 +81,8 @@
 </div>
 
 
+
+{% block javascripts %}
 <script>
     $(document).ready( () => {
         let labels = {{ labels|json_encode|raw }};
@@ -153,3 +156,5 @@
         });
     })
 </script>
+
+{% endblock %}
