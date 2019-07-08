@@ -19,6 +19,8 @@ use Symfony\Component\Dotenv\Dotenv;
 abstract class AbstractController extends Controller
 {
 
+
+
     protected $openLRW;
     protected $ldap;
     protected $baseDN;
@@ -31,6 +33,9 @@ abstract class AbstractController extends Controller
      */
     public function __construct(ContainerInterface $container)
     {
+        // Required for big requests (eg: all() calls)
+        ini_set('memory_limit', '1024M');
+
         $dotenv = new Dotenv();
         $dotenv->load(__DIR__.'/../../.env'); // For Linux Servers
 
