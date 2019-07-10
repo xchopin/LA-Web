@@ -14,7 +14,7 @@
             | <span> Analytics</span>
         </div>
         <div class="ui pointing dropdown link item mobile hidden tablet hidden">
-            <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.self_name }}</span>
+            <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.name }}</span>
             <i class="dropdown icon"></i>
             <div id='language-list' class="ui inverted menu">
                 {% for language, id in languages() %}
@@ -26,7 +26,7 @@
         </div>
         {% if auth().isAdmin %}
             <div class="ui pointing dropdown link item mobile hidden tablet hidden">
-                <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.self_name }}</span>
+                <span class="text"> <i class="large archive icon"></i>{{ dictionary.admin_tools.name }}</span>
                 <i class="dropdown icon"></i>
                 <div class="ui inverted menu">
                     {% for tool in adminTools %}
@@ -44,7 +44,7 @@
                     <div class="ui blue basic label professor-mode">
                         <span id="professor-mode" style="color:#B51C15">
                             <i class="close icon"></i>
-                            {{ dictionary.admin_tools.professor_mode.self_name }}
+                            {{ dictionary.admin_tools.professor_mode.name }}
                         </span>
                     </div>
                 </a>
@@ -57,17 +57,18 @@
                     <i class="sign in icon"></i> {{ dictionary.tabs.login }}
                 </a>
             {% else %}
-                <a href="{{ path('profile') }}" class="item">
-                    <i class='large user circle icon'></i>{{ auth().name }}
-                </a>
                 <a href="{{ path('home') }}" class="item tablet or lower hidden">
                     {{ dictionary.tabs.home}}
                 </a>
                 <div class="ui pointing dropdown link item">
-                    <i class="dropdown icon"></i>
+                    <i class='large user circle icon'></i>{{ auth().name }} <i class="dropdown icon"></i>
                     <div class="ui inverted menu">
-                        <a class="item" href="{{ path('logout') }}">
-                            <span class="inverted text"><i class="sign out icon"></i> {{ dictionary.tabs.logout }}</span>
+                        <a href="{{ path('profile') }}" class="item" >
+                            {{ dictionary.tabs.profile }}
+                        </a>
+                        <div class="divider"></div>
+                        <a href="{{ path('logout') }}" class="item">
+                            {{ dictionary.tabs.logout }}
                         </a>
                     </div>
                 </div>
