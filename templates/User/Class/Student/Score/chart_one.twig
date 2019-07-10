@@ -1,29 +1,53 @@
 {% set i18n = dictionary.class.tab_one.chart_one %}
-{% set label_colors = ["#3d2aa2","#1976d2","#03a9f4","#4dd0e1","#e53935","#ec407a","#e040fb","#66bb6a","#7cb342","#558b2f"] %}
 
+{% set labels = [] %}
+{% set labels_color = [] %}
+{% set values = [] %}
+{% set colors = {
+        devRend: "#3d2aa2",
+        resActs : "#1976d2",
+        ressCons : "#03a9f4",
+        nbClicks : "#4dd0e1",
+        regHebdo : "#e53935",
+        regQuoti : "#ec407a",
+        consTerm : "#e040fb",
+        questForum: "#66bb6a",
+        repForum: "#7cb342",
+        demandeAide: "#558b2f",
+   }
+%}
     <div class="row">
-    <div id='chart_one'>
+        <div id='chart_one'>
         <div class="score-chart-padding">
             <div class="ui grid">
-                    <div class="eleven wide column">
-                        <div class="chart-container">
-                            <canvas id="activity_chart"></canvas>
-                        </div>
+                <div class="eight wide column">
+                    <div class="chart-container">
+                        <canvas id="activity_chart"></canvas>
                     </div>
-                    <div class="five wide column">
-                        {% set labels = [] %}
-                        {% set index = 0 %}
-                        {% for legend in i18n.legend %}
-                            {% set labels = labels|merge(legend.labels) %}
-                            <br> <strong>{{ legend.name }} </strong>  <br><br>
-                            {% for label in legend.labels %}
-                               <span style="background-color: {{ label_colors[ index ] }};" class="dot"></span>
-                                {% set index = index + 1%}
-                                {{ label }}
+                </div>
+                <div class="one wide column"></div>
+                <div class="seven wide column">
+                    {% for legend in i18n.legend %}
+                        <p class="legend-category" align="center">
+                            <strong>{{ legend.name }}</strong>
+                        </p>
+                        <hr>
+                        {% for key, value in legend.labels %}
+                            {% if indicators[key] is defined and indicators[key] is not null %}
+                                <span style="background-color: {{ colors[key] }};" class="dot"></span> &nbsp; {{ value }}
                                 <br>
-                            {% endfor %}
+                                {% set labels = labels|merge([value]) %}
+                                {% set labels_color = labels_color|merge([colors[key]]) %}
+                                {% set math = indicators[key]|split('/') %}
+                                {% set values = values|merge([(math[0] / math[1] * 100)|round(1, 'floor')]) %}
+                            {% endif %}
                         {% endfor %}
+                    {% endfor %}
+
+                    <div id="score-success">
+                        <span id="score-value"></span>% {{ i18n.objective_probability}}
                     </div>
+                </div>
             </div>
         </div>
 
@@ -70,6 +94,7 @@
                     </div>
                 </div>
             </div>
+
             <p class="score-legal-notice">
                 *** Les données à partir desquelles est calculé ce tableau de bord sont partielles.
                 Ce tableau de bord vous est fourni à titre indicatif. Vous pouvez modifier manuellement vos scores si vous estimez
@@ -85,10 +110,18 @@
 {% block javascripts %}
 <script>
     $(document).ready( () => {
+
+        let scores = {{ scores|json_encode|raw }};
         let labels = {{ labels|json_encode|raw }};
-        let label_colors = {{ label_colors|json_encode|raw }};
-        let activityData = [68, 30, 90, 70, 69, 43, 14, 18, 39, 16];
+        let label_colors = {{ labels_color|json_encode|raw }};
+        let activityData = {{ values|json_encode|raw }};
         let activityDataVelocity = [0.9, 0.6, 0.7 , 0.5, 0.8, 0.6, 0.6, 0.4, 0.6, 0.6]; // max value: 2π
+
+        $('.selection.dropdown > .menu').on('click', function(){
+            let target = $('.selection.dropdown').dropdown('get value');
+            $('#score-value').text(scores[target]);
+        });
+
 
         // Chart
         let ctx = $("#activity_chart");
@@ -104,7 +137,6 @@
             data: data,
             type: 'polarArea',
             options: {
-
                 elements: {
                     arc: {
                         angle: activityDataVelocity,
@@ -137,7 +169,6 @@
                     gridLines:{
                         display: true,
                         color: '#d4d2ca',
-
                     },
                 },
                 tooltips: {
