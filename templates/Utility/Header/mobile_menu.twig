@@ -21,7 +21,7 @@
     </div>
     {% if auth().isAdmin %}
         <div class="item">
-            <h3> <i class="archive icon"></i> {{ dictionary.admin_tools.self_name }} <i class="small down caret icon"></i></h3>
+            <h3> <i class="archive icon"></i> {{ dictionary.admin_tools.name }} <i class="small down caret icon"></i></h3>
             <div class="collapsible menu">
                 {% for tool in adminTools %}
                     <a class="item" href={{ path(tool.route) }}>
