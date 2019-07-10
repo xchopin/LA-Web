@@ -85,7 +85,7 @@ class TranslatorExtension extends Twig_Extension
     {
        $languages = [];
        foreach ($this->container->getParameter('dictionaries') as $languageId => $dictionary) {
-           $languages += [ $dictionary['self_name'] => $languageId ];
+           $languages += [ $dictionary['name'] => $languageId ];
        }
         return $languages;
     }
