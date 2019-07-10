@@ -76,7 +76,8 @@
               "demandeAide": "Demandes d'aide émises et réponses données"
             }
           }
-        }
+        },
+        "disclaimer": "*** Les données à partir desquelles est calculé ce tableau de bord sont partielles. Ce tableau de bord vous est fourni à titre indicatif. Vous pouvez modifier manuellement vos scores si vous estimez qu'ils ne sont pas représentatifs de votre activité. Sauf décision contraire de votre part, ces informations ne sont visibles que par vous."
       }
     },
     "tab_two": {

@@ -76,7 +76,8 @@
                 "demandeAide": "Help requests and answers given"
               }
           }
-        }
+        },
+        "disclaimer": "*** Data used for calculating this dashboard are partials. This dashboard is provided as an informative purpose. You can manually edit your scores if you estimate that they do not represent your activity. Unless otherwise agreed, those information are only visible for yourself."
       }
     },
     "tab_two": {
