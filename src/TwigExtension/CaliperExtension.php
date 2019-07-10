@@ -10,10 +10,11 @@
 namespace App\TwigExtension;
 
 use OpenLRW\Model\Event;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Symfony\Component\HttpFoundation\Session\Session;
 
-class CaliperExtension extends Twig_Extension
+class CaliperExtension extends AbstractExtension
 {
 
     public function getName()
@@ -24,7 +25,7 @@ class CaliperExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('view_event', [$this, 'visitPage'])
+            new TwigFunction('view_event', [$this, 'visitPage'])
         ];
     }
 

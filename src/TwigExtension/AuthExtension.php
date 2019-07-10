@@ -12,10 +12,10 @@ namespace App\TwigExtension;
 use App\Event\AdminSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class AuthExtension extends Twig_Extension
+class AuthExtension extends AbstractExtension
 {
     /**
      *
@@ -53,7 +53,7 @@ class AuthExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('auth', [$this, 'auth'])
+            new TwigFunction('auth', [$this, 'auth'])
         ];
     }
 

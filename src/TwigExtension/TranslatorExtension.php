@@ -10,8 +10,8 @@
 namespace App\TwigExtension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *
  * @package AppBundle\TwigExtension
  */
-class TranslatorExtension extends Twig_Extension
+class TranslatorExtension extends AbstractExtension
 {
 
     /**
@@ -60,8 +60,8 @@ class TranslatorExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('dictionary', [$this, 'dictionary']),
-            new Twig_SimpleFunction('languages', [$this, 'languagesAvailable']),
+            new TwigFunction('dictionary', [$this, 'dictionary']),
+            new TwigFunction('languages', [$this, 'languagesAvailable']),
         ];
     }
 
