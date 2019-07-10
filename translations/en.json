@@ -1,11 +1,11 @@
 {
-  "self_name": "English",
+  "name": "English",
   "loading": "Loading",
   "tabs": {
     "home": "Home",
     "login": "Log in",
     "logout": "Log out",
-    "profile": "Profile",
+    "profile": "My profile",
     "menu": "Menu",
     "languages": "Languages"
   },
@@ -28,9 +28,6 @@
       "moodle_description": "moodle action(s)",
       "check_class": "Check this class"
     },
-    "score_tab" : {
-      "name": "Score"
-    },
     "enrollments_tab" : {
       "name": "My classes",
       "professor": "Professor",
@@ -45,7 +42,42 @@
     "title": "Overview on",
     "tab_one" : {
       "name": "My events",
-      "no_result": "There is no event to show."
+      "no_result": "There is no event to show.",
+      "chart_one": {
+        "name": "My activity",
+        "since_last_week": "Since last week",
+        "personal_objective": "My personal objective",
+        "dispute_score": "Dispute a score",
+        "set_objective": "Select an objective",
+        "objective_probability": " of probability to get this objective",
+        "legend": {
+            "category_one": {
+              "name": "Activity",
+              "labels": {
+                "devRend": "Homework sent",
+                "resActs": "Activity results",
+                "ressCons": "Consulted resources",
+                "nbClicks": "Interactions on the course"
+              }
+            },
+            "category_two" : {
+              "name": "Engagement",
+              "labels": {
+                "regHebdo" : "Weekly consistency",
+                "regQuoti" : "Daily consistency",
+                "consTerm": "Followed advices"
+              }
+            },
+            "category_three" : {
+              "name": "Social interactions",
+              "labels": {
+                "questForum" : "Topics created on the forum",
+                "repForum" : "Answers given",
+                "demandeAide": "Help requests and answers given"
+              }
+          }
+        }
+      }
     },
     "tab_two": {
       "name": "My grades",
@@ -53,9 +85,9 @@
     }
   },
   "admin_tools": {
-    "self_name": "Admin tools",
+    "name": "Admin tools",
     "view_as": {
-      "self_name": "View as",
+      "name": "View as",
       "search": "Search",
       "select": "Select",
       "no_results": "Sorry, there is no result.",
@@ -64,7 +96,7 @@
       "leave": "Leave `View As` mode..."
     },
     "professor_mode": {
-      "self_name": "Professor View",
+      "name": "Professor View",
       "leave": "Leave this view"
     }
   },

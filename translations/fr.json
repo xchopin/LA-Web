@@ -1,11 +1,11 @@
 {
-  "self_name": "Français",
+  "name": "Français",
   "loading": "Chargement",
   "tabs": {
     "home": "Accueil",
     "login": "Connexion",
     "logout": "Déconnexion",
-    "profile": "Profil",
+    "profile": "Mon compte",
     "menu": "Menu",
     "languages": "Langues"
   },
@@ -49,21 +49,34 @@
         "personal_objective": "Mon objectif personnel",
         "dispute_score": "Contester un score",
         "set_objective": "Choisir un objectif",
+        "objective_probability": " de chance d'obtenir cet objectif",
         "legend": {
           "category_one": {
             "name": "Activité",
-            "labels": ["Devoir rendus", "Score aux activités", "Ressources consultées", "Nombre de clicks sur le cours"]
+            "labels": {
+              "devRend": "Devoir rendus",
+              "resActs": "Score aux activités",
+              "ressCons": "Ressources consultées",
+              "nbClicks": "Nombre de clicks sur le cours"
+            }
           },
           "category_two" : {
             "name": "Engagement",
-            "labels": ["Régularité hebdomadaire", "Régularité quotidienne", "Conseils terminés"]
+            "labels": {
+              "regHebdo" : "Régularité hebdomadaire",
+              "regQuoti" : "Régularité quotidienne",
+              "consTerm": "Conseils terminés"
+            }
           },
           "category_three" : {
             "name": "Participation et aide",
-            "labels": ["Sujets créés sur le forum", "Réponses données forum", "Demandes d'aide émises et réponses données"]
+            "labels": {
+              "questForum" : "Régularité hebdomadaire",
+              "repForum" : "Régularité quotidienne",
+              "demandeAide": "Demandes d'aide émises et réponses données"
+            }
           }
         }
-
       }
     },
     "tab_two": {
@@ -72,9 +85,9 @@
     }
   },
   "admin_tools": {
-    "self_name": "Outils administrateur",
+    "name": "Outils administrateur",
     "view_as": {
-      "self_name": "Voir en tant que",
+      "name": "Voir en tant que",
       "search": "Rechercher",
       "select": "Sélectionner",
       "no_results": "Désolé, aucun résultat",
@@ -83,7 +96,7 @@
       "leave": "Quitter voir en tant que..."
     },
     "professor_mode": {
-      "self_name": "Vue Enseignant",
+      "name": "Vue Enseignant",
       "leave": "Quitter la vue enseignant"
     }
   },
@@ -92,3 +105,20 @@
     "year_month_day": "d/m/Y"
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
