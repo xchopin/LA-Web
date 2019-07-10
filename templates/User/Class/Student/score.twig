@@ -2,14 +2,20 @@
 <div class="ui stackable two column grid">
     <div class="row">
         <div class="column">
-            <h3 class="ui top attached header">{{ dictionary.class.tab_one.chart_one.name}}</h3>
+            <h3 class="ui top attached header">{{ dictionary.class.tab_one.chart_one.name}} </h3>
             <div class="row">
-                <div id="left-toggle" class="ui right floated toggle checkbox">
-                    <input type="checkbox" name="notifications" title="Notifications">
-                    <label></label>
+                <div class="ui right aligned grid">
+                      <div class="sixteen wide column">
+                        <div id="chart-one-toggle" class="ui toggle checkbox">
+                            <input type="checkbox" name="notifications" title="Notifications">
+                            <label>Changer de représentativité</label>
+                        </div>
+                      </div>
                 </div>
             </div>
-            {% include 'User/Class/Student/Score/chart_one.twig' %}
+            <div class="row">
+                {% include 'User/Class/Student/Score/chart_one.twig' %}
+            </div>
         </div>
         <div class="column">
             {% include 'User/Class/Student/Score/chart_two.twig'  %}
@@ -24,7 +30,7 @@
 
     <script>
         $(function () {
-            $('#left-toggle').on('click', () => {
+            $('#chart-one-toggle').on('click', () => {
                 $('#chart_one').toggle();
             });
         });
