@@ -78,6 +78,31 @@
           }
         },
         "disclaimer": "*** Les données à partir desquelles est calculé ce tableau de bord sont partielles. Ce tableau de bord vous est fourni à titre indicatif. Vous pouvez modifier manuellement vos scores si vous estimez qu'ils ne sont pas représentatifs de votre activité. Sauf décision contraire de votre part, ces informations ne sont visibles que par vous."
+      },
+      "chart_two": {
+        "name": "Mon suivi",
+        "chart_title": "Evolution de votre chance d'atteindre votre objectif",
+        "legend": {
+          "name": "Légende",
+          "my_score": "Mon score",
+          "display": "Afficher",
+          "average_grade": "Score moyen de ceux qui ont le même objectif que vous dans votre promotion",
+          "standard_deviations": "Écarts-types",
+          "week": "Semaine"
+        },
+        "advice": {
+          "name": "Conseil",
+          "follow": "Suivre",
+          "more_resource_checking" : "Aller consulter plus de ressources du cours peut vous aider à ne pas prendre de retard dans vos révisions. Suivez ce conseil pour augmenter votre score.",
+          "ask_question_forum": "Posez une question sur le forum si vous ne comprenez pas une partie du cours. Toute votre promotion bénéficiera de la réponse. Suivez ce conseil pour augmenter votre score.",
+          "periodically_course_checking": "Consulter le cours à intervalle régulier (exemple : tous les mardis) vous permet de ne pas rater une nouvelle ressource déposée par l'enseignant et d'être plus organisé. Suivez ce conseil pour augmenter votre score."
+        },
+        "contact":  {
+          "name": "Contact",
+          "ask_help": "Demander de l'aide",
+          "send_dashboard": "Envoyer ce dashboard",
+          "help_follow_up": "Suivi de l'aide"
+        }
       }
     },
     "tab_two": {

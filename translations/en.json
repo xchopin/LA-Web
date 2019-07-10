@@ -78,6 +78,31 @@
           }
         },
         "disclaimer": "*** Data used for calculating this dashboard are partials. This dashboard is provided as an informative purpose. You can manually edit your scores if you estimate that they do not represent your activity. Unless otherwise agreed, those information are only visible for yourself."
+      },
+      "chart_two": {
+        "name": "My evolution",
+        "chart_title": "Progression of your chance to reach this objective",
+        "legend": {
+          "name": "Legend",
+          "my_score": "My score",
+          "display": "Show",
+          "average_grade": "Average score of those who have the same objective in your class",
+          "standard_deviations": "Standard Deviations",
+          "week": "Week"
+        },
+        "advice": {
+          "name": "Advice",
+          "follow": "follow",
+          "more_resource_checking" : "Aller consulter plus de ressources du cours peut vous aider à ne pas prendre de retard dans vos révisions. Suivez ce conseil pour augmenter votre score.",
+          "ask_question_forum": "Posez une question sur le forum si vous ne comprenez pas une partie du cours. Toute votre promotion bénéficiera de la réponse. Suivez ce conseil pour augmenter votre score.",
+          "periodically_course_checking": "Consulter le cours à intervalle régulier (exemple : tous les mardis) vous permet de ne pas rater une nouvelle ressource déposée par l'enseignant et d'être plus organisé. Suivez ce conseil pour augmenter votre score."
+        },
+        "contact":  {
+          "name": "Contact",
+          "ask_help": "Ask help",
+          "send_dashboard": "Send this dashboard",
+          "help_follow_up": "Help follow-up"
+        }
       }
     },
     "tab_two": {
