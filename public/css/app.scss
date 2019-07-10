@@ -17,8 +17,10 @@
   }
 }
 
-a {
-  line-height: 37px;
+#logout-button {
+  a {
+    color : #FD6426;
+  }
 }
 
 .message-view {
@@ -716,6 +718,7 @@ button.dispute-score {
 .score-chart-padding {
   padding-top: 2em !important;
   padding-bottom: 2em !important;
+  width: 100% !important;
 }
 
 .ui.toggle.checkbox[class*="right floated"] {
@@ -837,4 +840,17 @@ button.score-action {
   to {
     filter: blur(0);
   }
+}
+
+p.legend-category:first-child {
+  margin-top : 0;
+}
+
+p.legend-category {
+  margin-top: 2em;
+}
+
+#score-success {
+  margin-top: 3em;
+  font-weight: bold;
 }
