@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use Exception;
 use OpenLRW\Model\Klass;
+use OpenLRW\Model\Risk;
 use OpenLRW\Model\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,8 +43,7 @@ class ClassController extends AbstractController
         $enrollments = User::enrollments($userId);
 
         foreach ($enrollments as $enrollment){
-
-            if (self::isProfessorModeEnabled()) {
+            if (self::isProfessorModeEnabled()) { // If "Professor Mode" is On, render the view
                 return $this->render('User/Class/professor_class.twig', [
                     'class' => $class
                 ]);
@@ -52,7 +52,22 @@ class ClassController extends AbstractController
 
             if ($class->sourcedId === $enrollment->class->sourcedId) { // Check if the user is enrolled to this class
                 if ($enrollment->role === 'student') {
+                    $risk = Risk::latestByClassAndUser('23133', 'adam125u');
                     $events = Klass::eventsForUser($id, self::loggedUser());
+
+                    // - - - Risk treatment - - -
+                    $indicators = [];
+                    $scores = [];
+
+                    foreach ($risk->metadata as $key => $value) {
+                        if (strpos($key, 'global') !== 0) {
+                            $indicators[$key] = $value;
+                        } else {
+                            $trimmed = preg_replace('/\D/', '', $key); // get int value
+                            $scores[$trimmed] = round($value * 100, 2); // percentage
+                        }
+                    }
+
                     if ($events !== null) {
                         usort($events, static function ($a, $b) {
                             return $a->eventTime < $b->eventTime;
@@ -61,10 +76,13 @@ class ClassController extends AbstractController
 
                     return $this->render('User/Class/student_class.twig', [
                         'class' => $class,
-                        'events' => $events
+                        'events' => $events,
+                        'scores' => $scores,
+                        'indicators' => $indicators
                     ]);
                 }
 
+                // If user is teacher of this class
                 return $this->render('User/Class/professor_class.twig', [
                     'class' => $class
                 ]);
