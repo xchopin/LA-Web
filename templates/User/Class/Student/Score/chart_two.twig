@@ -1,8 +1,8 @@
-<h3 class="ui top attached header">
-    Mon suivi
-</h3>
+{% set i18n = dictionary.class.tab_one.chart_two %}
+
+<h3 class="ui top attached header">{{ i18n.name }}</h3>
 <div class="row score-chart-padding">
-    <strong class="">Evolution de votre chance d'atteindre votre objectif</strong>
+    <strong>{{ i18n.chart_title }}</strong>
 </div>
 <div style="width: 100%" class="ui grid">
     <div class="eleven wide column">
@@ -11,24 +11,24 @@
         </div>
     </div>
     <div class="five wide column">
-        <strong>Légende</strong>
+        <strong>{{ i18n.legend.name }}</strong>
         <br>
         <svg width="25" height="4">
             <rect width="300" height="100" style="fill:rgb(3,155,229);" />
         </svg>
-        &nbsp; Mon Score
+        &nbsp; {{ i18n.legend.my_score }}
 
         <div id='chart-two-tools' class="row">
-            Afficher: <br>
+            {{ i18n.legend.display }}: <br>
             <br>
             <div class="ui checkbox">
                 <input type="checkbox">
-                <label>Score moyen de ceux qui ont le même objectif que vous dans votre promotion</label>
+                <label>{{ i18n.legend.average_grade }}</label>
             </div>
             <br> <br>
             <div class="ui checkbox">
                 <input type="checkbox">
-                <label>Ecarts-types</label>
+                <label>{{ i18n.legend.standard_deviations }}</label>
             </div>
         </div>
     </div>
@@ -40,34 +40,24 @@
             <i id='left-arrow' class="big left angle icon"></i>
             <i id='right-arrow' class="big right angle icon"></i>
             <div class="inverted salmon faded slide active">
-                <h1>Conseil 1/3</h1>
-                <p>
-                    Aller consulter plus de ressources du cours peut vous aider à ne pas prendre de retard dans vos révisions.
-                    Suivez ce conseil pour augmenter votre score.
-                </p>
+                <h1> {{ i18n.advice.name }} 1/3 </h1>
+                <p> {{ i18n.advice.more_resource_checking }} </p>
                 <button class="ui right floated basic button">
-                    <i class="check icon"></i>Suivre
+                    <i class="check icon"></i>{{ i18n.advice.follow }}
                 </button>
             </div>
             <div class="inverted salmon faded slide">
-                <h1>Conseil 2/3</h1>
-                <p>
-                    Posez une question sur le forum si vous ne comprenez pas une partie du cours. Toute votre promotion bénéficiera de la réponse.
-                    Suivez ce conseil pour augmenter votre score.
-                </p>
+                <h1> {{ i18n.advice.name }} 2/3 </h1>
+                <p> {{ i18n.advice.ask_question_forum }}</p>
                 <button class="ui right floated basic button">
-                    <i class="check icon"></i>Suivre
+                    <i class="check icon"></i>{{ i18n.advice.follow }}
                 </button>
             </div>
             <div class="inverted salmon faded slide">
-                <h1>Conseil 3/3</h1>
-                <p>
-                    Consulter le cours à intervalle régulier (exemple : tous les mardis) vous permet de ne pas rater une nouvelle ressource déposée par l'enseignant et d'être plus organisé.
-                    Suivez ce conseil pour augmenter votre score.
-                </p>
-
+                <h1> {{ i18n.advice.name }}  3/3 </h1>
+                <p> {{ i18n.advice.periodically_course_checking }}</p>
                 <button class="ui right floated basic button">
-                    <i class="check icon"></i>Suivre
+                    <i class="check icon"></i>{{ i18n.advice.follow }}
                 </button>
             </div>
         </div>
@@ -75,7 +65,7 @@
     </div>
 </div>
 <div class="row">
-    <p align="left"><strong>Contact</strong></p>
+    <p align="left"><strong>{{ i18n.contact.name }}</strong></p>
     <div class="ui five column grid">
         <div class="row">
             <div class="centered column">
@@ -83,21 +73,21 @@
                     <i class="large question icon"></i>
                 </button>
                 <br>
-                <span class="score-action">Demander de l'aide</span>
+                <span class="score-action">{{ i18n.contact.ask_help }}</span>
             </div>
             <div class="centered column">
                 <button class="ui huge circular icon button score-action">
                     <i class="large paper plane icon"></i>
                 </button>
                 <br>
-                <span class="score-action">Envoyer ce dashboard</span>
+                <span class="score-action">{{ i18n.contact.send_dashboard }}</span>
             </div>
             <div class="centered column">
                 <button class="ui huge circular icon button score-action">
                     <i class="large tasks icon"></i>
                 </button>
                 <br>
-                <span class="score-action">Suivi de l'aide</span>
+                <span class="score-action">{{ i18n.contact.help_follow_up }}</span>
             </div>
         </div>
     </div>
@@ -108,13 +98,18 @@
 <script>
 $(document).ready ( () => {
     let graph = $("#evolution_chart");
+    let labels = [];
+
+    for (let i = 1; i < 6; i++){
+        labels[i-1] = '{{ i18n.legend.week }} ' + i
+    }
 
     new Chart(graph, {
         type: 'line',
         data: {
-            labels: ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4', 'Semaine 5'],
+            labels: labels,
             datasets: [{
-                label: 'Mon score',
+                label: '{{ i18n.legend.my_score }}',
                 borderColor: '#039be5',
                 data: [20, 43.25, 38.9, 58.43, 61.23],
                 fill: false
