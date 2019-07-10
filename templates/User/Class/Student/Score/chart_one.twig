@@ -44,7 +44,7 @@
                         {% endfor %}
                     {% endfor %}
 
-                    <div id="score-success">
+                    <div class='hide' id="score-success">
                         <span id="score-value"></span>% {{ i18n.objective_probability}}
                     </div>
                 </div>
@@ -94,13 +94,7 @@
                     </div>
                 </div>
             </div>
-
-            <p class="score-legal-notice">
-                *** Les données à partir desquelles est calculé ce tableau de bord sont partielles.
-                Ce tableau de bord vous est fourni à titre indicatif. Vous pouvez modifier manuellement vos scores si vous estimez
-                qu'ils ne sont pas représentatifs de votre activité. Sauf décision contraire de votre part,
-                ces informations ne sont visibles que par vous.
-            </p>
+            <p class="score-legal-notice">{{ i18n.disclaimer }}</p>
         </div>
     </div>
 </div>
@@ -118,6 +112,7 @@
         let activityDataVelocity = [0.9, 0.6, 0.7 , 0.5, 0.8, 0.6, 0.6, 0.4, 0.6, 0.6]; // max value: 2π
 
         $('.selection.dropdown > .menu').on('click', function(){
+            $('#score-success').removeClass('hide');
             let target = $('.selection.dropdown').dropdown('get value');
             $('#score-value').text(scores[target]);
         });
