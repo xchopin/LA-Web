@@ -18,24 +18,19 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleListener
 {
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * {@inheritdoc}
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
-        if (HttpKernel::MASTER_REQUEST != $event->getRequestType())
+        if (HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
             return;
+        }
     }
 
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [ KernelEvents::REQUEST => [['onKernelRequest', 200]] ];
     }
