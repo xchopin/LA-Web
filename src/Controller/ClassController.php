@@ -111,8 +111,9 @@ class ClassController extends AbstractController
                 $res[$i]['date'] = $result->date;
                 $res[$i]['score'] = $result->score;
                 foreach ($lineItems as $lineItem) {
-                    if ($lineItem->sourcedId === $result->lineitem->sourcedId)
+                    if ($lineItem->sourcedId === $result->lineitem->sourcedId) {
                         $res[$i]['title'] = $lineItem->title;
+                    }
                 } $i++;
             }
 
