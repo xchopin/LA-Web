@@ -1,0 +1,96 @@
+{% set dictionary = dictionary() %}
+{% set i18n = dictionary.rules_agreement %}
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Application Web de Learning Analytics{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('lib/semantic-ui/dist/semantic.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Sofia" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+{% block navbar %}
+
+
+    <nav id='navbar' class="ui borderless top inverted fixed menu">
+        <a href="{{ path('home') }}" class="header item">
+            <img src="{{ asset('img/logo.png') }}" class="logo" alt="logo"> &nbsp;&nbsp; | <span> Analytics</span>
+        </a>
+
+        <div class="ui pointing dropdown link item mobile hidden tablet hidden">
+            <span id="current-language" class="text"><i class="large globe icon"></i>{{ dictionary.name }}</span>
+            <i class="dropdown icon"></i>
+            <div id='language-list' class="ui inverted menu">
+                {% for language, id in languages() %}
+                    <a class="item" href="{{ path('home', {'_locale': id}) }}">
+                        <span class="text">{{ language }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </nav>
+
+{% endblock %}
+
+<div class="pusher site" >
+    <main class="site-content">
+        {% block body %}
+            <div class="ui container">
+                <h1 class="ui center aligned header">
+                    {{ i18n.title }}
+                </h1>
+                <br> <br>
+                <p>  {{ i18n.rules }} </p>
+                <br>
+                <form action='{{ path('accept-agreement') }}' method="post" class="form">
+                    <div class="field">
+                        <div id="checkbox" class="ui checkbox">
+                            <input type="checkbox" tabindex="0">
+                            <label>  {{ i18n.accept_rules }}</label>
+                        </div>
+                    </div>
+                    <button id='submit' class="ui right floated disabled button" type="submit">  {{ i18n.submit }}</button>
+                </form>
+            </div>
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+        {% include 'Utility/footer.twig' %}
+    {% endblock %}
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('lib/semantic-ui/dist/semantic.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(() => {
+            $('#checkbox').checkbox({
+                onChecked: function () {
+                    $('#submit').removeClass('disabled').addClass('green')
+                },
+                onUnchecked: function () {
+                    $('#submit').removeClass('green').addClass('disabled')
+                }
+            });
+
+
+
+            $
+        });
+    </script>
+
+
+{% endblock %}
+</body>
+</html>
+
