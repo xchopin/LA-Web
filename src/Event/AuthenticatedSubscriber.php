@@ -24,9 +24,10 @@ class AuthenticatedSubscriber implements EventSubscriberInterface
         $this->router = $router;
     }
 
-    public function onKernelController(FilterControllerEvent $event)
+    public function onKernelController(FilterControllerEvent $event): void
     {
         $controller = $event->getController();
+        $session = $event->getRequest()->getSession();
 
         /*
          * $controller passed can be either a class or a Closure.
@@ -39,18 +40,25 @@ class AuthenticatedSubscriber implements EventSubscriberInterface
         if ($controller[0] instanceof AuthenticatedInterface) {
 
             $url = $this->router->generate('login', ['redirect' => $event->getRequest()->getPathInfo()]);
-            if (!isset($_SESSION['phpCAS']['user'])) {
-                $event->setController(function() use ($url) {
+            if (isset($_SESSION['phpCAS']['user']) === false) {
+                $event->setController(static function() use ($url) {
                     return new RedirectResponse($url);
                 });
+            } else {
+                if ($session->get('rulesAgreement') === false) {
+                    $url = $this->router->generate('rules-agreement');
+                    $event->setController(static function() use ($url) {
+                        return new RedirectResponse($url);
+                    });
+                }
             }
 
         }
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
-        if (HttpKernel::MASTER_REQUEST != $event->getRequestType())
+        if (HttpKernel::MASTER_REQUEST !== $event->getRequestType())
             return;
     }
 

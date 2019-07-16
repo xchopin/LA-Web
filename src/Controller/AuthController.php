@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Event\AdminSubscriber;
+use OpenLRW\Model\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use phpCAS;
@@ -27,30 +28,38 @@ class AuthController extends AbstractController
     public function login(Request $request)
     {
 
-            phpCAS::client(CAS_VERSION_2_0, getenv('CAS_HOST'), (int)getenv('CAS_PORT'), '');
-            phpCAS::setNoCasServerValidation();
-            phpCAS::forceAuthentication();
-            phpCAS::getUser();
+        phpCAS::client(CAS_VERSION_2_0, getenv('CAS_HOST'), (int)getenv('CAS_PORT'), '');
+        phpCAS::setNoCasServerValidation();
+        phpCAS::forceAuthentication();
+        phpCAS::getUser();
 
-            $username = $_SESSION['phpCAS']['user'];
-            $result = $this->ldapFirst("uid=$username");
-            $_SESSION['name'] = $result['displayname'][0];
-            $_SESSION['email'] = $result['mail'][0];
-            $_SESSION['isAdmin'] = false; // initialize
-            
-            if (getenv('APP_ENV') === 'dev') { // If the app is in dev mode, only admin can log in
-                $adminSubscriber = new AdminSubscriber($this->container);
-                if (! $adminSubscriber->isAdmin()) {
-                    session_destroy();
-                    $this->addFlash('error', 'You are not allowed to log in.');
-                    return $this->redirectToRoute('home');
-                }
-            }
+        $username = $_SESSION['phpCAS']['user'];
+        $result = $this->ldapFirst("uid=$username");
+        $user = User::find($username);
 
-            if (isset($_GET['redirect']))
-                return $this->redirectToRoute($_GET['redirect']);
-            else
+        $session = $request->getSession();
+        $session->set('rulesAgreement', $user->status === 'active');
+
+        $_SESSION['name'] = $result['displayname'][0];
+        $_SESSION['email'] = $result['mail'][0];
+        $_SESSION['isAdmin'] = false; // initialize
+
+
+        if (getenv('APP_ENV') === 'dev') { // If the app is in dev mode, only admin can log in
+            $adminSubscriber = new AdminSubscriber($this->container);
+            if (!$adminSubscriber->isAdmin()) {
+                $session->clear();
+                session_destroy();
+                $this->addFlash('error', 'You are not allowed to log in.');
                 return $this->redirectToRoute('home');
+            }
+        }
+
+        if (isset($_GET['redirect'])) {
+            return $this->redirectToRoute($_GET['redirect']);
+        }
+
+        return $this->redirectToRoute('home');
 
     }
 
