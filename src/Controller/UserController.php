@@ -14,6 +14,7 @@ use Exception;
 use OpenLRW\Model\Klass;
 use OpenLRW\Model\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,7 +30,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      *
      * @Route("/me", name="profile")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function profile(Request $request): ?Response
     {
@@ -123,7 +124,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      *
      * @Route("/me/settings", name="get_settings", methods={"GET"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function userSettings(Request $request): Response
     {
@@ -145,17 +146,16 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     /**
      * Update the settings of a user.
      *
-     * @Route("/me/settings", name="edit_settings", methods={"POST"})
+     * @Route("/api/users/settings", name="edit_settings", methods={"POST"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse|Response
+     * @return JsonResponse|Response
      */
     public function editSettings(Request $request)
     {
         try {
-
-            $key   = $request->request->get('key');
-            $value = $request->request->get('value');
-            $id    = $_SESSION['phpCAS']['user'];
+            $key   = $request->get('key');
+            $value = $request->get('value');
+            $id    = self::loggedUser();
             $user  = User::find($id);
             $json  = $user->metadata;
             $json->{$key} = $value;
@@ -167,7 +167,24 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         } catch (Exception $e) {
             return new Response($e->getMessage(), 404);
         }
+    }
 
+
+    /**
+     * Disable user account
+     *
+     * @Route("/disable-account", name="disable-account")
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function disableAccount(Request $request): RedirectResponse
+    {
+        $id    = self::loggedUser();
+        $user  = User::find($id);
+        $user->status = 'inactive';
+        $user->save();
+
+        return $this->redirectToRoute('logout');
     }
 
 
