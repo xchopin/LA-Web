@@ -35,7 +35,14 @@
     },
     "settings_tab" : {
       "name": "Settings",
-      "notifications": "Enable notifications"
+      "notifications": "Enable notifications",
+      "disable_account": {
+        "name": "Disable my account",
+        "question": "Do you wish to disable your account?",
+        "information": "Warning: you can enable your account at the next authentication.",
+        "cancel": "Cancel",
+        "submit": "Disable"
+      }
     }
   },
   "class": {

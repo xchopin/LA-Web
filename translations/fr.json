@@ -35,7 +35,14 @@
     },
     "settings_tab" : {
       "name": "Mes préférences",
-      "notifications": "Activer les alertes"
+      "notifications": "Activer les alertes",
+      "disable_account": {
+        "name": "Désactiver mon compte",
+        "question": "Êtes vous sûr de vouloir désactiver votre compte ?",
+        "information": "Note: vous pourrez le réactiver lors de votre prochaine connexion.",
+        "cancel": "Annuler",
+        "submit": "Désactiver"
+      }
     }
   },
   "class": {
