@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6804b861d0e35d9412ddc973f67e065f",
+    "content-hash": "b7c83b3e62320873b6bb6a20e8865f6f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -888,16 +888,16 @@
         },
         {
             "name": "openlrw/api-client",
-            "version": "0.2.5",
+            "version": "0.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Apereo-Learning-Analytics-Initiative/OpenLRW-php-api-client.git",
-                "reference": "04e42badea1831a7a151015cb9ccd7b4ea453197"
+                "reference": "fb1524b65aefc8b48db50a4e32b835c6526ecdf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Apereo-Learning-Analytics-Initiative/OpenLRW-php-api-client/zipball/04e42badea1831a7a151015cb9ccd7b4ea453197",
-                "reference": "04e42badea1831a7a151015cb9ccd7b4ea453197",
+                "url": "https://api.github.com/repos/Apereo-Learning-Analytics-Initiative/OpenLRW-php-api-client/zipball/fb1524b65aefc8b48db50a4e32b835c6526ecdf6",
+                "reference": "fb1524b65aefc8b48db50a4e32b835c6526ecdf6",
                 "shasum": ""
             },
             "require": {
@@ -932,7 +932,7 @@
                 "lrs",
                 "rest"
             ],
-            "time": "2019-07-08T08:46:51+00:00"
+            "time": "2019-07-16T13:25:20+00:00"
         },
         {
             "name": "psr/cache",
@@ -4073,12 +4073,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a53a6f855cbff7edb078f87c72bb808c89443a00"
+                "reference": "2e50fc5a89e1e77b68c7e3c3aa6d87da0b8d4c6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a53a6f855cbff7edb078f87c72bb808c89443a00",
-                "reference": "a53a6f855cbff7edb078f87c72bb808c89443a00",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2e50fc5a89e1e77b68c7e3c3aa6d87da0b8d4c6d",
+                "reference": "2e50fc5a89e1e77b68c7e3c3aa6d87da0b8d4c6d",
                 "shasum": ""
             },
             "conflict": {
@@ -4181,7 +4181,7 @@
                 "silverstripe/userforms": "<3",
                 "simple-updates/phpwhois": "<=1",
                 "simplesamlphp/saml2": "<1.10.6|>=2,<2.3.8|>=3,<3.1.4",
-                "simplesamlphp/simplesamlphp": "<1.15.2|>=1.16,<1.16.3",
+                "simplesamlphp/simplesamlphp": "<1.17.3",
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "slim/slim": "<2.6",
                 "smarty/smarty": "<3.1.33",
@@ -4280,7 +4280,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-06-25T10:37:35+00:00"
+            "time": "2019-07-14T14:21:52+00:00"
         },
         {
             "name": "symfony/dotenv",
