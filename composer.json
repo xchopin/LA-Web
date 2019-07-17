@@ -1,8 +1,8 @@
 {
-    "name": "LEARNING-ANALYTICS-WEB-APPLICATION",
+    "name": "xchopin/mad",
     "license": "ECL",
     "type": "project",
-    "description": "Learning Analytics Web Application. Created by University of Lorraine",
+    "description": "A scalable Web Dashboard for a Learning Analytics usage. Created by University of Lorraine",
     "authors": [
         {
             "name": "Xavier Chopin",
@@ -12,7 +12,7 @@
     ],
     "require": {
         "php":                           "^7.1.3",
-        "openlrw/api-client":            "0.2.5",
+        "openlrw/api-client":            "0.2.6",
         "sensio/framework-extra-bundle": "^5.2.4",
         "symfony/flex":                  "1.2.1",
         "symfony/profiler-pack":         "1.0.4",
