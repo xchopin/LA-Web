@@ -44,13 +44,11 @@ class AuthenticatedSubscriber implements EventSubscriberInterface
                 $event->setController(static function() use ($url) {
                     return new RedirectResponse($url);
                 });
-            } else {
-                if ($session->get('rulesAgreement') === false) {
-                    $url = $this->router->generate('rules-agreement');
-                    $event->setController(static function() use ($url) {
-                        return new RedirectResponse($url);
-                    });
-                }
+            } else if ($session->get('rulesAgreement') === false) {
+                $url = $this->router->generate('rules-agreement');
+                $event->setController(static function() use ($url) {
+                    return new RedirectResponse($url);
+                });
             }
 
         }
