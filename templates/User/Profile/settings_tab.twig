@@ -1,8 +1,33 @@
 <h2 align="center">{{ i18n.settings_tab.name }}</h2>
 
-<div id="settings-notifications" class="ui toggle checkbox">
-    <input type="checkbox" name="notifications" title="Notifications">
-    <label>{{ i18n.settings_tab.notifications }}</label>
+<div class="settings">
+    <div id="settings-notifications" class="ui toggle checkbox">
+        <input type="checkbox" name="notifications" title="Notifications">
+        <label>{{ i18n.settings_tab.notifications }}</label>
+    </div>
+</div>
+
+<a id='disable-account' style="cursor: pointer;" >{{ i18n.settings_tab.disable_account.name }}</a>
+
+
+
+<div class="ui mini modal ">
+    <div class="header">
+        {{ i18n.settings_tab.disable_account.name }}
+    </div>
+    <div class="content">
+        <p> {{ i18n.settings_tab.disable_account.question }}<br><br>
+            <i>{{ i18n.settings_tab.disable_account.information }}</i>
+        </p>
+    </div>
+    <div class="actions">
+        <div id='cancel' class="ui button">
+            {{ i18n.settings_tab.disable_account.cancel }}
+        </div>
+        <a href="{{ path('disable-account') }}" class="ui inverted red button">
+            {{ i18n.settings_tab.disable_account.submit }}
+        </a>
+    </div>
 </div>
 
 <script>
@@ -55,6 +80,14 @@
                 }
             })
         }
+
+        $('#disable-account').click(() => {
+            $('.ui.mini.modal').modal('show');
+        });
+
+        $('#cancel').click(() => {
+            $('.ui.mini.modal').modal('hide');
+        });
 
     })
 </script>
