@@ -21,10 +21,10 @@
         </p>
     </div>
     <div class="actions">
-        <div id='cancel' class="ui button">
+        <div id='cancel' class="ui cancel button">
             {{ i18n.settings_tab.disable_account.cancel }}
         </div>
-        <a href="{{ path('disable-account') }}" class="ui inverted red button">
+        <a href="{{ path('disable-account') }}" class="ui inverted red ok button">
             {{ i18n.settings_tab.disable_account.submit }}
         </a>
     </div>
@@ -83,10 +83,6 @@
 
         $('#disable-account').click(() => {
             $('.ui.mini.modal').modal('show');
-        });
-
-        $('#cancel').click(() => {
-            $('.ui.mini.modal').modal('hide');
         });
 
     })
