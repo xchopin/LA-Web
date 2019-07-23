@@ -1,59 +1,35 @@
 {% set i18n = dictionary.profile.enrollments_tab %}
 
-<div class="ui search">
-    <div class="ui fluid icon input">
-        <input id="filter" class="prompt" type="text" placeholder="Filtrer">
-        <i class="search icon"></i>
-    </div>
-    <div class="results"></div>
+<div id='enrollments' class="ui list">
+    {% if enrollments is empty %}
+        <h2>{{ i18n.no_result }}</h2>
+    {% else %}
+        <div class="ui search">
+            <div class="ui fluid icon input">
+                <input id="filter" class="prompt" type="text" placeholder="Filtrer">
+                <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
+        </div>
+        <br>
+        {% for enrollment in enrollments %}
+            <a class="item" href="{{ path('class', {'id': enrollment.class.sourcedId}) }}">
+                <i class="folder outline icon"></i>
+                <div class="content">
+                    <div class="header">{{ enrollment.title }}</div>
+                </div>
+                {% if auth().professorMode == 'true' or enrollment.role == 'teacher' %}
+                    <span class="ui blue tiny basic label professor-label">{{ i18n.professor }}</span>
+                {% endif %}
+            </a>
+        {% endfor %}
+    {% endif %}
+
 </div>
-<div id='enrollments' class="ui list"></div>
 
 <script>
     $(function () {
         $('#filter').on('keyup', () => { filterEnrollments()});
-        let done = false;
-        $('#courses-tab').on('click', function(e) {
-            if (!done) {
-                $('#my-classes').addClass('loading');
-                $('#enrollments').empty(); // Errors create a message and does not set DONE variable true.
-                $.ajax({
-                    url: "{{ path('enrollments') }}",
-                    type: 'GET',
-                    success: function (response) {
-                        $('#my-classes').removeClass('loading');
-                        done = true;
-                        let label = '';
-                        let professorMode = {{ auth().professorMode ? 'true' : 'false'  }}
-                        let professorLabel = '<span class="ui blue tiny basic label professor-label">{{ i18n.professor }}</span>';
-                        $.each(response, function (k, v) {
-                            if (v.role === 'teacher' || professorMode == true ) {
-                                label = professorLabel;
-                            } else {
-                                label = '';
-                            }
-
-                            let url = '{{ path('class', {'id': 'classId'}) }}';
-                            url = url.replace("classId", v.class.sourcedId);
-                            $('#enrollments').append(
-                                $('<a>').addClass('item').prop('href', url).append(
-                                    $('<i>').addClass('folder outline icon'),
-                                    $('<div>').addClass('content').append(
-                                        $('<div>').addClass('header').text(v.title)
-                                    )).append(label)
-                            ).transition('fade in');
-                        });
-                    },
-                    error: function () {
-                        $('#my-classes').removeClass('loading');
-                        $('#enrollments').append($('<h2>').addClass('item').text("{{ i18n.no_result }}")).transition('fade in');
-                    },
-                    fail: function (response) {
-                        console.log('AJAX Call error')
-                    }
-                })
-            }
-        })
     });
     function filterEnrollments() {
         let filter, element, title, enrollments;

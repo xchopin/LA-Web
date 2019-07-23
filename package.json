@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@bower_components/angular": "angular/bower-angular#^1.0.8",
+    "@bower_components/d3": "mbostock-bower/d3-bower#~3.3.10",
+    "@bower_components/jquery": "jrburke/almond#~0.2.9",
+    "bower": "^1.8.4"
+  }
+}

@@ -22,15 +22,13 @@
         </div>
 
         <div class="ui pointing secondary menu">
-            <a class="item active" id='summary' data-tab="first">{{ i18n.overview_tab.name }}</a>
-            <a class="item" id='courses-tab' data-tab="second">{{ i18n.enrollments_tab.name }}</a>
+           <!-- <a class="item " id='summary' data-tab="first">{{ i18n.overview_tab.name }}</a> -->
+            <a class="item active" id='courses-tab' data-tab="second">{{ i18n.enrollments_tab.name }}</a>
             <a class="item" id='settings' data-tab="third">{{ i18n.settings_tab.name }}</a>
         </div>
 
-        <div class="ui active tab" data-tab="first">
-            {% include 'User/Profile/summary_tab.twig'  %}
-        </div>
-        <div id='my-classes' class="ui tab" data-tab="second">
+        <!--<div class="ui active tab" data-tab="first"></div> -->
+        <div id='my-classes' class="ui active tab" data-tab="second">
             {% include 'User/Profile/enrollments_tab.twig'  %}
         </div>
         <div id='my-settings' class="ui tab" data-tab="third">
@@ -39,7 +37,7 @@
     </div>
     <div class="one wide column"></div>
 </div>
-    
+
         <script>
             function toggleMore() {
                 $('#see-more').toggle();

@@ -61,26 +61,26 @@
             "category_one": {
               "name": "Activity",
               "labels": {
-                "devRend": "Homework sent",
-                "resActs": "Activity results",
-                "ressCons": "Consulted resources",
-                "nbClicks": "Interactions on the course"
+                "submittedWork": "Homework submitted",
+                "activitiesResults": "Activity results",
+                "consultedResources": "Consulted resources",
+                "clicksCount": "Interactions on the course"
               }
             },
             "category_two" : {
               "name": "Engagement",
               "labels": {
-                "regHebdo" : "Weekly consistency",
-                "regQuoti" : "Daily consistency",
-                "consTerm": "Followed advices"
+                "weekRegularity" : "Weekly consistency",
+                "dayRegularity" : "Daily consistency",
+                "followedAdvices": "Followed advices"
               }
             },
             "category_three" : {
               "name": "Social interactions",
               "labels": {
-                "questForum" : "Topics created on the forum",
-                "repForum" : "Answers given",
-                "demandeAide": "Help requests and answers given"
+                "forumQuestions" : "Topics created on the forum",
+                "forumAnswers" : "Answers given",
+                "helpAsked": "Help requests and answers given"
               }
           }
         },

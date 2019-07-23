@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use Exception;
+use OpenLRW\Exception\NotFoundException;
 use OpenLRW\Model\Klass;
 use OpenLRW\Model\Risk;
 use OpenLRW\Model\User;
@@ -52,7 +53,15 @@ class ClassController extends AbstractController
 
             if ($class->sourcedId === $enrollment->class->sourcedId) { // Check if the user is enrolled to this class
                 if ($enrollment->role === 'student') {
-                    $risk = Risk::latestByClassAndUser('23133', 'adam125u');
+                    try {
+                        $risk = Risk::latestByClassAndUser('23133', 'adam125u');
+                    } catch (NotFoundException $e) {
+                        $this->addFlash('error', 'This class does not have any dashboards yet');
+                        return $this->redirectToRoute('profile');
+                    }
+
+
+
                     $events = Klass::eventsForUser($id, self::loggedUser());
 
                     // - - - Risk treatment - - -
@@ -62,9 +71,11 @@ class ClassController extends AbstractController
                     foreach ($risk->metadata as $key => $value) {
                         if (strpos($key, 'global') !== 0) {
                             $indicators[$key] = $value;
-                        } else {
+                        } else  {
                             $trimmed = preg_replace('/\D/', '', $key); // get int value
-                            $scores[$trimmed] = round($value * 100, 2); // percentage
+                            $arr = explode('/', $value, 2); // cut the string in two parts
+                            $value = $arr[0]; // take the first part of the string
+                            $scores[$trimmed] = $value; // already a percentage
                         }
                     }
 

@@ -11,6 +11,7 @@ namespace App\Controller;
 
 
 use Exception;
+use OpenLRW\Exception\NotFoundException;
 use OpenLRW\Model\Klass;
 use OpenLRW\Model\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,43 +39,43 @@ class UserController extends AbstractController implements AuthenticatedInterfac
             $user = User::find(self::loggedUser());
 
             if ($user === null) {
-                $this->addFlash('error', "Student does not exist");
+                $this->addFlash('error', 'Student does not exist');
                 return $this->redirectToRoute('home');
             }
 
-            $events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime('-1 week')));
-            $events['cas'] = null;
-            $events['moodle'] = null;
+            //$events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime('-1 week')));
+            //$events['cas'] = null;
+            //$events['moodle'] = null;
 
-            if ($events['all'] !== null) {
-                usort($events['all'], static function ($a, $b) {
-                    return $a->eventTime < $b->eventTime;
-                });
+            //if ($events['all'] !== null) {
+            //    usort($events['all'], static function ($a, $b) {
+            //        return $a->eventTime < $b->eventTime;
+            //    });
 
-                for ($i = 7; $i >= 0; $i--) {
-                    $cas_events[date('Y-m-d', strtotime("-$i day"))] = [];
-                    $moodle_events[date('Y-m-d', strtotime("-$i day"))] = [];
-                }
+            //    for ($i = 7; $i >= 0; $i--) {
+            //        $cas_events[date('Y-m-d', strtotime("-$i day"))] = [];
+            //        $moodle_events[date('Y-m-d', strtotime("-$i day"))] = [];
+            //    }
 
-                foreach ($events['all'] as $event) {
-                    $date = date('Y-m-d', strtotime($event->eventTime));
-                    if ($event->object->{'@type'} === 'SoftwareApplication') {
-                        if (array_key_exists($date, $cas_events))
-                            $cas_events[$date][] = $event;
-                    } else {
-                        if (array_key_exists($date, $moodle_events))
-                            $moodle_events[$date][] = $event;
-                    }
-                }
+            //    foreach ($events['all'] as $event) {
+            //        $date = date('Y-m-d', strtotime($event->eventTime));
+            //        if ($event->object->{'@type'} === 'SoftwareApplication') {
+            //            if (array_key_exists($date, $cas_events))
+            //                $cas_events[$date][] = $event;
+            //        } else {
+            //            if (array_key_exists($date, $moodle_events))
+            //                $moodle_events[$date][] = $event;
+            //        }
+            //    }
 
-                $events['cas'] = $cas_events;
-                $events['moodle'] = $moodle_events;
-            }
+            //    $events['cas'] = $cas_events;
+            //    $events['moodle'] = $moodle_events;
+            //}
 
             return $this->render('User/profile.twig', [
                 'givenName' => $user->givenName,
                 'metadata' => $user->metadata,
-                'events' => $events
+                'enrollments' => $this->enrollments()
             ]);
         } catch (SessionUnavailableException $e) {
             return $this->redirectToRoute('login', 'profile');
@@ -86,15 +87,18 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     /**
      * Give enrollments for a user given.
      *
-     * @Route("/me/enrollments", name="enrollments")
-     * @param Request $request
-     * @return JsonResponse|Response
+     * @return array
      */
-    public function enrollments(Request $request)
+    public function enrollments()
     {
         $id = self::loggedUser();
+        try {
+            $enrollments = User::enrollments($id);
+        } catch (NotFoundException $e) {
+            return null;
+        }
+
         $classes = [];
-        $enrollments = User::enrollments($id);
 
         if ($enrollments !== null) {
             foreach ($enrollments as $enrollment) {
@@ -104,17 +108,13 @@ class UserController extends AbstractController implements AuthenticatedInterfac
                     $classes[] = $enrollment;
                 }
             }
-        } else {
-            return new Response('Enrollments not found.', 404);
+
+            usort($classes, static function($a, $b) { // ASC Sort
+                return strtolower($a->title) > strtolower($b->title);
+            });
         }
 
-
-        usort($classes, static function($a, $b) { // ASC Sort
-            return strtolower($a->title) > strtolower($b->title);
-        });
-
-
-        return $this->json($classes);
+        return $classes;
     }
 
 

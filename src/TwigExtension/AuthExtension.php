@@ -11,6 +11,7 @@ namespace App\TwigExtension;
 
 use App\Event\AdminSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -33,13 +34,18 @@ class AuthExtension extends AbstractExtension
      */
     protected $isAdmin;
 
+    private $session;
+
     /**
      * AuthExtension constructor.
      *
      * @param ContainerInterface $container
+     * @param RequestStack $request_stack
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, RequestStack $request_stack)
     {
+
+        $this->session = $request_stack->getCurrentRequest()->getSession();
         $adminSubscriber = new AdminSubscriber($container);
         $this->isAdmin = $adminSubscriber->isAdmin();
     }
@@ -67,6 +73,8 @@ class AuthExtension extends AbstractExtension
         $username = null;
         $email = null;
         $name = null;
+
+        $session = $this->session;
 
 
         if (isset($_SESSION['phpCAS']['user'])) {

@@ -61,26 +61,26 @@
           "category_one": {
             "name": "Activité",
             "labels": {
-              "devRend": "Devoir rendus",
-              "resActs": "Score aux activités",
-              "ressCons": "Ressources consultées",
-              "nbClicks": "Nombre de clicks sur le cours"
+              "submittedWork": "Devoir rendus",
+              "activitiesResults": "Score aux activités",
+              "consultedResources": "Ressources consultées",
+              "clicksCount": "Nombre de clicks sur le cours"
             }
           },
           "category_two" : {
             "name": "Engagement",
             "labels": {
-              "regHebdo" : "Régularité hebdomadaire",
-              "regQuoti" : "Régularité quotidienne",
-              "consTerm": "Conseils terminés"
+              "weekRegularity" : "Régularité hebdomadaire",
+              "dayRegularity" : "Régularité quotidienne",
+              "followedAdvices": "Conseils terminés"
             }
           },
           "category_three" : {
             "name": "Participation et aide",
             "labels": {
-              "questForum" : "Régularité hebdomadaire",
-              "repForum" : "Régularité quotidienne",
-              "demandeAide": "Demandes d'aide émises et réponses données"
+              "forumQuestions" : "Régularité hebdomadaire",
+              "forumAnswers" : "Régularité quotidienne",
+              "helpAsked": "Demandes d'aide émises et réponses données"
             }
           }
         },

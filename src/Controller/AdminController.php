@@ -81,8 +81,6 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
 
         $result = $this->ldapFirst("uid=$id");
         $_SESSION['name'] = $result['displayname'][0];
-        $_SESSION['email'] = $result['mail'][0];
-
 
 
         return $this->redirectToRoute('home');
@@ -96,10 +94,8 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
     {
         $username = $_SESSION['originalUsername'];
         $result = $this->ldapFirst("uid=$username");
-
         $_SESSION['phpCAS']['user'] = $username;
         $_SESSION['name'] = $result['displayname'][0];
-        $_SESSION['email'] = $result['mail'][0];
     }
 
 
