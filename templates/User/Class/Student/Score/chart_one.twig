@@ -4,16 +4,16 @@
 {% set labels_color = [] %}
 {% set values = [] %}
 {% set colors = {
-        devRend: "#3d2aa2",
-        resActs : "#1976d2",
-        ressCons : "#03a9f4",
-        nbClicks : "#4dd0e1",
-        regHebdo : "#e53935",
-        regQuoti : "#ec407a",
-        consTerm : "#e040fb",
-        questForum: "#66bb6a",
-        repForum: "#7cb342",
-        demandeAide: "#558b2f",
+    submittedWork: "#3d2aa2",
+    activitiesResults : "#1976d2",
+    consultedResources : "#03a9f4",
+    clicksCount : "#4dd0e1",
+    weekRegularity : "#e53935",
+    dayRegularity : "#ec407a",
+    followedAdvices : "#e040fb",
+    forumQuestions: "#66bb6a",
+    forumAnswers: "#7cb342",
+    helpAsked: "#558b2f",
    }
 %}
     <div class="row">
@@ -23,6 +23,10 @@
                 <div class="eight wide column">
                     <div class="chart-container">
                         <canvas id="activity_chart"></canvas>
+                    </div>
+
+                    <div class="hide" id="score-success">
+                        <h3 style="text-align:center" id="score-value">{{ i18n.objective_probability}}</h3>
                     </div>
                 </div>
                 <div class="one wide column"></div>
@@ -38,15 +42,11 @@
                                 <br>
                                 {% set labels = labels|merge([value]) %}
                                 {% set labels_color = labels_color|merge([colors[key]]) %}
-                                {% set math = indicators[key]|split('/') %}
-                                {% set values = values|merge([(math[0] / math[1] * 100)|round(1, 'floor')]) %}
+                                {% set values = values|merge([indicators[key]]) %}
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
 
-                    <div class='hide' id="score-success">
-                        <span id="score-value"></span>% {{ i18n.objective_probability}}
-                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +73,6 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">{{ i18n.set_objective }}</div>
                             <div class="menu">
-                                <div class="item" data-value="8">8</div>
                                 <div class="item" data-value="10">10</div>
                                 <div class="item" data-value="12">12</div>
                                 <div class="item" data-value="14">14</div>
@@ -85,12 +84,12 @@
                     </div>
                 </div>
                 <div class="one wide column"></div>
-                <div class="five wide column">
+               <!-- <div class="five wide column">
                     <div class="row"></div>
                     <div class="row">
                         <button class="teal ui button dispute-score">{{ i18n.dispute_score }}</button>
                     </div>
-                </div>
+                </div> -->
             </div>
             <p class="score-legal-notice">{{ i18n.disclaimer }}</p>
         </div>
@@ -107,12 +106,15 @@
         let labels = {{ labels|json_encode|raw }};
         let label_colors = {{ labels_color|json_encode|raw }};
         let activityData = {{ values|json_encode|raw }};
-        let activityDataVelocity = [0.9, 0.6, 0.7 , 0.5, 0.8, 0.6, 0.6, 0.4, 0.6, 0.6]; // max value: 2π
-
+        let activityDataVelocity = {{ weight|json_encode|raw }};
         $('.selection.dropdown > .menu').on('click', function(){
             $('#score-success').removeClass('hide');
             let target = $('.selection.dropdown').dropdown('get value');
-            $('#score-value').text(scores[target]);
+            $('#score-value').text(
+                (i,txt) => {
+                    return txt.replace(/\d+/,scores[target])
+                }
+            );
         });
 
 

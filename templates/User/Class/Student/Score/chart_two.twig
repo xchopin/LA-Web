@@ -5,20 +5,30 @@
     <strong>{{ i18n.chart_title }}</strong>
 </div>
 <div style="width: 100%" class="ui grid">
-    <div class="eleven wide column">
+    <div class="sixteen wide column">
         <div id="chart_two" class="row">
             <canvas id="evolution_chart"></canvas>
         </div>
     </div>
-    <div class="five wide column">
+    <div class="eight wide column">
         <strong>{{ i18n.legend.name }}</strong>
         <br>
         <svg width="25" height="4">
             <rect width="300" height="100" style="fill:rgb(3,155,229);" />
         </svg>
         &nbsp; {{ i18n.legend.my_score }}
+    </div>
 
-        <div id='chart-two-tools' class="row">
+    <div class="eight wide column">
+        <strong>{{ i18n.legend.display }}</strong>
+        <br>
+        <div class="ui checkbox">
+            <input type="checkbox">
+            <label>{{ i18n.legend.average_grade }}</label>
+        </div>
+    </div>
+
+        <!--<div id='chart-two-tools' class="row">
             {{ i18n.legend.display }}: <br>
             <br>
             <div class="ui checkbox">
@@ -31,7 +41,7 @@
                 <label>{{ i18n.legend.standard_deviations }}</label>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 
 <div class="row">

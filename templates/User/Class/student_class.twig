@@ -9,10 +9,11 @@
     <div class="fourteen wide column">
         <span class="profile-name">{{ i18n.title }} "{{ class.title }}"</span>
         <div class="page-description">{{ class.metadata.summary|striptags }}</div>
-        <div class="ui pointing secondary menu">
+        <br>
+        <!--<div class="ui pointing secondary menu">
             <a style="width:50%; text-align:center;" class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
             <a style="width:50%; text-align:center;" id='results-tab' class="item" data-tab="second">{{ i18n.tab_two.name }}</a>
-        </div>
+        </div>-->
 
 
 
@@ -20,9 +21,7 @@
             {% include 'User/Class/Student/score.twig'  %}
         </div>
 
-        <div id='my-results' class="ui tab" data-tab="second">
-            {% include 'User/Class/Student/events.twig'  %}
-        </div>
+      <!--  <div id='my-results' class="ui tab" data-tab="second"></div> -->
         <div class="one wide column"></div>
     </div>
 
