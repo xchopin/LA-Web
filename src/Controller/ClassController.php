@@ -53,6 +53,8 @@ class ClassController extends AbstractController
 
             if ($class->sourcedId === $enrollment->class->sourcedId) { // Check if the user is enrolled to this class
                 if ($enrollment->role === 'student') {
+
+
                     try {
                         $risk = Risk::latestByClassAndUser('23133', 'adam125u');
                     } catch (NotFoundException $e) {
@@ -60,17 +62,25 @@ class ClassController extends AbstractController
                         return $this->redirectToRoute('profile');
                     }
 
-
-
-                    $events = Klass::eventsForUser($id, self::loggedUser());
-
                     // - - - Risk treatment - - -
                     $indicators = [];
                     $scores = [];
+                    $tempWeight = [];
+                    $weight = [];
 
                     foreach ($risk->metadata as $key => $value) {
-                        if (strpos($key, 'global') !== 0) {
-                            $indicators[$key] = $value;
+                        if (strpos($key, 'global') !== 0 ) {
+                            if (stripos($key, 'Weight')) {
+                                $tempWeight[] = (float)$value;
+                            }else{
+                                if (strpos($value, '/')) {
+                                    $explode = explode('/', $value);
+                                    $value = round(($explode[0] / $explode[1]) * 100, 1);
+                                }else{
+                                    $value = round($value * 100, 1);
+                                }
+                                $indicators[$key] = $value;
+                            }
                         } else  {
                             $trimmed = preg_replace('/\D/', '', $key); // get int value
                             $arr = explode('/', $value, 2); // cut the string in two parts
@@ -79,17 +89,24 @@ class ClassController extends AbstractController
                         }
                     }
 
-                    if ($events !== null) {
-                        usort($events, static function ($a, $b) {
-                            return $a->eventTime < $b->eventTime;
-                        });
+                    $res =   2*M_PI/array_sum($tempWeight);
+                    foreach ($tempWeight as $w) {
+                        $weight[] = $w * $res;
                     }
+
+
+                    //$events = Klass::eventsForUser($id, self::loggedUser());
+                    //if ($events !== null) {
+                    //    usort($events, static function ($a, $b) {
+                    //        return $a->eventTime < $b->eventTime;
+                    //    });
+                    //}
 
                     return $this->render('User/Class/student_class.twig', [
                         'class' => $class,
-                        'events' => $events,
                         'scores' => $scores,
-                        'indicators' => $indicators
+                        'indicators' => $indicators,
+                        'weight' => $weight
                     ]);
                 }
 
