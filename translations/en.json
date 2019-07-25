@@ -56,7 +56,7 @@
         "personal_objective": "My personal objective",
         "dispute_score": "Dispute a score",
         "set_objective": "Select an objective",
-        "objective_probability": " of probability to get this objective",
+        "objective_probability": "You have 0% of probability to get this objective",
         "legend": {
             "category_one": {
               "name": "Activity",
