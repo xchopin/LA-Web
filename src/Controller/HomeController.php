@@ -32,7 +32,8 @@ class HomeController extends AbstractController
             if ($request->getSession()->get('rulesAgreement') === false) {
                 return $this->rulesAgreement($request);
             }
-            return $this->render('home.twig');
+
+            return $this->redirectToRoute('profile');
         }
         return $this->render('Error/unavailable.twig');
     }
