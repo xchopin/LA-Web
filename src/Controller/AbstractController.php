@@ -15,6 +15,7 @@ use OpenLRW\OpenLRW;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 abstract class AbstractController extends Controller
 {
@@ -24,17 +25,21 @@ abstract class AbstractController extends Controller
     protected $openLRW;
     protected $ldap;
     protected $baseDN;
+    protected $requestStack;
 
 
     /**
      * Constructor.
      *
      * @param ContainerInterface $container
+     * @param RequestStack $requestStack
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, RequestStack $requestStack)
     {
         // Required for big requests (eg: all() calls)
         ini_set('memory_limit', '1024M');
+
+        $this->requestStack = $requestStack;
 
         $dotenv = new Dotenv();
         $dotenv->load(__DIR__.'/../../.env'); // For Linux Servers
@@ -129,6 +134,17 @@ abstract class AbstractController extends Controller
      public static function isProfessorModeEnabled(): bool
      {
          return isset($_SESSION['professorMode']);
+     }
+
+    /**
+     * Return the language file into an array
+     * @return array
+     */
+     public function dictionary() : array
+     {
+         $request = $this->requestStack->getCurrentRequest();
+         $countryId = $request->get('_locale');
+         return $this->container->getParameter('dictionaries')[$countryId];
      }
 
 }
