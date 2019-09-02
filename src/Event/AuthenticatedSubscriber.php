@@ -38,8 +38,7 @@ class AuthenticatedSubscriber implements EventSubscriberInterface
             return;
 
         if ($controller[0] instanceof AuthenticatedInterface) {
-
-            $url = $this->router->generate('login', ['redirect' => $event->getRequest()->getPathInfo()]);
+            $url = $this->router->generate('login', ['redirect' => $event->getRequest()->get('_route')]);
             if (isset($_SESSION['phpCAS']['user']) === false) {
                 $event->setController(static function() use ($url) {
                     return new RedirectResponse($url);
