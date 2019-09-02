@@ -58,7 +58,8 @@
                     <div class="row">
                         <div id='last-week-progression' class="ui statistic">
                             <div class="value">
-                                <i class="green caret up icon"></i> +2.8%
+                                <i id="growth-caret" class="green caret up icon"></i>
+                                <span id="score-difference">0</span>%
                             </div>
                             <div class="label"> {{ i18n.since_last_week }} </div>
                         </div>
@@ -97,29 +98,63 @@
 </div>
 
 
-
 {% block javascripts %}
 <script>
     $(document).ready( () => {
 
         let scores = {{ scores|json_encode|raw }};
-        let labels = {{ labels|json_encode|raw }};
-        let label_colors = {{ labels_color|json_encode|raw }};
         let activityData = {{ values|json_encode|raw }};
         let activityDataVelocity = {{ weight|json_encode|raw }};
-        $('.selection.dropdown > .menu').on('click', function(){
-            $('#score-success').removeClass('hide');
-            let target = $('.selection.dropdown').dropdown('get value');
-            $('#score-value').text(
-                (i,txt) => {
-                    return txt.replace(/\d+/,scores[target])
-                }
-            );
+        let labels = {{ labels|json_encode|raw }};
+        let label_colors = {{ labels_color|json_encode|raw }};
+
+        $('.selection.dropdown > .menu').on('click', function() {
+            updateObjective(scores);
         });
 
+        // Init.
+        const pieChart = createPieChart('#activity_chart', labels, label_colors, activityData, activityDataVelocity);
+        let difference = calculateScoreEvolution(scores, 10);
+        updateScoreEvolution(difference);
 
-        // Chart
-        let ctx = $("#activity_chart");
+    });
+
+
+
+    /**
+     * Update the objective of a user (graph + text)
+     *
+     * @param scores
+     */
+     updateObjective = (scores) => {
+         $('#score-success').removeClass('hide');
+         let target = $('.selection.dropdown').dropdown('get value');
+         $('#score-value').text(
+             (i,txt) => {
+                 return txt.replace(/\d+/, scores['{{ date }}'][target])
+             }
+         );
+         let difference = calculateScoreEvolution(scores, target);
+         updateScoreEvolution(difference);
+         let event = new CustomEvent('updateObjective', {detail: target});
+         window.dispatchEvent(event);
+     };
+
+
+
+    /**
+     * Create a pieChart
+     *
+     * @param domId
+     * @param labels
+     * @param label_colors
+     * @param activityData
+     * @param activityDataVelocity
+     * @returns {Chart}
+     */
+     createPieChart = (domId, labels, label_colors, activityData, activityDataVelocity) => {
+
+        let ctx = $(domId);
         let data = {
             datasets: [{
                 data: activityData,
@@ -128,7 +163,7 @@
             labels: labels
         };
 
-         new Chart(ctx, {
+        return new Chart(ctx, {
             data: data,
             type: 'polarArea',
             options: {
@@ -180,7 +215,41 @@
                 },
             }
         });
-    })
+    };
+
+
+    /**
+     * Update the UI (difference value)
+     *
+     * @param value
+     */
+    updateScoreEvolution = (value) => {
+         if (value < 0) {
+             $('#growth-caret').removeClass('green orange up right').addClass('red down');
+             $('#score-difference').text(value);
+         } else if (value === 0) {
+             $('#growth-caret').removeClass('green red up down').addClass('orange right');
+             $('#score-difference').text(value);
+         } else {
+             $('#growth-caret').removeClass('red orange down right').addClass('green up');
+             $('#score-difference').text('+' + value);
+         }
+
+     };
+
+    /**
+     * Calculate the difference between the current score and the score of the last week
+     *
+     * @param scores
+     * @param objective
+     * @returns {number}
+     */
+     calculateScoreEvolution = (scores, objective) => {
+         let currentScore = scores[Object.keys(scores)[0]][objective];
+         let previousWeekScore = scores[Object.keys(scores)[6]][objective];
+
+         return (currentScore - previousWeekScore);
+     };
 </script>
 
 {% endblock %}
