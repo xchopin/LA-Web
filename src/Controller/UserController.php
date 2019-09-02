@@ -11,6 +11,7 @@ namespace App\Controller;
 
 
 use Exception;
+use OpenLRW\Exception\GenericException as OpenLrwException;
 use OpenLRW\Exception\NotFoundException;
 use OpenLRW\Model\Klass;
 use OpenLRW\Model\User;
@@ -38,10 +39,6 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         try {
             $user = User::find(self::loggedUser());
 
-            if ($user === null) {
-                $this->addFlash('error', 'Student does not exist');
-                return $this->redirectToRoute('home');
-            }
 
             //$events['all'] = User::eventsFrom(self::loggedUser(), date('Y-m-d H:i', strtotime('-1 week')));
             //$events['cas'] = null;
@@ -79,6 +76,9 @@ class UserController extends AbstractController implements AuthenticatedInterfac
             ]);
         } catch (SessionUnavailableException $e) {
             return $this->redirectToRoute('login', 'profile');
+        } catch (NotFoundException $e) {
+            $this->addFlash('error', 'Student does not exist');
+            return $this->redirectToRoute('home');
         }
 
     }
@@ -89,7 +89,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
      *
      * @return array
      */
-    public function enrollments()
+    public function enrollments(): array
     {
         $id = self::loggedUser();
         try {
@@ -102,11 +102,16 @@ class UserController extends AbstractController implements AuthenticatedInterfac
 
         if ($enrollments !== null) {
             foreach ($enrollments as $enrollment) {
-                $class = Klass::find($enrollment->class->sourcedId);
-                if ($class->title !== null && $class->status === 'active' ) {
-                    $enrollment->title = $class->title;
-                    $classes[] = $enrollment;
+                try {
+                    $class = Klass::find($enrollment->class->sourcedId);
+                    if ($class->title !== null && $class->status === 'active' ) {
+                        $enrollment->title = $class->title;
+                        $classes[] = $enrollment;
+                    }
+                } catch (NotFoundException $e) {
+
                 }
+
             }
 
             usort($classes, static function($a, $b) { // ASC Sort
