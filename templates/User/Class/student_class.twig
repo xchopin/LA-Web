@@ -4,25 +4,77 @@
 
 {% set i18n = dictionary.class %}
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css">
     <div class="ui grid">
-    <div class="one wide column"></div>
-    <div class="fourteen wide column">
-        <span class="profile-name">{{ i18n.title }} "{{ class.title }}"</span>
-        <div class="page-description">{{ class.metadata.summary|striptags }}</div>
-        <br>
-        <!--<div class="ui pointing secondary menu">
-            <a style="width:50%; text-align:center;" class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
-            <a style="width:50%; text-align:center;" id='results-tab' class="item" data-tab="second">{{ i18n.tab_two.name }}</a>
-        </div>-->
+        <div class="one wide column"></div>
+        <div class="fourteen wide column">
+            <div class="ui stackable grid">
+                <div class="fourteen wide column">
+                    <span class="profile-name">{{ i18n.title }} "{{ class.title }}"</span>
+                    <div class="page-description">{{ class.metadata.summary|striptags }}</div>
+                </div>
+                <div class="two wide column">
+                    <div class="ui calendar" >
+                        <div class="ui left icon input">
+                            <i class="calendar icon"></i>
+                            <input id="datepicker"
+                                   placeholder="{{ date|date(dictionary.date.year_month_day)  }}"
+                                   data-date-format="yyyy-mm-dd"
+                                   autocomplete="off"
+                                   type='text'
+                                   class="datepicker-here"
+                                   data-language='fr'
+                                   data-position="left top"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <!--<div class="ui pointing secondary menu">
+                <a style="width:50%; text-align:center;" class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
+                <a style="width:50%; text-align:center;" id='results-tab' class="item" data-tab="second">{{ i18n.tab_two.name }}</a>
+            </div>-->
+            {% if scores is not null %}
+                <div class="ui active tab" data-tab="first">
+                    {% include 'User/Class/Student/score.twig'  %}
+                </div>
+            {% else %}
+                <div class="ui active tab" data-tab="first">
+                    <div class="ui negative big message">
+                        <div class="header">{{ i18n.no_result.name }} {{ date|date(dictionary.date.year_month_day) }}</div>
+                        <p>{{ i18n.no_result.information }} </p>
+                    </div>
+                </div>
+            {% endif %}
 
-
-
-        <div class="ui active tab" data-tab="first">
-            {% include 'User/Class/Student/score.twig'  %}
         </div>
 
-      <!--  <div id='my-results' class="ui tab" data-tab="second"></div> -->
-        <div class="one wide column"></div>
+          <!--  <div id='my-results' class="ui tab" data-tab="second"></div> -->
     </div>
 
+        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js') }}"></script>
+        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.fr.min.js') }}"></script>
+
+        <script>
+            $(document).ready(() => {
+                const today = new Date();
+                $('#datepicker').datepicker({
+                    language: 'fr',
+                    todayButton: today,
+                    maxDate: today, // Now can select only dates, which goes before today
+                    onSelect: (formattedDate, date, inst) => {
+                        let uri = "{{ path('class', {'id' : class.sourcedId, 'date': 'formattedDate'}) }}";
+                        uri = uri.replace('formattedDate', formattedDate);
+                        window.location.href = uri;
+                    }
+                })
+            })
+        </script>
+
 {% endblock %}
+
+
+
