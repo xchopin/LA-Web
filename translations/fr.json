@@ -47,6 +47,10 @@
   },
   "class": {
     "title": "Vue d'ensemble sur",
+    "no_result": {
+      "name": "Aucun indicateur n'est disponible pour la date du",
+      "information": "Merci de sélectionner une date différente."
+    },
     "tab_one" : {
       "name": "Vue d'ensemble",
       "no_result": "Données indisponibles.",
@@ -98,6 +102,11 @@
           "week": "Semaine"
         },
         "advice": {
+          "name": "Conseils pour progresser",
+          "description": "Suivez les indicateurs pour améliorer vos scores dans les différents domaines (activité, engagement, participation). Vous augmenterez ainsi vos chances d'atteindre votre objectif personnel.",
+          "more": "Progresser dans les indicateurs où la pétale prend le plus de place fera monter le score plus vite."
+        },
+        "advice_advanced": {
           "name": "Conseil",
           "follow": "Suivre",
           "more_resource_checking" : "Aller consulter plus de ressources du cours peut vous aider à ne pas prendre de retard dans vos révisions. Suivez ce conseil pour augmenter votre score.",
@@ -134,7 +143,7 @@
     }
   },
   "rules_agreement" : {
-    "title": "Mentions légales.",
+    "title": "Mentions légales",
     "rules": "En cochant la case ci-dessous, vous acceptez que vos statistiques d'usages de la plateforme ARCHE (connexions, consultation de cours et de ressources, et autres statistiques de cette plateforme) ainsi que vos notes soient collectées et affichées dans cette interface.",
     "accept_rules": "J'ai lu et j'accepte les conditions",
     "submit": "Valider"
@@ -144,20 +153,3 @@
     "year_month_day": "d/m/Y"
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

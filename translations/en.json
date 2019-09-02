@@ -47,6 +47,10 @@
   },
   "class": {
     "title": "Overview on",
+    "no_result": {
+      "name": "Sorry, indicators are not available on the ",
+      "information": "Please choose another period."
+    },
     "tab_one" : {
       "name": "My events",
       "no_result": "There is no event to show.",
@@ -98,6 +102,11 @@
           "week": "Week"
         },
         "advice": {
+          "name": "Conseils pour progresser",
+          "description": "Suivez les indicateurs pour améliorer vos scores dans les différents domaines (activité, engagement, participation). Vous augmenterez ainsi vos chances d'atteindre votre objectif personnel.",
+          "more": "Progresser dans les indicateurs où la pétale prend le plus de place fera monter le score plus vite."
+        },
+        "advice_advanced": {
           "name": "Advice",
           "follow": "follow",
           "more_resource_checking" : "Aller consulter plus de ressources du cours peut vous aider à ne pas prendre de retard dans vos révisions. Suivez ce conseil pour augmenter votre score.",
@@ -135,7 +144,7 @@
   },
   "rules_agreement" : {
     "title": "Terms and conditions agreement",
-    "rules": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus tellus vitae quam rutrum sagittis. Sed tempor accumsan dignissim. Duis ut ultricies nunc. Sed at libero nisi. Integer et lectus et urna sodales vulputate in eu quam. Vivamus nibh arcu, fermentum vel turpis eget, iaculis lacinia urna. Mauris interdum, ligula id imperdiet iaculis, libero orci aliquam erat, at fringilla augue lorem ut purus. Aliquam faucibus est a risus tristique, id ullamcorper eros mollis. Curabitur at accumsan justo, nec porttitor velit. Morbi sed consectetur elit. In rutrum, urna vel fringilla tempus, mi lectus cursus justo, eget convallis ante sem ac risus. Cras accumsan volutpat velit, ut pulvinar magna varius ut. Morbi augue ex, egestas vitae ultricies eu, pretium vitae tortor. Donec porttitor ligula erat, sit amet sodales dui commodo in. In quis ex sapien. Morbi a fringilla dolor, ac hendrerit lacus. Duis sed nulla id orci interdum molestie eget a odio. Praesent faucibus diam nulla, id auctor velit feugiat in. Praesent consequat orci ut porta iaculis. Nullam tempor arcu ut tellus interdum aliquet. Aenean a tellus in lorem mollis tincidunt nec non orci. Phasellus tempor risus vel risus aliquet, eleifend blandit orci finibus. Nunc non nibh ac purus facilisis semper. Phasellus convallis aliquam arcu, quis imperdiet lacus varius non. Donec tortor enim, feugiat id efficitur euismod, sodales sed mauris. Donec viverra sapien eu condimentum commodo. Cras ante arcu, euismod a metus a, vulputate maximus nulla. Donec facilisis lorem quis nunc bibendum, sit amet vestibulum nisl rutrum. Aenean nec auctor nisi, eu vestibulum quam. Aliquam ultricies risus ac diam pulvinar, id pharetra felis varius. Etiam elementum orci sit amet viverra aliquet. Suspendisse vel elit ac neque pellentesque rutrum. Ut ut cursus lectus. Cras lobortis erat ut tellus cursus, hendrerit hendrerit mauris finibus. Phasellus iaculis quam sed magna ultrices, sed dapibus libero pharetra. Pellentesque aliquam purus sed nibh volutpat auctor. Nulla et tincidunt felis, sodales convallis nunc. Nulla ullamcorper, turpis quis eleifend imperdiet, augue nibh laoreet velit, vitae placerat metus eros ut magna. Donec auctor magna at placerat sagittis. Integer et nibh et mauris ultrices volutpat quis aliquam massa. Pellentesque elementum, libero id sollicitudin laoreet, nisl nibh tempus magna, non aliquet nisl tortor vitae felis. Etiam quis efficitur risus. Nullam placerat ex et magna condimentum lacinia id lacinia eros.",
+    "rules": "By checking the belowed box, you accept that your data created from the ARCHE platform (logging-in events, resources consultation and other statistics from this platform), as well as your grades get collected and displayed into this application.",
     "accept_rules": "I have read and I accept the conditions",
     "submit": "Submit"
   },
