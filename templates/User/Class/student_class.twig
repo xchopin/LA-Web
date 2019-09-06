@@ -1,11 +1,9 @@
 {% extends 'Utility/layout.twig' %}
 
 {% block body %}
+    {% set i18n = dictionary.class %}
+    <link rel="stylesheet" href="{{ asset('css/library/datepicker.min.css') }}">
 
-{% set i18n = dictionary.class %}
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css">
     <div class="ui grid">
         <div class="one wide column"></div>
         <div class="fourteen wide column">
@@ -25,7 +23,6 @@
                                    type='text'
                                    class="datepicker-here"
                                    data-language='fr'
-                                   data-position="left top"
                             />
                         </div>
                     </div>
@@ -55,25 +52,24 @@
           <!--  <div id='my-results' class="ui tab" data-tab="second"></div> -->
     </div>
 
-        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js') }}"></script>
-        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.fr.min.js') }}"></script>
+    <script src="{{ asset('js/library/datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/library/datepicker.fr.min.js') }}"></script>
 
-        <script>
-            $(document).ready(() => {
-                const today = new Date();
-                $('#datepicker').datepicker({
-                    language: 'fr',
-                    todayButton: today,
-                    maxDate: today, // Now can select only dates, which goes before today
-                    onSelect: (formattedDate, date, inst) => {
-                        let uri = "{{ path('class', {'id' : class.sourcedId, 'date': 'formattedDate'}) }}";
-                        uri = uri.replace('formattedDate', formattedDate);
-                        window.location.href = uri;
-                    }
-                })
+    <script>
+        $(document).ready(() => {
+            const today = new Date();
+            $('#datepicker').datepicker({
+                language: 'fr',
+                todayButton: today,
+                maxDate: today, // Now can select only dates, which goes before today
+                onSelect: (formattedDate, date, inst) => {
+                    let uri = "{{ path('class', {'id' : class.sourcedId, 'date': 'formattedDate'}) }}";
+                    uri = uri.replace('formattedDate', formattedDate);
+                    window.location.href = uri;
+                }
             })
-        </script>
-
+        })
+    </script>
 {% endblock %}
 
 
