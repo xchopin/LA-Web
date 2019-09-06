@@ -1,4 +1,4 @@
-# My Analytics Dashboard
+# M.A.D. - My Analytics Dashboard
 
 <p align="center">  
   <img width='45%' src='/.resources/logo.png'>
@@ -55,18 +55,12 @@
 $ git clone https://github.com/xchopin/my-analytics-dashboard
 ```
 
-## 2. Install the front-end dependencies
-``` bash
-$ bower install
-```
-It will create `lib/` in the `public/` directory for jQuery and Semantic UI dependencies.
-
-## 3. Install the PHP dependencies
+## 2. Install the PHP dependencies
 ``` bash
 $ composer install
 ```
 
-## 4. Setup permissions
+## 3. Setup permissions
 You will have to give write permissions to the `var/cache/` and `var/logs/` folders
 
 Example given
@@ -74,12 +68,12 @@ Example given
 $ chown -R someuser:somegroup  var/cache var/logs
 ```
 
-## 5. Fill the settings file
+## 4. Fill the settings file
 ``` bash
 $ cp .env.dist .env ; nano .env
 ```
 
-## 6.1 Apache settings
+## 5.1 Apache settings
 Example of a Virtual Host: 
 ```apacheconf
 <VirtualHost *:80>
@@ -114,7 +108,7 @@ Example of a Virtual Host:
 </VirtualHost>
 ``` 
 
-## 6.2 Nginx settings
+## 5.2 Nginx settings
 ```nginx 
 server {
     server_name domain.tld www.domain.tld;
