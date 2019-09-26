@@ -734,8 +734,8 @@ button.dispute-score {
 
 .chart-container {
   width: auto;
-  height: 400px;
-  margin-right: 5% !important;
+  height: 350px;
+
 
   @include sm {
     margin-right: auto !important;
@@ -772,7 +772,7 @@ button.score-action {
 #chart_two {
   width: 100%;
   height: auto;
-  padding-right: 2em;
+  padding-bottom: 2em;
 
   @include sm {
     padding-right: 0;
