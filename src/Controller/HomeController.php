@@ -28,9 +28,9 @@ class HomeController extends AbstractController
     public function index(Request $request)
     {
         if (OpenLRW::isUp()) {
-            // Did the user has accepted the rules?
-            if ($request->getSession()->get('rulesAgreement') === false) {
-                return $this->rulesAgreement($request);
+            // Did the user has accepted the rules? - this value is added to the session on the login
+            if ($request->getSession()->get('gdprAgreement') === false) {
+                return $this->gdprAgreement($request);
             }
 
             return $this->redirectToRoute('profile');
@@ -39,20 +39,22 @@ class HomeController extends AbstractController
     }
 
     /**
-     * Render the rules agreement page.
+     * Render the GDPR agreement page.
      *
-     * @Route("/agreement", name="rules-agreement")
+     * @Route("/gdpr", name="gdpr-agreement")
      * @param Request $request
      * @return Response
      */
-    public function rulesAgreement(Request $request): Response
+    public function gdprAgreement(Request $request): Response
     {
-        return $this->render('rules-agreement.twig');
+        return $this->render('gdpr-agreement.twig');
     }
 
 
+
+
     /**
-     * Accept the agreement.
+     * Accept the GDPR agreement.
      *
      * @Route("/accept-agreement", name="accept-agreement")
      * @param Request $request
@@ -61,12 +63,15 @@ class HomeController extends AbstractController
     public function acceptAgreement(Request $request): Response
     {
         $user = User::find(self::loggedUser());
-        $user->status = 'active';
+        $user->userEnabled = true;
         $user->save();
-        $request->getSession()->set('rulesAgreement', true);
+        $request->getSession()->set('isGdprAccepted', true);
+        $this->setGdprAgreement($user, true);
+
 
         return $this->redirectToRoute('home');
     }
+
 
 
 }
