@@ -37,13 +37,13 @@ class AuthController extends AbstractController
         $result = $this->ldapFirst("uid=$username");
         $user = User::find($username);
 
-        if (isset($user->metadata->isGdprAccepted) && ($user->metadata->isGdprAccepted == true)) {
+        if (isset($user->metadata->isGdprAccepted) && ($user->metadata->isGdprAccepted === 'true')) {
             $isGdprAccepted = true;
         } else {
             $isGdprAccepted = false;
         }
 
-        
+
         $session = $request->getSession();
         $session->set('isGdprAccepted', $isGdprAccepted);
 
