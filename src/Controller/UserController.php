@@ -162,13 +162,9 @@ class UserController extends AbstractController implements AuthenticatedInterfac
             $value = $request->get('value');
             $id    = self::loggedUser();
             $user  = User::find($id);
-            $json  = $user->metadata;
-            $json->{$key} = $value;
-            $json   = '{ "metadata" : '. json_encode($json) .'}';
-            $status = User::update($id, $json);
+            $status = $this->editAttributeUserMetadata($user, $key, $value);
 
             return new Response($status);
-
         } catch (Exception $e) {
             return new Response($e->getMessage(), 404);
         }
@@ -186,11 +182,13 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     {
         $id    = self::loggedUser();
         $user  = User::find($id);
-        $user->status = 'inactive';
+        $user->enabledUser = false;
         $user->save();
 
+        $this->setGdprAgreement($user, false);
         return $this->redirectToRoute('logout');
     }
+
 
 
 }
