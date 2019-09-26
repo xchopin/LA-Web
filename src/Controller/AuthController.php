@@ -37,13 +37,22 @@ class AuthController extends AbstractController
         $result = $this->ldapFirst("uid=$username");
         $user = User::find($username);
 
+        if (isset($user->metadata->isGdprAccepted) && ($user->metadata->isGdprAccepted == true)) {
+            $isGdprAccepted = true;
+        } else {
+            $isGdprAccepted = false;
+        }
+
+        
         $session = $request->getSession();
-        $session->set('rulesAgreement', $user->status === 'active');
+        $session->set('isGdprAccepted', $isGdprAccepted);
+
 
         $_SESSION['name'] = $result['displayname'][0];
         $_SESSION['email'] = $result['mail'][0];
         $_SESSION['isAdmin'] = false; // initialize
 
+        $routeToRedirect = $_GET['redirect'] ?? 'home';
 
         if (getenv('APP_ENV') === 'dev') { // If the app is in dev mode, only admin can log in
             $adminSubscriber = new AdminSubscriber($this->container);
@@ -51,16 +60,10 @@ class AuthController extends AbstractController
                 $session->clear();
                 session_destroy();
                 $this->addFlash('error', 'You are not allowed to log in.');
-                return $this->redirectToRoute('home');
             }
         }
 
-        if (isset($_GET['redirect'])) {
-            return $this->redirectToRoute($_GET['redirect']);
-        }
-
-        return $this->redirectToRoute('home');
-
+        return $this->redirectToRoute($routeToRedirect);
     }
 
     /**
