@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class AdminSubscriber implements EventSubscriberInterface
@@ -23,9 +24,20 @@ class AdminSubscriber implements EventSubscriberInterface
     protected const GROUP_MODE = 'GROUP';
     protected const USERS_MODE = 'USERS';
 
+
     public function __construct(ContainerInterface $container)
     {
-        $this->ldap = ldap_connect(getenv('LDAP_HOST'), getenv('LDAP_PORT'));
+        $host = getenv('LDAP_HOST');
+        $port = getenv('LDAP_PORT');
+
+        if ($port == 0) {  // Try to avoid random read error on Windows server - .env has not been well loaded
+            $dotenv = new Dotenv();
+            $dotenv->load(__DIR__.'/../../.env'); // For Linux Servers
+            $host = getenv('LDAP_HOST');
+            $port = getenv('LDAP_PORT');
+        }
+
+        $this->ldap = ldap_connect($host, $port);
         $this->baseDN = getenv('LDAP_BASE_DN');
         ldap_set_option($this->ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($this->ldap, LDAP_OPT_REFERRALS, 0);
