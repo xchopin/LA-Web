@@ -3,7 +3,6 @@
 {% block body %}
     {% set i18n = dictionary.class %}
     <link rel="stylesheet" href="{{ asset('css/library/datepicker.min.css') }}">
-
     <div class="ui grid">
         <div class="one wide column"></div>
         <div class="fourteen wide column">
@@ -34,9 +33,9 @@
                 <a style="width:50%; text-align:center;" class="item active" id='summary' data-tab="first">{{ i18n.tab_one.name }}</a>
                 <a style="width:50%; text-align:center;" id='results-tab' class="item" data-tab="second">{{ i18n.tab_two.name }}</a>
             </div>-->
-            {% if scores is not null %}
+            {% if userWeekScores is not null %}
                 <div class="ui active tab" data-tab="first">
-                    {% include 'User/Class/Student/score.twig'  %}
+                    {% include 'User/Student/Class/class-charts.twig'  %}
                 </div>
             {% else %}
                 <div class="ui active tab" data-tab="first">
@@ -46,22 +45,19 @@
                     </div>
                 </div>
             {% endif %}
-
         </div>
-
           <!--  <div id='my-results' class="ui tab" data-tab="second"></div> -->
     </div>
 
     <script src="{{ asset('js/library/datepicker.min.js') }}"></script>
     <script src="{{ asset('js/library/datepicker.fr.min.js') }}"></script>
-
     <script>
         $(document).ready(() => {
             const today = new Date();
             $('#datepicker').datepicker({
                 language: 'fr',
                 todayButton: today,
-                maxDate: today, // Now can select only dates, which goes before today
+                maxDate: today,
                 onSelect: (formattedDate, date, inst) => {
                     let uri = "{{ path('class', {'id' : class.sourcedId, 'date': 'formattedDate'}) }}";
                     uri = uri.replace('formattedDate', formattedDate);

@@ -3,47 +3,36 @@
 {% set labels = [] %}
 {% set labels_color = [] %}
 {% set values = [] %}
-{% set colors = {
-    submittedWork: "#3d2aa2",
-    activitiesResults : "#1976d2",
-    consultedResources : "#03a9f4",
-    clicksCount : "#4dd0e1",
-    weekRegularity : "#e53935",
-    dayRegularity : "#ec407a",
-    followedAdvices : "#e040fb",
-    forumQuestions: "#66bb6a",
-    forumAnswers: "#7cb342",
-    helpAsked: "#558b2f",
-   }
-%}
+{% set velocity = [] %}
     <div class="row">
-        <div id='chart_one'>
         <div class="score-chart-padding">
-            <div class="ui grid">
+            <div class="ui stackable sixteen column grid">
                 <div class="eight wide column">
                     <div class="chart-container">
                         <canvas id="activity_chart"></canvas>
                     </div>
-
                     <div class="hide" id="score-success">
                         <h3 style="text-align:center" id="score-value">{{ i18n.objective_probability}}</h3>
                     </div>
                 </div>
                 <div class="one wide column"></div>
                 <div class="seven wide column">
-                    {% for legend in i18n.legend %}
+                    {% for category in legend %}
                         <p class="legend-category" align="center">
-                            <strong>{{ legend.name }}</strong>
+                            <strong>{{ category.name }}</strong>
                         </p>
                         <hr>
-                        {% for key, value in legend.labels %}
-                            {% if indicators[key] is defined and indicators[key] is not null %}
-                                <span style="background-color: {{ colors[key] }};" class="dot"></span> &nbsp; {{ value }}
-                                <br>
-                                {% set labels = labels|merge([value]) %}
-                                {% set labels_color = labels_color|merge([colors[key]]) %}
-                                {% set values = values|merge([indicators[key]]) %}
+                        {% for indicator in category.indicators %}
+                            <span style="background-color: {{ indicator.color }};" class="dot"></span> &nbsp;
+                            {{ indicator.name }}
+                            {% if indicator.value == 0 %}
+                                (0%)
                             {% endif %}
+                            <br>
+                            {% set labels = labels|merge([indicator.name]) %}
+                            {% set labels_color = labels_color|merge([indicator.color]) %}
+                            {% set values = values|merge([indicator.value]) %}
+                            {% set velocity = velocity|merge([indicator.velocity]) %}
                         {% endfor %}
                     {% endfor %}
 
@@ -79,7 +68,6 @@
                                 <div class="item" data-value="14">14</div>
                                 <div class="item" data-value="16">16</div>
                                 <div class="item" data-value="18">18</div>
-                                <div class="item" data-value="20">20</div>
                             </div>
                         </div>
                     </div>
@@ -95,26 +83,25 @@
             <p class="score-legal-notice">{{ i18n.disclaimer }}</p>
         </div>
     </div>
-</div>
 
 
 {% block javascripts %}
 <script>
     $(document).ready( () => {
 
-        let scores = {{ scores|json_encode|raw }};
+        let userWeekScores = {{ userWeekScores|json_encode|raw }};
         let activityData = {{ values|json_encode|raw }};
-        let activityDataVelocity = {{ weight|json_encode|raw }};
+        let activityDataVelocity = {{ velocity|json_encode|raw }};
         let labels = {{ labels|json_encode|raw }};
         let label_colors = {{ labels_color|json_encode|raw }};
 
         $('.selection.dropdown > .menu').on('click', function() {
-            updateObjective(scores);
+            updateObjective(userWeekScores);
         });
 
-        // Init.
+        // Initialize graphic components
         const pieChart = createPieChart('#activity_chart', labels, label_colors, activityData, activityDataVelocity);
-        let difference = calculateScoreEvolution(scores, 10);
+        let difference = calculateScoreEvolution(userWeekScores, 10);
         updateScoreEvolution(difference);
 
     });
@@ -234,7 +221,6 @@
              $('#growth-caret').removeClass('red orange down right').addClass('green up');
              $('#score-difference').text('+' + value);
          }
-
      };
 
     /**
@@ -245,10 +231,12 @@
      * @returns {number}
      */
      calculateScoreEvolution = (scores, objective) => {
-         let currentScore = scores[Object.keys(scores)[0]][objective];
-         let previousWeekScore = scores[Object.keys(scores)[6]][objective];
-
-         return (currentScore - previousWeekScore);
+         if (scores[Object.keys(scores)[1]] !== null) {
+             let currentScore = scores[Object.keys(scores)[0]][objective];
+             let previousWeekScore = scores[Object.keys(scores)[1]][objective];
+             return (currentScore - previousWeekScore);
+         }
+         return 0;
      };
 </script>
 

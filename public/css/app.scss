@@ -1,3 +1,7 @@
+
+@import 'media.scss';
+
+
 .pusher {
   padding-top: 90px;
 }
@@ -12,7 +16,7 @@
   z-index: 12;
   background-color: #86130e;
   height: 37px !important;
-  > p {
+  > p, a {
     line-height: 37px;
   }
 }
@@ -732,6 +736,10 @@ button.dispute-score {
   width: auto;
   height: 400px;
   margin-right: 5% !important;
+
+  @include sm {
+    margin-right: auto !important;
+  }
 }
 
 .dot {
@@ -765,10 +773,18 @@ button.score-action {
   width: 100%;
   height: auto;
   padding-right: 2em;
+
+  @include sm {
+    padding-right: 0;
+  }
 }
 
 #chart-two-tools {
   margin-top: 3em;
+
+  @include sm {
+    margin: 0;
+  }
 }
 
 .slides {

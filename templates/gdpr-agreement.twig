@@ -49,7 +49,7 @@
                     {{ i18n.title }}
                 </h1>
                 <br> <br>
-                <p>  {{ i18n.rules }} </p>
+                <p>{{ i18n.rules | raw }}</p>
                 <br>
                 <form action='{{ path('accept-agreement') }}' method="post" class="form">
                     <div class="field">
@@ -63,10 +63,6 @@
             </div>
         {% endblock %}
     </main>
-
-    {% block footer %}
-        {% include 'Utility/footer.twig' %}
-    {% endblock %}
 </div>
 
 {% block javascripts %}

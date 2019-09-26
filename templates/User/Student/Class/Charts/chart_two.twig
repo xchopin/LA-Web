@@ -4,10 +4,10 @@
 <div class="row score-chart-padding">
     <strong>{{ i18n.chart_title }}</strong>
 </div>
-<div style="width: 100%" class="ui grid">
+<div style="width: 100%" class="ui stackable sixteen column grid">
     <div class="sixteen wide column">
-        <div id="chart_two" class="row">
-            <canvas height="120" id="evolution_chart"></canvas>
+        <div class="chart-container">
+            <canvas id="evolution_chart"></canvas>
         </div>
     </div>
     <div class="eight wide column">
@@ -23,7 +23,7 @@
         <strong>{{ i18n.legend.display }}</strong>
         <br><br>
         <div class="ui checkbox">
-            <input type="checkbox">
+            <input id='toggleAverageChart' type="checkbox">
             <label>{{ i18n.legend.average_grade }}</label>
         </div>
     </div>
@@ -118,23 +118,30 @@
 {% block javascripts %}
 <script>
 $(document).ready ( () => {
-
     let labels = [];
-    let scores = {{ scores|json_encode|raw }};
+    let userWeekScores = {{ userWeekScores|json_encode|raw }};
+    let classWeekScores = {{ classWeekScores|json_encode|raw }};
 
     for (let i = 1; i < 8; i++){
         labels[i-1] = '{{ i18n.legend.week }} ' + i
     }
 
-    let data = getScoreForObjective(scores, 10);
+    let userScore = getScoreForObjective(userWeekScores, 10);
+    let classScore = getScoreForObjective(classWeekScores, 10);
 
-    const progressChart = evolutionChart($("#evolution_chart"), data, labels);
+
+    const progressChart = evolutionChart($("#evolution_chart"), userScore, labels, classScore);
 
     window.addEventListener('updateObjective', function (e) {
         let objective = e.detail;
-        data = getScoreForObjective(scores, objective);
-        updateEvolutionChart(progressChart, data);
+        userScore = getScoreForObjective(userWeekScores, objective);
+        classScore = getScoreForObjective(classWeekScores, objective);
+        updateEvolutionChart(progressChart, userScore, classScore);
     }, false);
+
+    $('#toggleAverageChart').click(function() {
+        toggleAverageClassChart(progressChart)
+    });
 
 
     // Slider
@@ -187,8 +194,15 @@ getScoreForObjective = (weekScores, target) => {
  * @param chart
  * @param scores
  * */
-updateEvolutionChart = (chart, scores) => {
-    chart.data.datasets[0].data = scores;
+updateEvolutionChart = (chart, userScores, classScores) => {
+    chart.data.datasets[0].data = userScores;
+    chart.data.datasets[1].data = classScores;
+    chart.update();
+};
+
+
+toggleAverageClassChart = (chart) => {
+    chart.data.datasets[1].hidden = !chart.data.datasets[1].hidden;
     chart.update();
 };
 
@@ -201,7 +215,7 @@ updateEvolutionChart = (chart, scores) => {
  * @param labels
  * @returns {Chart}
  */
-evolutionChart = (domId, scores, labels) => {
+evolutionChart = (domId, scores, labels, classScores) => {
     return new Chart(domId, {
         type: 'line',
         data: {
@@ -209,8 +223,18 @@ evolutionChart = (domId, scores, labels) => {
             datasets: [{
                 label: '{{ i18n.legend.my_score }}',
                 borderColor: '#039be5',
+                yAxisID: 'user',
                 data: scores,
                 fill: false
+            },
+            {
+                label: 'class average',
+                borderColor: '#e57f34',
+                yAxisID: 'class',
+                data: classScores,
+                fill: true,
+                backgroundColor: 'rgba(229, 167, 94, 0.2)',
+                hidden: true
             }]
         },
         options: {
@@ -222,8 +246,12 @@ evolutionChart = (domId, scores, labels) => {
                     tension: 0
                 }
             },
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
+                    position: "left",
+                    id: "user",
                     display: true,
                     ticks: {
                         max: 100,
@@ -231,8 +259,20 @@ evolutionChart = (domId, scores, labels) => {
                         callback: function(value, index, values) {
                             return value + '%';
                         }
-                    },
-                }]
+                    }
+                },
+                 {
+                     id: "class",
+                     display: false,
+                     ticks: {
+                         max: 100,
+                         beginAtZero: true,
+                         callback: function(value, index, values) {
+                             return value + '%';
+                         }
+                     }
+                 }
+                ]
             },
             tooltips: {
                 callbacks: {
