@@ -43,8 +43,8 @@ class AuthenticatedSubscriber implements EventSubscriberInterface
                 $event->setController(static function() use ($url) {
                     return new RedirectResponse($url);
                 });
-            } else if ($session->get('rulesAgreement') === false) {
-                $url = $this->router->generate('rules-agreement');
+            } else if ($session->get('isGdprAccepted') === false) {
+                $url = $this->router->generate('gdpr-agreement');
                 $event->setController(static function() use ($url) {
                     return new RedirectResponse($url);
                 });
