@@ -60,11 +60,12 @@
         "personal_objective": "My personal objective",
         "dispute_score": "Dispute a score",
         "set_objective": "Select an objective",
-        "objective_probability": "You have 0% of probability to get this objective",
+        "objective_probability": "Last year, 0% of students as active as you, reached this objective.",
         "legend": {
             "category_one": {
               "name": "Activity",
               "labels": {
+                "activeDays": "Active days",
                 "submittedWork": "Homework submitted",
                 "activitiesResults": "Activity results",
                 "consultedResources": "Consulted resources",
@@ -74,8 +75,9 @@
             "category_two" : {
               "name": "Engagement",
               "labels": {
-                "activeWeeks" : "Weekly consistency",
-                "activeDays" : "Daily consistency",
+                "weeklyRegularity" : "Weekly regularity",
+                "dailyRegularity" : "Daily regularity",
+                "regularity": "Regularity",
                 "followedAdvices": "Followed advices"
               }
             },

@@ -60,7 +60,7 @@
         "personal_objective": "Mon objectif personnel",
         "dispute_score": "Contester un score",
         "set_objective": "Choisir un objectif",
-        "objective_probability": "Vous avez 0% de chances d'obtenir votre objectif",
+        "objective_probability": "L'année dernière, 0% des étudiants aussi actifs que vous ont atteint votre objectif personnel.",
         "legend": {
           "category_one": {
             "name": "Activité",
@@ -74,8 +74,10 @@
           "category_two" : {
             "name": "Engagement",
             "labels": {
-              "activeWeeks" : "Régularité hebdomadaire",
-              "activeDays" : "Régularité quotidienne",
+              "activeDays": "Jours actifs",
+              "weeklyRegularity" : "Régularité hebdomadaire",
+              "dailyRegularity" : "Régularité quotidienne",
+              "regularity": "Régularité",
               "followedAdvices": "Conseils terminés"
             }
           },
