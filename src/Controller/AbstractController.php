@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use OpenLRW\Model\User;
 use OpenLRW\OpenLRW;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -146,5 +147,37 @@ abstract class AbstractController extends Controller
          $countryId = $request->get('_locale');
          return $this->container->getParameter('dictionaries')[$countryId];
      }
+
+    /**
+     * Edit/add attribute in user metadata
+     *
+     * @param User $user
+     * @param string $key
+     * @param string $value
+     * @return mixed|null
+     */
+    protected function editAttributeUserMetadata(User $user, string $key, $value)
+    {
+        $json   = $user->metadata;
+        $json->{$key} = $value;
+        $json   = '{ "metadata" : '. json_encode($json) .'}';
+        $status = User::update($user->sourcedId, $json);
+
+        return $status;
+    }
+
+
+    /**
+     * Accept or cancel the GDPR Agreement of the application for a user
+     *
+     * @param User $user
+     * @param bool $isAccepted
+     * @return mixed|null
+     */
+    protected function setGdprAgreement(User $user, bool $isAccepted)
+    {
+        $user->userEnabled = $isAccepted;
+        return $this->editAttributeUserMetadata($user, 'isGdprAccepted', $isAccepted);
+    }
 
 }
