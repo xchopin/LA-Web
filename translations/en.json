@@ -74,8 +74,8 @@
             "category_two" : {
               "name": "Engagement",
               "labels": {
-                "weekRegularity" : "Weekly consistency",
-                "dayRegularity" : "Daily consistency",
+                "activeWeeks" : "Weekly consistency",
+                "activeDays" : "Daily consistency",
                 "followedAdvices": "Followed advices"
               }
             },
@@ -83,6 +83,7 @@
               "name": "Social interactions",
               "labels": {
                 "forumQuestions" : "Topics created on the forum",
+                "forumViews" : "Topics read on the forum",
                 "forumAnswers" : "Answers given",
                 "helpAsked": "Help requests and answers given"
               }

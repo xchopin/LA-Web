@@ -68,14 +68,14 @@
               "submittedWork": "Devoir rendus",
               "activitiesResults": "Score aux activités",
               "consultedResources": "Ressources consultées",
-              "clicksCount": "Nombre de clicks sur le cours"
+              "clicksCount": "Nombre de clics sur le cours"
             }
           },
           "category_two" : {
             "name": "Engagement",
             "labels": {
-              "weekRegularity" : "Régularité hebdomadaire",
-              "dayRegularity" : "Régularité quotidienne",
+              "activeWeeks" : "Régularité hebdomadaire",
+              "activeDays" : "Régularité quotidienne",
               "followedAdvices": "Conseils terminés"
             }
           },
@@ -83,6 +83,7 @@
             "name": "Participation et aide",
             "labels": {
               "forumQuestions" : "Sujets créés sur le forum",
+              "forumViews" : "Sujets lus sur le forum",
               "forumAnswers" : "Réponses données forum",
               "helpAsked": "Demandes d'aide émises et réponses données"
             }
@@ -143,9 +144,9 @@
     }
   },
   "rules_agreement" : {
-    "title": "Mentions légales",
-    "rules": "En cochant la case ci-dessous, vous acceptez que vos statistiques d'usages de la plateforme ARCHE (connexions, consultation de cours et de ressources, et autres statistiques de cette plateforme) ainsi que vos notes soient collectées et affichées dans cette interface.",
-    "accept_rules": "J'ai lu et j'accepte les conditions",
+    "title": "Protection des données personnelles",
+    "rules": "La finalité du traitement est de permettre aux étudiants d’avoir un suivi synthétique de leur activité sur la plateforme de cours en ligne de l’université et de permettre une amélioration de l’apprentissage. <br> Des données personnelles sont recueillies auprès des applications 'mon dossier web' et 'Arche'. Il s’agit des données d’état civil, données de scolarité et des données d’usage des services numériques pédagogiques. Elles sont destinées à établir des indicateurs de suivi et d’utilisation des espaces et outils pédagogiques qui sont mis à disposition des étudiants par l’université. <br> Le service gestionnaire de l’application Learning Analytics est la Direction du Numérique (sous direction Infrastructures et services). <br> <br> Les étudiants concernés sont les seuls destinataires ayant la possibilité de consulter, après authentification, leur tableau de bord d’indicateurs. Cette consultation est totalement individuelle. <br> Les données brutes ainsi que les résultats d’indicateurs sont conservés pendant la durée de scolarité à l’université. Conformément aux dispositions du Règlement général sur la protection des données (RGPD), les étudiants concernés par le traitement ont des droits d’accès, de rectification, d’opposition, de portabilité et d’effacement des données les concernant. <br> <br> Pour exercer ces droits, merci de contacter <a href='mailto:la-contact@univ-lorraine.fr'>la-contact@univ-lorraine.fr</a>. <br> <br>  <strong> Pour toute information sur la protection des données personnelles, vous pouvez contacter le délégué à la protection des données de l’université à cette adresse : <a href='dpo-contact@univ-lorraine.fr'>dpo-contact@univ-lorraine.fr</a> ou <a href='http://cnil.fr'>consulter le site de la Commission Nationale de l’Informatique et des Libertés (CNIL)</a>.</strong>",
+    "accept_rules": "J'ai lu et j'accepte le traitement de mes donnéess",
     "submit": "Valider"
   },
   "date": {
