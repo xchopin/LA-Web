@@ -4,39 +4,47 @@
 <div class="row score-chart-padding">
     <strong>{{ i18n.chart_title }}</strong>
 </div>
-<div style="width: 100%" class="ui stackable sixteen column grid">
-    <div class="sixteen wide column">
-        <div class="chart-container">
-            <canvas id="evolution_chart"></canvas>
-        </div>
-    </div>
-    <div class="eight wide column">
-        <strong>{{ i18n.legend.name }}</strong>
-        <br><br>
-        <svg width="25" height="4">
-            <rect width="300" height="50" style="fill:rgb(3,155,229);" ></rect>
-        </svg>
-        &nbsp; {{ i18n.legend.my_score }}
-    </div>
-
-    <div class="eight wide column">
-        <strong>{{ i18n.legend.display }}</strong>
-        <br><br>
-        <div class="ui checkbox">
-            <input id='toggleAverageChart' type="checkbox">
-            <label>{{ i18n.legend.average_grade }}</label>
+<div id="chart_two" class="ui stackable sixteen column grid">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="chart-container">
+                <canvas id="evolution_chart"></canvas>
+            </div>
         </div>
     </div>
 
-    <div class="four wide column">
-        <br>
-        <i class="massive orange circle question icon"></i>
+    <div class="row">
+        <div class="eight wide column">
+            <strong>{{ i18n.legend.display }}</strong>
+            <br><br>
+            <div class="ui checkbox">
+                <input id='toggleAverageChart' type="checkbox">
+                <label>{{ i18n.legend.average_grade }}</label>
+            </div>
+        </div>
+        <div class="eight wide column">
+            <strong>{{ i18n.legend.name }}</strong>
+            <br><br>
+            <svg width="25" height="4">
+                <rect width="300" height="50" style="fill:rgb(3,155,229);" ></rect>
+            </svg>
+            &nbsp; {{ i18n.legend.my_score }}
+        </div>
     </div>
 
-    <div class="twelve wide column">
-        <h3>{{ i18n.advice.name }}</h3>
-        <p>{{ i18n.advice.description }}</p>
-        <p>{{ i18n.advice.more }}</p>
+
+
+
+    <div class="row">
+        <div class="four wide centered column">
+            <br>
+            <i class="massive orange circle question icon"></i>
+        </div>
+        <div class="twelve wide column">
+            <h3>{{ i18n.advice.name }}</h3>
+            <p>{{ i18n.advice.description }}</p>
+            <p>{{ i18n.advice.more }}</p>
+        </div>
     </div>
 
         <!--<div id='chart-two-tools' class="row">
