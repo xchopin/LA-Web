@@ -109,16 +109,13 @@ div.ui.popup.bottom {
 }
 
 .profile-header {
-  margin: 32px 0;
-}
-
-.profile-name {
   font-size: 2em;
   font-weight: bolder;
-  span {
-    display: flex;
-    vertical-align: middle;
-  }
+}
+
+.page-title {
+  font-size: 2em;
+  font-weight: bolder;
 }
 
 span.profile-city {
