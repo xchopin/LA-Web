@@ -31,6 +31,7 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
      * @param Request $request
      * @param String $id
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \OzdemirBurak\Iris\Exceptions\InvalidColorException
      */
     public function class(Request $request, String $id = ''): Response
     {
@@ -43,10 +44,6 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
             return $this->redirectToRoute('home');
         }
 
-
-
-
-
         $userId = self::loggedUser();
         $enrollments = User::enrollments($userId);
 
@@ -58,9 +55,7 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
             if ($class->sourcedId === $enrollment->class->sourcedId) { // Check if the user is enrolled to this class
 
                 if ($enrollment->role === 'student') {
-
                     return $this->studentClass($class, $date);
-
                 }
 
                 // Else user is teacher of this class
@@ -135,7 +130,6 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
         $legend = $this->indicatorsLegend($indicators, $weight);
         $userWeekScores = array_filter($this->userWeekScores($date, $risk, $userId)); // remove index when no risk
         $classWeekScores = $this->classWeekScores($class, $date);
-
 
         return $this->render('User/Student/class.twig', [
             'date' => $date,
@@ -309,12 +303,12 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
 
             try {
                 $risk = Risk::findByClassAndUserAndDate($firstRisk->classSourcedId, $userId, $day);
-                $dayScores = $this->extractScoresFromRisk($risk);
+                $weekScore = $this->extractScoresFromRisk($risk);
             } catch (NotFoundException $e) {
                 $dayScores = null;
             }
 
-            $weekScores[$day] = $dayScores;
+            $weekScores[$day] = $weekScore;
         }
 
         return $weekScores;
@@ -353,7 +347,7 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
             $trimmed = preg_replace('/\D/', '', $attribute); // get int value
             $arr = explode('/', $value, 2); // cut the string in two parts
             $value = $arr[0]; // take the first part of the string
-            $scores[$trimmed] = round($value, 1); // already a percentage
+            $scores[$trimmed] = (int) $value; // already a percentage
         }
 
         return $scores;
