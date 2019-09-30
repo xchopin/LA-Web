@@ -37,11 +37,11 @@
       "name": "Settings",
       "notifications": "Enable notifications",
       "disable_account": {
-        "name": "Disable my account",
-        "question": "Do you wish to disable your account?",
-        "information": "Warning: you can enable your account at the next authentication.",
+        "name": "Deny the treatment of my data.",
+        "question": "Do you wish to deny the treatment of your data?",
+        "information": "Warning: you can allow this treatment at the next authentication.",
         "cancel": "Cancel",
-        "submit": "Disable"
+        "submit": "Deny"
       }
     }
   },
@@ -60,7 +60,7 @@
         "personal_objective": "My personal objective",
         "dispute_score": "Dispute a score",
         "set_objective": "Select an objective",
-        "objective_probability": "Last year, 0% of students as active as you, reached this objective.",
+        "objective_probability": "Last year, 0% of students who were as active as you reached this objective.",
         "legend": {
             "category_one": {
               "name": "Activity",
