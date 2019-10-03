@@ -31,7 +31,7 @@
     "enrollments_tab" : {
       "name": "My classes",
       "professor": "Professor",
-      "no_result": "You are not enrolled to any classes."
+      "no_result": "You are not enrolled to any classes that belong to the Learning Analytics experimentation."
     },
     "settings_tab" : {
       "name": "Settings",
