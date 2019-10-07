@@ -1,30 +1,28 @@
 {% extends 'Utility/layout.twig' %}
 
 {% block body %}
-
-{% set i18n = dictionary.class %}
-
+    {% set i18n = dictionary.class %}
+    <link rel="stylesheet" href="{{ asset('css/library/datepicker.min.css') }}">
     <div class="ui grid">
-    <div class="one wide column"></div>
-    <div class="fourteen wide column">
-        <span class="profile-name"> Gestion du cours {{ class.title }}</span>
-        <div class="page-description">Description du cours: "{{ class.metadata.summary|striptags }}" -  <a target='_blank' href="https://arche.univ-lorraine.fr/course/view.php?id={{ class.sourcedId }}">Accès au cours Arche </a> </div>
-        <div class="ui pointing secondary menu">
-            <a style="text-align:center;" class="item active" id='summary' data-tab="first">Mapper le cours à Apogée</a>
-        </div>
+        <div class="one wide column"></div>
+        <div class="fourteen wide column">
+            <div class="ui stackable grid">
+                <div class="fourteen wide column">
+                    <span class="page-title ">{{ i18n.title }} "{{ class.title }}"</span>
+                    <div class="page-description">{{ class.metadata.summary|striptags }}</div>
+                </div>
+            </div>
 
-        <div class="ui active tab" data-tab="first">
-
-            <div class="ui category search">
-                <div class="ui search">
-                    <div class="ui fluid icon input">
-                        <input id="filter" class="prompt" type="text" placeholder="Rechercher un cours">
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="results">test</div>
+            <div class="ui active tab" data-tab="first">
+                <div class="ui negative big message">
+                    <div class="header">{{ i18n.professor_view }}</div>
                 </div>
             </div>
         </div>
+        <!--  <div id='my-results' class="ui tab" data-tab="second"></div> -->
     </div>
 
 {% endblock %}
+
+
+
