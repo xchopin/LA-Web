@@ -47,6 +47,7 @@
   },
   "class": {
     "title": "Overview on",
+    "professor_view" : "You are professor in this class, therefore you don't have any student dashboards.",
     "no_result": {
       "name": "Sorry, indicators are not available on the ",
       "information": "Please choose another period."

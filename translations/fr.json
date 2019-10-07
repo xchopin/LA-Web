@@ -37,7 +37,7 @@
       "name": "Mes préférences",
       "notifications": "Activer les alertes",
       "disable_account": {
-        "name": "M'opposer au traitement de mes données",
+        "name": "M'opposer au traitement de mes                                            données",
         "question": "Êtes vous sûr de vouloir vous opposer au traitement de vos données ?",
         "information": "Note: vous pourrez le réactiver lors de votre prochaine connexion.",
         "cancel": "Annuler",
@@ -47,6 +47,7 @@
   },
   "class": {
     "title": "Vue d'ensemble sur",
+    "professor_view" : "Vous êtes enseignant dans ce cours, vous n'avez donc pas de tableau de bord étudiant.",
     "no_result": {
       "name": "Aucun indicateur n'est disponible pour la date du",
       "information": "Merci de sélectionner une date différente."
