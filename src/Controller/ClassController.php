@@ -102,6 +102,10 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
 
         // - - - Day score - - -
         foreach ($risk->metadata as $attribute => $value) {
+            if (strpos($attribute, 'hide') === 1 ) { // it's hidden so we do not display this indicator
+                continue;
+            }
+
             if (strpos($attribute, 'global') !== 0 ) {
                 if (stripos($attribute, 'Weight')) {
                     $tempWeight[$attribute] = (float)$value;
