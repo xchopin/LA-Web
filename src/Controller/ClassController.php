@@ -109,7 +109,7 @@ class ClassController extends AbstractController implements AuthenticatedInterfa
                     if (strpos($value, '/')) {
                         $explode = explode('/', $value);
                         if ((int)$explode[1] === 0) {
-                            break;
+                            continue;
                         }
                         $value = round(($explode[0] / $explode[1]) * 100, 1);
                     }else{
