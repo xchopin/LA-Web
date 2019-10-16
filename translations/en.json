@@ -106,9 +106,9 @@
           "week": "Week"
         },
         "advice": {
-          "name": "Conseils pour progresser",
-          "description": "Suivez les indicateurs pour améliorer vos scores dans les différents domaines (activité, engagement, participation). Vous augmenterez ainsi vos chances d'atteindre votre objectif personnel.",
-          "more": "Progresser dans les indicateurs où la pétale prend le plus de place fera monter le score plus vite."
+          "name": "Advices to progress",
+          "description": "Follow the indicators to improve your scores in the different categories (activity, engagement, social interactions). Therefore you will increase the chances to reach your personal objective.",
+          "more": "Progress in the indicators where the petal is the widest will make your score increase faster."
         },
         "advice_advanced": {
           "name": "Advice",
