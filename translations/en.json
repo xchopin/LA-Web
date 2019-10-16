@@ -66,7 +66,6 @@
             "category_one": {
               "name": "Activity",
               "labels": {
-                "activeDays": "Active days",
                 "submittedWork": "Homework submitted",
                 "activitiesResults": "Activity results",
                 "consultedResources": "Consulted resources",
@@ -76,6 +75,7 @@
             "category_two" : {
               "name": "Engagement",
               "labels": {
+                "activeDays": "Active days",
                 "weeklyRegularity" : "Weekly regularity",
                 "dailyRegularity" : "Daily regularity",
                 "regularity": "Regularity",
