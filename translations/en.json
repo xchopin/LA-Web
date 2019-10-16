@@ -61,7 +61,7 @@
         "personal_objective": "My personal objective",
         "dispute_score": "Dispute a score",
         "set_objective": "Select an objective",
-        "objective_probability": "Last year, 0% of students who were as active as you reached this objective.",
+        "objective_probability": "Last year, 0% of students who were as active as you achieved this objective.",
         "legend": {
             "category_one": {
               "name": "Activity",
@@ -96,7 +96,7 @@
       },
       "chart_two": {
         "name": "My evolution",
-        "chart_title": "Progression of your chance to reach this objective",
+        "chart_title": "Progression of your probability to achieve this objective",
         "legend": {
           "name": "Legend",
           "my_score": "My score",
@@ -107,7 +107,7 @@
         },
         "advice": {
           "name": "Advices to progress",
-          "description": "Follow the indicators to improve your scores in the different categories (activity, engagement, social interactions). Therefore you will increase the chances to reach your personal objective.",
+          "description": "Follow the indicators to improve your scores in the different categories (activity, engagement, social interactions). Therefore you will increase the probabilities to achieve your personal objective.",
           "more": "Progress in the indicators where the petal is the widest will make your score increase faster."
         },
         "advice_advanced": {
