@@ -148,3 +148,7 @@ server {
     access_log /var/log/nginx/project_access.log;
 }
 ``` 
+## 6. Optimization
+
+For a faster loading you have to add the MongoDB indices written in the OpenLRW documentation.
+Enable OPCache and APCu for better cache performances.
