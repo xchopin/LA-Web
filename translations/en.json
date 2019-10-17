@@ -37,9 +37,9 @@
       "name": "Settings",
       "notifications": "Enable notifications",
       "disable_account": {
-        "name": "Deny the treatment of my data.",
-        "question": "Do you wish to deny the treatment of your data?",
-        "information": "Warning: you can allow this treatment at the next authentication.",
+        "name": "Deny the process of my data.",
+        "question": "Do you wish to deny the process of your data?",
+        "information": "Warning: you can allow this process at the next authentication.",
         "cancel": "Cancel",
         "submit": "Deny"
       }
