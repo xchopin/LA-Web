@@ -41,4 +41,6 @@
             <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
     </body>
+
+    {{ view_event(app.request.pathinfo) }}
 </html>
