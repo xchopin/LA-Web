@@ -95,7 +95,7 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         try {
             $enrollments = User::enrollments($id);
         } catch (NotFoundException $e) {
-            return null;
+            return Array();
         }
 
         $classes = [];
