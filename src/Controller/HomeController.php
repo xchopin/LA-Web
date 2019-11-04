@@ -51,8 +51,6 @@ class HomeController extends AbstractController
     }
 
 
-
-
     /**
      * Accept the GDPR agreement.
      *

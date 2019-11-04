@@ -38,8 +38,9 @@ class CaliperExtension extends AbstractExtension
     public function visitPage($uri = '')
     {
         if (isset($_SESSION['phpCAS']['user'])) {
-             //if ( $_SESSION['isAdmin'] || isset($_SESSION['username']))
-             //   return false;  // Check if it's an admin (even in as view mode)
+             if ($_SESSION['isAdmin'] || isset($_SESSION['username'])) {
+                 return false;  // Check if it's an admin (even in as view mode)
+             }
 
             $userId = $_SESSION['phpCAS']['user'];
             Event::caliperFactory($userId, 'Viewed', '', $uri);

@@ -13,6 +13,7 @@ namespace App\Controller;
 use Exception;
 use OpenLRW\Exception\GenericException as OpenLrwException;
 use OpenLRW\Exception\NotFoundException;
+use OpenLRW\Model\Event;
 use OpenLRW\Model\Klass;
 use OpenLRW\Model\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -148,6 +149,27 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         return $this->json($settings);
     }
 
+
+
+
+    /**
+     * Disable user account
+     *
+     * @Route("/disable-account", name="disable-account")
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function disableAccount(Request $request): RedirectResponse
+    {
+        $id    = self::loggedUser();
+        $user  = User::find($id);
+        $user->enabledUser = false;
+        $user->save();
+
+        $this->setGdprAgreement($user, false);
+        return $this->redirectToRoute('logout');
+    }
+
     /**
      * Update the settings of a user.
      *
@@ -170,23 +192,31 @@ class UserController extends AbstractController implements AuthenticatedInterfac
         }
     }
 
-
     /**
-     * Disable user account
+     * Create a Caliper event when user changes their personal objective
      *
-     * @Route("/disable-account", name="disable-account")
+     * @Route("/api/users/personal-objective", name="edit_personal_objective", methods={"POST"})
      * @param Request $request
-     * @return RedirectResponse
+     *
+     * @return bool|Response
      */
-    public function disableAccount(Request $request): RedirectResponse
+    public function changePersonalObjective(Request $request)
     {
-        $id    = self::loggedUser();
-        $user  = User::find($id);
-        $user->enabledUser = false;
-        $user->save();
+        try {
+           //if ($_SESSION['isAdmin'] || isset($_SESSION['username'])) {
+           //    return false;  // Check if it's an admin (even in as view mode)
+           //}
 
-        $this->setGdprAgreement($user, false);
-        return $this->redirectToRoute('logout');
+            $value   = $request->get('personalObjective');
+            $route = $request->getPathInfo();
+            $userId  = self::loggedUser();
+
+            Event::caliperFactory($userId, 'Modified', "personalObjective-$value", $route);
+
+            return new Response(201);
+        } catch (Exception $e) {
+            return new Response($e->getMessage(), 404);
+        }
     }
 
 

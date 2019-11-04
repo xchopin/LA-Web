@@ -58,7 +58,7 @@
                     <div class="row"> {{ i18n.personal_objective }} <i class="ui teal info circle icon"></i></div>
                     <div class="row">
                         <br>
-                        <div class="ui fluid selection dropdown">
+                        <div id="dropdown" class="ui fluid selection dropdown">
                             <input type="hidden" name="objective">
                             <i class="dropdown icon"></i>
                             <div class="default text">{{ i18n.set_objective }}</div>
@@ -101,11 +101,20 @@
 
         // Initialize graphic components
         const pieChart = createPieChart('#activity_chart', labels, label_colors, activityData, activityDataVelocity);
-        let difference = calculateScoreEvolution(userWeekScores, 10);
+
+        let personalObjective = sessionStorage.getItem("personalObjective");
+        if (personalObjective != null) {
+            $('#dropdown').dropdown('set selected', personalObjective);
+            updateObjective(userWeekScores);
+        } else {
+            personalObjective = 10;
+        }
+
+
+        let difference = calculateScoreEvolution(userWeekScores, personalObjective);
         updateScoreEvolution(difference);
 
     });
-
 
 
     /**
@@ -113,9 +122,10 @@
      *
      * @param scores
      */
-     updateObjective = (scores) => {
+     updateObjective = (scores, ) => {
          $('#score-success').removeClass('hide');
-         let target = $('.selection.dropdown').dropdown('get value');
+         target = $('.selection.dropdown').dropdown('get value');
+
          $('#score-value').text(
              (i,txt) => {
                  return txt.replace(/\d+/, scores['{{ date }}'][target])
@@ -123,8 +133,10 @@
          );
          let difference = calculateScoreEvolution(scores, target);
          updateScoreEvolution(difference);
+         sendCaliperEvent(target);
          let event = new CustomEvent('updateObjective', {detail: target});
          window.dispatchEvent(event);
+         sessionStorage.setItem("personalObjective", target);
      };
 
 
@@ -238,6 +250,26 @@
          }
          return 0;
      };
+
+    /**
+     * Send a Caliper event when user changes their personal objective
+     *
+     * @param objective
+     */
+    sendCaliperEvent = (objective) => {
+             $.ajax({
+                 url: "{{ path('edit_personal_objective') }}",
+                 type: 'POST',
+                 data: {'personalObjective': objective},
+                 success: function (response) {
+                     // ToDo something console.log(response)
+                 },
+                 error: function () {},
+                 fail: function (response) {
+                     console.log('AJAX Call error')
+                 }
+             })
+    }
 </script>
 
 {% endblock %}

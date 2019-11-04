@@ -130,12 +130,17 @@ $(document).ready ( () => {
     let userWeekScores = {{ userWeekScores|json_encode|raw }};
     let classWeekScores = {{ classWeekScores|json_encode|raw }};
 
+    let personalObjective = sessionStorage.getItem("personalObjective");
+    if (personalObjective == null) {
+        personalObjective = 10;
+    }
+
     for (let i = 1; i < 8; i++){
         labels[i-1] = '{{ i18n.legend.week }} ' + i
     }
 
-    let userScore = getScoreForObjective(userWeekScores, 10);
-    let classScore = getScoreForObjective(classWeekScores, 10);
+    let userScore = getScoreForObjective(userWeekScores, personalObjective);
+    let classScore = getScoreForObjective(classWeekScores, personalObjective);
 
 
     const progressChart = evolutionChart($("#evolution_chart"), userScore, labels, classScore);
