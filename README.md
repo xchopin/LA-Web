@@ -164,7 +164,7 @@ Enable OPCache and APCu for better cache performances.
 
 Go to the `translations/` directory then  copy the `en.json` file in order to use it as a template. Once you translated into the desired language, you have to save the file by only using the alpha-2 of the language (eg: `de.json`for a German translation).
 
-That's it! the application is enough smart for adding it by itself to your navbar menu.
+That's it! the application is smart enough for adding it by itself to your navbar menu.
 
 
 ## 2. Dashboard
