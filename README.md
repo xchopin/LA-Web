@@ -197,7 +197,7 @@ In order to use the included dashboards you need to have the following structure
         "activeDaysWeight" : "0.32", 
         "global12" : "52/100", 
         "clicksCountWeight" : "0.13", 
-        "global10" : "14.0142857143/100", 
+        "global10" : "14.3/100", 
         "global16" : "33/100", 
         "submittedWork" : "8/9", 
         "global14" : "49/100"
@@ -210,6 +210,6 @@ In order to use the included dashboards you need to have the following structure
 `globalX` attributes represent the score of a student for the value X. Other attributes are indicators for the pie chart. All the attributes with `Weight`as a suffix are the visual 'weight' (width) of an indicator (reminder: a full chart is 2pi, the application will adjust automatically if it's less than this value).
 
 
-## 2.2 Create your own dashboard.
+## 2.2 Create your own dashboard
 
 You will have to edit the full `ClassController.php` in order to create the own logic of your dashboards. For the front-end part, it is managed in `templates/User/Student/Class/*.twig`and `templates/User/Professor/class.twig`.
