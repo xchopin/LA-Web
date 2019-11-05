@@ -203,13 +203,12 @@ class UserController extends AbstractController implements AuthenticatedInterfac
     public function changePersonalObjective(Request $request)
     {
         try {
-           //if ($_SESSION['isAdmin'] || isset($_SESSION['username'])) {
-           //    return false;  // Check if it's an admin (even in as view mode)
-           //}
-
-            $value   = $request->get('personalObjective');
-            $route = $request->getPathInfo();
-            $userId  = self::loggedUser();
+           if ($_SESSION['isAdmin'] || isset($_SESSION['username'])) {
+               return false;  // Check if it's an admin (even in as view mode)
+           }
+            $value  = $request->get('personalObjective');
+            $route  = $request->getPathInfo();
+            $userId = self::loggedUser();
 
             Event::caliperFactory($userId, 'Modified', "personalObjective-$value", $route);
 
