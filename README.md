@@ -29,7 +29,7 @@
 - CAS Authentication
 - GDPR compliant
 - LDAP Access
-- Roles (Admins and students)
+- Roles (admin, professor and student)
 - Admin tools
 - Multilingual
 - Modern Design
