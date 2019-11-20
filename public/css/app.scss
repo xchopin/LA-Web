@@ -47,21 +47,7 @@
   }
 }
 
-.popup {
-  z-index: 45 !important;
-  width: 14em !important;
-  color: white !important;
-  background-color: black !important;
-  border-color: black !important;
-  overflow: visible !important;
-}
 
-div.ui.popup.bottom {
-  &.left.transition.visible::before, &.center.transition.visible::before {
-    background-color: black !important;
-    border-color: black !important;
-  }
-}
 
 #leave-popup {
   margin-left: 23vw;
