@@ -10,8 +10,11 @@
 namespace App\Controller;
 
 
+use OpenLRW\Exception\NotFoundException;
 use OpenLRW\Model\Klass;
+use OpenLRW\Model\OneRoster;
 use OpenLRW\Model\User;
+use OpenLRW\OpenLRW;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Component\HttpFoundation\Response;
@@ -29,23 +32,116 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
      * @param Request $request
      * @return JsonResponse | Response
      */
-    public function findPerson(Request $request)
+    public function viewAsPage(Request $request)
     {
         if ($request->isMethod('POST')) {
             $keyword = $request->get('name');
-            $filter = '(&(displayname=*' . $keyword . '*))';
-            $students = $this->ldap($filter, ['displayname', 'uid']);
-            $res = [];
+            $filter = $request->get('filter_by');
+            $response = $this->searchStudentLdap($keyword, $filter);
 
-            foreach($students as $student) {
-                if ($student['uid'][0] !== null)
-                    $res += [ $student['uid'][0] => $student['displayname'][0] ];
-            }
-
-            return $this->json($res);
+            return $this->json($response);
         }
 
-        return $this->render('Admin/find-student.twig');
+        return $this->render('Admin/view-as.twig');
+    }
+
+
+    /**
+     *
+     * @Route("/check-user", name="check-user")
+     * @param Request $request
+     * @return Response
+     */
+    public function checkUserPage(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $username = $request->get('name');
+
+            try {
+                $user = OneRoster::httpGet("users/$username");
+                $enrollments = User::enrollments($username);
+            }catch (NotFoundException $e) {
+                return $this->render('Admin/check-user.twig', ['not_found' => true]);
+            }
+
+            $classes = [];
+            $userResults= [];
+            foreach ($enrollments as $enrollment) {
+                $classTitle = 'Class does not exist.';
+                $classId = $enrollment->class->sourcedId;
+                try {
+                    $class = Klass::find($classId);
+                    $classTitle = $class->title;
+
+                    $results = Klass::resultsForUser($classId, $username);
+
+                    $userResults[$classId] = [];
+                    foreach ($results as $result) {
+                        $type = 'Undefined';
+                        $date = '';
+                        if (property_exists($result->metadata, 'type')) {
+                            $type = $result->metadata->type;
+                        }
+
+                        if (property_exists($result, 'date')) {
+                            $date = $result->date;
+                        }
+
+                        $userResults[$classId] += [
+                            'score' => $result->score,
+                            'source' => $result->metadata->category,
+                            'type' => $type,
+                            'classTitle' => $classTitle,
+                            'date' => $date,
+                        ];
+                    }
+
+                }catch (NotFoundException $e) {
+                    // nothing
+                }
+
+
+                $classes[$classId] = ['role' => $enrollment->role, 'title' => $classTitle];
+
+            }
+
+            return $this->render('Admin/check-user.twig', [
+                'result' => [
+                    'user' => json_decode(json_encode($user), true),
+                    'enrollments' => $classes,
+                    'results' => $userResults
+                ]
+            ]);
+        }
+        return $this->render('Admin/check-user.twig');
+    }
+
+
+    /**
+     * Search a name in the LDAP database
+     *
+     * @param $keyword
+     * @param $filter
+     * @return array
+     */
+    protected function searchStudentLdap($keyword, $filterBy): array
+    {
+        if ($filterBy === 'login') {
+            $filter = '(&(uid=*' . $keyword . '*))';
+        } else {
+            $filter = '(&(displayname=*' . $keyword . '*))';
+        }
+
+        $students = $this->ldap($filter, ['displayname', 'uid']);
+        $res = [];
+
+        foreach($students as $student) {
+            if ($student['uid'][0] !== null) {
+                $res += [$student['uid'][0] => $student['displayname'][0]];
+            }
+        }
+
+        return $res;
     }
 
     /**
@@ -188,7 +284,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
             return $this->json($res);
         //}
 
-        //return $this->render('Admin/find-student.twig');
+        //return $this->render('Admin/view-as.twig');
     }
 }
 
