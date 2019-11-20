@@ -3,20 +3,21 @@
 {%
 set adminTools = [
     {'route': 'view-as',        'icon': 'eye',            'name': i18n.view_as.name },
+    {'route': 'check-user', 'icon': 'search', 'name': i18n.check_user.name },
     {'route': 'professor-view', 'icon': 'graduation cap', 'name': i18n.professor_mode.name },
 ]
 %}
+
 
 {% include 'Utility/Header/mobile_menu.twig'  %}
 
 {% include 'Utility/Header/navbar.twig'  %}
 
 
-
 {% if auth().viewAsMode %}
 <nav id="view-as" class="ui borderless top inverted fixed menu">
     <p class="message-view">
-        <a id='leave-view' href="{{ path('leave-view-as') }}" data-content="{{ dictionary.admin_tools.view_as.leave }}" data-position="bottom center" >
+        <a id='leave-view' href="{{ path('leave-view-as') }}" data-variation="inverted" data-content="{{ dictionary.admin_tools.view_as.leave }}" data-position="bottom center" >
             <i class="times circle icon" ></i>
         </a>
         {{ dictionary.admin_tools.view_as.message_navbar }} &nbsp; <i class="small user icon"></i> {{ auth().name }}</p>
