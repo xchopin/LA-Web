@@ -142,7 +142,7 @@
       "leave": "Quitter voir en tant que..."
     },
     "check_user": {
-      "name": "Information d'un utilisateur",
+      "name": "Informations d'un utilisateur",
       "search": "Rechercher",
       "no_results": "Cet utilisateur n'existe pas dans le projet Learning Analytics."
     },
