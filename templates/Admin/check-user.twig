@@ -1,0 +1,97 @@
+{% extends 'Utility/layout.twig' %}
+
+{% block body %}
+
+    {% set i18n = dictionary.admin_tools.check_user %}
+
+    <div class="ui twelve column stackable center aligned page grid">
+        <div class="ui container">
+            <h1 class="ui center aligned header">{{ i18n.name }}</h1> <br>
+            <form method='post' id="form-student" name="form-student">
+                <div id='search-bar' class="ui left icon big fluid action input">
+                    <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.view_as.search }}...">
+                    <i class="address book icon"></i>
+                    <button id='search' class="ui submit button">{{ dictionary.admin_tools.view_as.search }}</button>
+                    <!-- <input type="hidden" name="_csrf_token" value=""> -->
+                </div>
+            </form>
+
+            {% if not_found is defined %}
+                <h1 class="ui header">{{ i18n.no_results }}</h1>
+            {% endif %}
+
+
+            {% if result is defined %}
+                <table class="ui celled table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in result.user %}
+                        {% if value is not empty and value is not iterable %}
+                            <tr>
+                                <td data-label="Property">{{ key }}</td>
+                                <td data-label="Value">{{ value }}</td>
+                            </tr>
+                        {% elseif value is not empty %}
+                            {% for subkey, subvalue in value %}
+                                <tr>
+                                    <td data-label="Property"><b>{{ key }}</b> &#8594; {{ subkey }}</td>
+                                    <td data-label="Value">{{ subvalue }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                        <tr class="warning">
+                            <td data-label="Property">Enrollment</td>
+                            <td data-label="Value">
+                            {% for classId, value in result.enrollments  %}
+                                {{ value.role }} in
+                                <b class="user-popup" data-variation="inverted" data-content="{{ value.title }}">
+                                    {{ classId }}
+                                </b>
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                           </td>
+                        </tr>
+
+                    <tr class="warning">
+                        <td data-label="Property">Results</td>
+                        <td data-label="Value">
+                            {% for classId, value in result.results  %}
+
+                                    <span class="user-popup" data-variation="inverted"
+                                       data-title="{{  value.classTitle }}"
+                                       data-html="
+                                       Source: {{ value.source }} <br>
+                                       Date: {{ value.date|date("m-d-Y H:m") }} <br>
+                                       Type: {{ value.type }}
+                                    ">
+                                          {{ value.score }} in <b>{{ classId }}</b>
+                                    </span>
+
+
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+
+            {% endif %}
+        </div>
+    </div>
+<br> <br> <br>
+    <script>
+        $(function () {
+            $('.user-popup').popup();
+        });
+    </script>
+{% endblock %}
+
