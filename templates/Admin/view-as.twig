@@ -8,13 +8,18 @@
                 <div id='search-bar' class="ui left icon big fluid action input">
                     <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.view_as.search }}...">
                     <i class="address book icon"></i>
+                    <select id="filter_by" name='filter_by' class="ui compact selection dropdown">
+                        <option selected value="name">Name</option>
+                        <option value="login">Login</option>
+                    </select>
                     <button id='search' class="ui submit button">{{ dictionary.admin_tools.view_as.search }}</button>
-                   <!-- <input type="hidden" name="_csrf_token" value=""> -->
+                    <!-- <input type="hidden" name="_csrf_token" value=""> -->
                 </div>
             </form>
             <br>
             <br>
             <div class="ui cards fluid" id="results"></div>
+            <br><br>
         </div>
     </div>
     <script>
@@ -22,21 +27,21 @@
             $('#search').on('click', function(e) {
                 if ( $('#student_name').val().length > 2) {
                     e.preventDefault();
-                    $('#search-bar').addClass('loading')
-                    $('#results').empty()
+                    $('#search-bar').addClass('loading');
+                    $('#results').empty();
                     $.ajax({
                         url: "{{ path('view-as') }}",
                         type: 'POST',
-                        data: { 'name': $('#student_name').val() },
+                        data: { 'name': $('#student_name').val(), 'filter_by': $('#filter_by').val()  },
                         success: function (response) {
-                            $('#search-bar').removeClass('loading')
+                            $('#search-bar').removeClass('loading');
                             if (Object.keys(response).length < 1) {
                                 $('#results').append(
                                     $('<h1>').addClass('ui center aligned header').text('{{ dictionary.admin_tools.view_as.no_results }}')
                                 )
                             } else {
                                 $.each(response, function (k, v) {
-                                    var url = '{{ path('enable-view', {'id': 'user_id'}) }}';
+                                    let url = '{{ path('enable-view', {'id': 'user_id'}) }}';
                                     url = url.replace("user_id", k);
                                     $('#results').append(
                                         $('<div>').addClass('card').append(
@@ -47,7 +52,9 @@
                                             $('<a>').prop('href', url).addClass('visit_profile').append(
                                                 $('<div>').addClass('ui bottom attached button').append(
                                                     $('<i>').addClass('user icon'), '{{ dictionary.admin_tools.view_as.select }}'
-                                                )
+                                                ),
+
+
                                             ).click(function() {
                                                 $('#loader').addClass('active').transition('fade in')
                                             })
