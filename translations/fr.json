@@ -141,6 +141,11 @@
       "view_as_someone": "Aperçu en tant qu'une personne particulière",
       "leave": "Quitter voir en tant que..."
     },
+    "check_user": {
+      "name": "Information d'un utilisateur",
+      "search": "Rechercher",
+      "no_results": "Cet utilisateur n'existe pas dans le projet Learning Analytics."
+    },
     "professor_mode": {
       "name": "Vue Enseignant",
       "leave": "Quitter la vue enseignant"

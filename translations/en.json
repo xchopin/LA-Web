@@ -141,6 +141,11 @@
       "view_as_someone": "View as another person",
       "leave": "Leave `View As` mode..."
     },
+    "check_user": {
+      "name": "Check a user",
+      "search": "Search",
+      "no_results": "Sorry, this user does not exist in the Learning Analytics project."
+    },
     "professor_mode": {
       "name": "Professor View",
       "leave": "Leave this view"
