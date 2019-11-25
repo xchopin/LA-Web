@@ -9,9 +9,9 @@
             <h1 class="ui center aligned header">{{ i18n.name }}</h1> <br>
             <form method='post' id="form-student" name="form-student">
                 <div id='search-bar' class="ui left icon big fluid action input">
-                    <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ dictionary.admin_tools.view_as.search }}...">
+                    <input required pattern=".{3,}" title="3 characters minimum" type="text" id="student_name" name='name' placeholder="{{ i18n.placeholder }}...">
                     <i class="address book icon"></i>
-                    <button id='search' class="ui submit button">{{ dictionary.admin_tools.view_as.search }}</button>
+                    <button id='search' class="ui submit button">{{ i18n.search}}</button>
                     <!-- <input type="hidden" name="_csrf_token" value=""> -->
                 </div>
             </form>
@@ -37,49 +37,84 @@
                                 <td data-label="Value">{{ value }}</td>
                             </tr>
                         {% elseif value is not empty %}
-                            {% for subkey, subvalue in value %}
-                                <tr>
-                                    <td data-label="Property"><b>{{ key }}</b> &#8594; {{ subkey }}</td>
-                                    <td data-label="Value">{{ subvalue }}</td>
-                                </tr>
-                            {% endfor %}
+                            <tr>
+                                <td data-label="Property">
+                                    {{ key }}
+                                </td>
+                                <td style="padding:0;" data-label="Value">
+                                    <table  class=" ui celled inverted  table">
+                                        <thead class="toggable">
+                                        <tr>
+                                            <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i>{{ key }} property</th>
+                                            <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i>Value</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody style="display: none;" class="toggle_hide">
+                                        {% for subkey, subvalue in value %}
+                                            <tr>
+                                                <td>
+                                                    {{ subkey }}
+                                                </td>
+                                                <td>
+                                                    {{ subvalue }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
                         {% endif %}
                     {% endfor %}
-                        <tr class="warning">
+                        <tr class="">
                             <td data-label="Property">Enrollment</td>
-                            <td data-label="Value">
-                            {% for classId, value in result.enrollments  %}
-                                {{ value.role }} in
-                                <b class="user-popup" data-variation="inverted" data-content="{{ value.title }}">
-                                    {{ classId }}
-                                </b>
-                                {% if not loop.last %}, {% endif %}
-                            {% endfor %}
+                            <td style="padding:0;" data-label="Value">
+                                <table  class=" ui celled inverted table">
+                                    <thead class="toggable">
+                                    <tr>
+                                        {% for role, classes in result.enrollments  %}
+                                            <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i> {{ role }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                    </thead>
+                                    <tbody style="display: none;" class="toggle_hide">
+                                    {% for role, classes in result.enrollments  %}
+                                        <td>
+                                        {% for class in classes  %}
+                                            <span class="user-popup" data-variation="inverted" data-title="{{ class.title }}">
+                                                <a href="{{ path('check-class', {'classId': class.id}) }}">{{ class.id }}</a> <br>
+                                            </span>
+                                        {% endfor %}
+                                        </td>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                            </td>
                         </tr>
 
-                    <tr class="warning">
-                        <td data-label="Property">Results</td>
-                        <td data-label="Value">
-                            {% for classId, value in result.results  %}
-
-                                    <span class="user-popup" data-variation="inverted"
-                                       data-title="{{  value.classTitle }}"
-                                       data-html="
-                                       Source: {{ value.source }} <br>
-                                       Date: {{ value.date|date("m-d-Y H:m") }} <br>
-                                       Type: {{ value.type }}
-                                    ">
-                                          {{ value.score }} in <b>{{ classId }}</b>
-                                    </span>
-
-
-                                {% if not loop.last %}, {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
+                    {% if result.results is not empty %}
+                        <tr class="">
+                            <td data-label="Property">Results</td>
+                            <td data-label="Value">
+                                {% for classId, value in result.results  %}
+                                        <span class="user-popup" data-variation="inverted"
+                                           data-title="{{  value.classTitle }}"
+                                           data-html="
+                                           Source: {{ value.source }} <br>
+                                           Date: {{ value.date|date("m-d-Y H:m") }} <br>
+                                           Type: {{ value.type }}
+                                        ">
+                                              {{ value.score }} in <b>{{ classId }}</b>
+                                        </span>
 
 
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
 
@@ -87,10 +122,23 @@
             {% endif %}
         </div>
     </div>
+
+
 <br> <br> <br>
     <script>
         $(function () {
             $('.user-popup').popup();
+            $('.toggable').click(function() {
+                $(this).next('tbody').toggle();
+            });
+
+            $('form').submit(function(event) {
+                event.preventDefault();
+                let slug = $('#student_name').val();
+                let path =  "{{ path('check-user', {'userId': 'user_id'}) }}";
+                path = path.replace("user_id", slug);
+                location.href = path;
+            })
         });
     </script>
 {% endblock %}
