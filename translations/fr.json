@@ -144,7 +144,14 @@
     "check_user": {
       "name": "Informations d'un utilisateur",
       "search": "Rechercher",
+      "placeholder": "Entrer le login d'un utilisateur",
       "no_results": "Cet utilisateur n'existe pas dans le projet Learning Analytics."
+    },
+    "check_class": {
+      "name": "Informations d'un cours",
+      "no_results": "Ce cours n'existe pas dans le projet Learning Analytics.",
+      "placeholder": "Entrer l'identifiant d'un cours",
+      "search": "Rechercher"
     },
     "professor_mode": {
       "name": "Vue Enseignant",
