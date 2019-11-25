@@ -866,3 +866,18 @@ hr {
   color: #333; /* old IE */
   background-color: #333; /* Modern Browsers */
 }
+
+.toggable {
+  cursor: pointer !important;
+}
+
+.toggle_hide {
+  a {
+    text-decoration: underline;
+    color: white;
+  }
+
+  a:hover {
+    font-weight: bolder;
+  }
+}
