@@ -47,15 +47,16 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
 
 
     /**
-     *
-     * @Route("/check-user", name="check-user")
+     * @Route("/check/users/{userId}", name="check-user", defaults={"userId": "null"})
      * @param Request $request
+     * @param string userId
      * @return Response
      */
-    public function checkUserPage(Request $request)
+    public function checkUserPage(Request $request, string $userId)
     {
-        if ($request->isMethod('POST')) {
-            $username = $request->get('name');
+
+        if ($userId !== 'null') {
+            $username =  $userId;
 
             try {
                 $user = OneRoster::httpGet("users/$username");
@@ -101,7 +102,12 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
                 }
 
 
-                $classes[$classId] = ['role' => $enrollment->role, 'title' => $classTitle];
+                if (! isset($classes[$enrollment->role])) {
+                    $classes[$enrollment->role] = []; // init
+                }
+                $classes[$enrollment->role][] = ['id' => $classId, 'title' => $classTitle];
+
+
 
             }
 
@@ -116,6 +122,46 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
         return $this->render('Admin/check-user.twig');
     }
 
+
+    /**
+     *
+     * @Route("/check/classes/{classId}", name="check-class", defaults={"classId": "null"})
+     * @param Request $request
+     * @param string $classId
+     * @return Response
+     */
+    public function checkClassPage(Request $request, string $classId){
+        if ($classId === 'null') {
+            return $this->render('Admin/check-class.twig');
+        }else{
+            try {
+                $class = OneRoster::httpGet("classes/$classId");
+
+            }catch (NotFoundException $e) {
+                return $this->render('Admin/check-class.twig', ['not_found' => true]);
+            }
+
+            $enrollments = null;
+            $classEnrollments = [];
+            try {
+               $enrollments = Klass::enrollments($classId);
+                foreach ($enrollments as $enrollment) {
+                    $classEnrollments[$enrollment->role][] = $enrollment->user->sourcedId;
+                }
+
+            }catch (NotFoundException $e){
+                // nothing
+            }
+
+
+            return $this->render('Admin/check-class.twig', [
+                'result' => [
+                    'class' => json_decode(json_encode($class), true),
+                    'enrollments' => $classEnrollments
+                ]
+            ]);
+        }
+    }
 
     /**
      * Search a name in the LDAP database
