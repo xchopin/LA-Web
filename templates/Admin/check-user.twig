@@ -42,7 +42,7 @@
                                     {{ key }}
                                 </td>
                                 <td style="padding:0;" data-label="Value">
-                                    <table  class=" ui celled inverted  table">
+                                    <table  class=" ui celled  table">
                                         <thead class="toggable">
                                         <tr>
                                             <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i>{{ key }} property</th>
@@ -71,23 +71,26 @@
                         <tr class="">
                             <td data-label="Property">Enrollment</td>
                             <td style="padding:0;" data-label="Value">
-                                <table  class=" ui celled inverted table">
+                                <table class=" ui celled table">
                                     <thead class="toggable">
-                                    <tr>
-                                        {% for role, classes in result.enrollments  %}
-                                            <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i> {{ role }}</th>
-                                        {% endfor %}
-                                    </tr>
+                                        <tr>
+                                            {% for role, classes in result.enrollments  %}
+                                                <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i> {{ role }}</th>
+                                            {% endfor %}
+                                        </tr>
                                     </thead>
                                     <tbody style="display: none;" class="toggle_hide">
                                     {% for role, classes in result.enrollments  %}
                                         <td>
                                         {% for class in classes  %}
-                                            <span class="user-popup" data-variation="inverted" data-title="{{ class.title }}">
-                                                <a href="{{ path('check-class', {'classId': class.id}) }}">{{ class.id }}</a> <br>
+                                            <span class="user-popup" data-variation="inverted" data-title="{{ class.id }}">
+                                                <a href="{{ path('check-class', {'classId': class.id}) }}">
+                                                    {{ class.title|length > 40 ? class.title|slice(0, 40) ~ '...' : class.title  }}
+                                                </a> <br>
                                             </span>
                                         {% endfor %}
                                         </td>
+
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -95,23 +98,38 @@
                         </tr>
 
                     {% if result.results is not empty %}
-                        <tr class="">
+                        <tr>
                             <td data-label="Property">Results</td>
-                            <td data-label="Value">
-                                {% for classId, value in result.results  %}
-                                        <span class="user-popup" data-variation="inverted"
-                                           data-title="{{  value.classTitle }}"
-                                           data-html="
-                                           Source: {{ value.source }} <br>
-                                           Date: {{ value.date|date("m-d-Y H:m") }} <br>
-                                           Type: {{ value.type }}
-                                        ">
-                                              {{ value.score }} in <b>{{ classId }}</b>
-                                        </span>
+                            <td style="padding:0;" data-label="Value">
+                                <table class=" ui sortable table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Result</th>
+                                            <th>Source</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                    {% for classId, results in result.results  %}
+                                        {% for result in results %}
+                                            <tr>
+                                                <td class="user-popup" data-variation="inverted"
+                                                    data-title="{{  result.classTitle }}"
+                                                    data-html="
+                                                      Date: {{ result.date|date("m-d-Y H:m") }} <br>
+                                                      Type: {{ result.type }}
+                                                ">
+                                                    {{ classId }}
+                                                </td>
+                                                <td data-sort-value="{{ result.score }}">{{ result.score }}</td>
+                                                <td>{{ result.source }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
 
-                                    {% if not loop.last %}, {% endif %}
-                                {% endfor %}
                             </td>
                         </tr>
                     {% endif %}
@@ -125,12 +143,16 @@
 
 
 <br> <br> <br>
+
+    <script src="{{ asset('js/library/jquery.tablesort.min.js') }}"></script>
     <script>
         $(function () {
             $('.user-popup').popup();
             $('.toggable').click(function() {
-                $(this).next('tbody').toggle();
+                $(this).next('tbody').fadeToggle();
             });
+
+            $('.sortable').tablesort();
 
             $('form').submit(function(event) {
                 event.preventDefault();
