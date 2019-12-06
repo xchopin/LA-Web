@@ -87,14 +87,15 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
                         if (property_exists($result, 'date')) {
                             $date = $result->date;
                         }
-
-                        $userResults[$classId] += [
+                        $add = [
                             'score' => $result->score,
                             'source' => $result->metadata->category,
                             'type' => $type,
                             'classTitle' => $classTitle,
                             'date' => $date,
                         ];
+                        $userResults[$classId][] = $add;
+
                     }
 
                 }catch (NotFoundException $e) {
@@ -110,6 +111,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
 
 
             }
+
 
             return $this->render('Admin/check-user.twig', [
                 'result' => [
