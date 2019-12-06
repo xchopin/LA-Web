@@ -42,7 +42,7 @@
                                     {{ key }}
                                 </td>
                                 <td style="padding:0;" data-label="Value">
-                                    <table  class=" ui celled inverted  table">
+                                    <table  class=" ui celled table">
                                         <thead class="toggable">
                                         <tr>
                                             <th style="cursor: pointer; text-transform:capitalize"> <i class="dropdown icon"></i>{{ key }} property</th>
@@ -70,7 +70,7 @@
                         <tr >
                             <td data-label="Property">Users</td>
                             <td style="padding:0;" data-label="Value">
-                                <table  class=" ui celled inverted table">
+                                <table  class="ui celled table">
                                     <thead class="toggable">
                                     <tr>
                                         {% for role, users in result.enrollments  %}
