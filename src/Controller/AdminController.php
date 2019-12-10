@@ -10,8 +10,10 @@
 namespace App\Controller;
 
 
+use Exception;
 use OpenLRW\Exception\NotFoundException;
 use OpenLRW\Model\Klass;
+use OpenLRW\Model\LineItem;
 use OpenLRW\Model\OneRoster;
 use OpenLRW\Model\User;
 use OpenLRW\OpenLRW;
@@ -65,39 +67,15 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
                 return $this->render('Admin/check-user.twig', ['not_found' => true]);
             }
 
+
+
             $classes = [];
-            $userResults= [];
             foreach ($enrollments as $enrollment) {
                 $classTitle = 'Class does not exist.';
                 $classId = $enrollment->class->sourcedId;
                 try {
                     $class = Klass::find($classId);
                     $classTitle = $class->title;
-
-                    $results = Klass::resultsForUser($classId, $username);
-
-                    $userResults[$classId] = [];
-                    foreach ($results as $result) {
-                        $type = 'Undefined';
-                        $date = '';
-                        if (property_exists($result->metadata, 'type')) {
-                            $type = $result->metadata->type;
-                        }
-
-                        if (property_exists($result, 'date')) {
-                            $date = $result->date;
-                        }
-                        $add = [
-                            'score' => $result->score,
-                            'source' => $result->metadata->category,
-                            'type' => $type,
-                            'classTitle' => $classTitle,
-                            'date' => $date,
-                        ];
-                        $userResults[$classId][] = $add;
-
-                    }
-
                 }catch (NotFoundException $e) {
                     // nothing
                 }
@@ -108,8 +86,44 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
                 }
                 $classes[$enrollment->role][] = ['id' => $classId, 'title' => $classTitle];
 
+            }
+
+            $userResults = [];
+            try {
+                $results = User::results($userId);
+                foreach ($results as $result) {
+                    $type = 'Undefined';
+                    $date = '';
 
 
+                    try {
+                        $lineItemId = $result->lineitem->sourcedId;
+                        $lineItem = LineItem::find($lineItemId);
+                        $classId = $lineItem->class->sourcedId;
+
+                    } catch (Exception $e) {
+                        continue;
+                    }
+
+                    if (property_exists($result->metadata, 'type')) {
+                        $type = $result->metadata->type;
+                    }
+
+                    if (property_exists($result, 'date')) {
+                        $date = $result->date;
+                    }
+                    $add = [
+                        'score' => $result->score,
+                        'source' => $result->metadata->category,
+                        'type' => $type,
+                        'classTitle' => $classTitle,
+                        'date' => $date,
+                    ];
+                    $userResults[$classId][] = $add;
+
+                }
+            }catch (Exception $e) {
+                // nothing.
             }
 
 
