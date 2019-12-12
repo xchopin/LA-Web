@@ -102,7 +102,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
                         $classId = $lineItem->class->sourcedId;
 
                     } catch (Exception $e) {
-                        continue;
+                        $classId = 'LineItem not available in the database';
                     }
 
                     if (property_exists($result->metadata, 'type')) {
@@ -115,6 +115,7 @@ class AdminController extends AbstractController implements AdminAuthenticatedIn
                     $add = [
                         'score' => $result->score,
                         'source' => $result->metadata->category,
+                        'lineitem' => $lineItemId,
                         'type' => $type,
                         'classTitle' => $classTitle,
                         'date' => $date,
